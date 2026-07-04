@@ -8,6 +8,7 @@ import VisionCheck from './VisionCheck'
 import KpiBand from './KpiBand'
 import AgentGraph from './AgentGraph'
 import RealContext from './RealContext'
+import OperatorPanel from './OperatorPanel'
 import type { AppState } from '../../../shared/types'
 
 interface OpsViewProps {
@@ -26,6 +27,8 @@ export default function OpsView({ state, reload }: OpsViewProps) {
       </p>
 
       <RealContext />
+
+      <OperatorPanel />
 
       <KpiBand state={state} />
 

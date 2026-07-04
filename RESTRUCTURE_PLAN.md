@@ -209,12 +209,17 @@ promote each simulated fallback to a real integration behind the same interface:
    as an automated-test path, not the demo path.
 2. **Real reasoning** — require `ANTHROPIC_API_KEY` for planner/extractor/vision; keep
    deterministic fallbacks for tests/CI only.
-3. **Real data** — SNCF / Open-Meteo / Navitia plugins already pull live data; add real
-   booking-source ingestion (parse an itinerary → structured steps) as the MVP entry point.
-4. **Persistence** — replace `data/state.json` single-file store with a real store
-   (SQLite via better-sqlite3, or Postgres) so multiple travelers/trips survive restarts.
-5. **Auth & multi-tenant** — minimal login so a B2B operator sees only their portfolio
-   (the fleet view already models this).
+3. **Real data** — SNCF / Open-Meteo / Navitia / acceslibre / OpenRouteService plugins pull
+   live data. **[done]** Booking-source ingestion added (`server/ingest.ts` + `POST /api/ingest`):
+   pasted itinerary → structured steps via Claude (extractor-style schema/prompt) with a
+   deterministic offline fallback — the MVP entry point.
+4. **Persistence** — **[done]** `data/state.json` replaced by a durable SQLite store
+   (`server/store.ts`, `node:sqlite`), now with per-tenant `owner` scoping.
+5. **Auth & multi-tenant** — **[done]** Minimal login (`server/auth.ts`: scrypt + HMAC session
+   cookie, seeded operators) is **additive** — anonymous traffic resolves to a `demo` tenant
+   owning the `camille` seed, so the demo stays open; `POST /api/login|logout`, `GET /api/me`,
+   `GET /api/trips` scope each operator to its own portfolio. Real password store / operator
+   CRUD deferred.
 6. **Deploy target** — the MVP needs a Node host (Render/Fly/Railway) — _not_ static —
    because of Express + SSE + webhooks. Keep it separate from the demo's static deploy.
 

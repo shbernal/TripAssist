@@ -4,9 +4,11 @@ import path from 'node:path'
 import fs from 'node:fs'
 import { fileURLToPath } from 'node:url'
 import apiRouter from './routes/api.js'
+import authRouter from './routes/auth.js'
 import vapiWebhookRouter from './routes/vapi-webhook.js'
 import { addClient, clientCount } from './events.js'
 import { getState } from './state.js'
+import { verifySession, DEFAULT_OPERATOR_ID, SESSION_COOKIE } from './auth.js'
 
 // Load .env by hand (no dependency) so ANTHROPIC/VAPI keys are available in later milestones.
 loadDotEnv()
@@ -16,6 +18,16 @@ const app = express()
 const PORT = process.env.PORT || 3000
 
 app.use(express.json({ limit: '10mb' }))
+
+// --- resolve the tenant for every request (additive multi-tenant) ---
+// Reads the signed session cookie → operator id; anonymous traffic falls back to the
+// demo tenant so the public demo needs no login. Never rejects — it only resolves.
+app.use((req: Request, _res: Response, next: NextFunction) => {
+  const cookie = req.headers.cookie || ''
+  const match = cookie.match(new RegExp(`(?:^|;\\s*)${SESSION_COOKIE}=([^;]+)`))
+  req.operatorId = (match && verifySession(match[1])) || DEFAULT_OPERATOR_ID
+  next()
+})
 
 // --- SSE stream: a single /events endpoint everything broadcasts to ---
 app.get('/events', (req: Request, res: Response) => {
@@ -41,6 +53,7 @@ app.get('/events', (req: Request, res: Response) => {
 })
 
 // --- REST API ---
+app.use('/api', authRouter)
 app.use('/api', apiRouter)
 
 // --- Vapi webhook ---

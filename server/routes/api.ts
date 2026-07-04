@@ -14,6 +14,9 @@ import { fetchAccessibleVenues } from '../plugins/osm.js'
 import { fetchLiveJourney } from '../plugins/navitia.js'
 import { fetchAccessRegistry } from '../plugins/acceslibre.js'
 import { fetchAccessibleRoute } from '../plugins/openrouteservice.js'
+import { ingestItinerary } from '../ingest.js'
+import { saveTrip } from '../store.js'
+import { DEFAULT_OPERATOR_ID } from '../auth.js'
 import type { Step } from '../../shared/types.js'
 
 const router = express.Router()
@@ -53,6 +56,33 @@ router.get('/context', async (req, res) => {
     res.json({ ok: true, sncf, weather, assistance, osm, navitia, acceslibre, route })
   } catch (err) {
     res.status(200).json({ ok: false, error: (err as Error).message })
+  }
+})
+
+// Ingest a pasted booking / itinerary → structured trip, stored under the caller's
+// tenant (§5.3, the MVP entry point). Uses Claude when configured, else a deterministic
+// fallback, so it always returns a well-formed trip. Body: { itinerary: string }.
+router.post('/ingest', async (req, res) => {
+  try {
+    const itinerary = req.body?.itinerary
+    if (!itinerary || typeof itinerary !== 'string' || !itinerary.trim()) {
+      return res.status(400).json({ ok: false, error: 'itinerary (texte) requis' })
+    }
+    const { state, source, error } = await ingestItinerary(itinerary)
+    const owner = req.operatorId || DEFAULT_OPERATOR_ID
+    const tripId = `trip_${Date.now()}`
+    saveTrip(tripId, state, owner)
+    res.json({
+      ok: true,
+      tripId,
+      owner,
+      label: state.trip.label,
+      stepCount: state.trip.steps.length,
+      source,
+      ...(error ? { warning: error } : {}),
+    })
+  } catch (err) {
+    res.status(500).json({ ok: false, error: (err as Error).message })
   }
 })
 

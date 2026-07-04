@@ -1746,3 +1746,127 @@ html {
   background: rgba(124, 122, 255, 0.16);
   border-color: rgba(124, 122, 255, 0.42);
 }
+
+/* ---------- Operator panel (multi-tenant + itinerary ingest) ---------- */
+.op-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+  padding: 0.9rem 1rem;
+  margin: 0.4rem 0 1.1rem;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--bg-panel);
+  box-shadow: var(--hairline);
+  font-size: 0.9rem;
+}
+.op-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.55rem;
+}
+.op-head strong {
+  color: var(--text);
+}
+.btn-mini {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font: inherit;
+  font-size: 0.8rem;
+  font-weight: 600;
+  padding: 0.35rem 0.7rem;
+  min-height: 34px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  background: var(--bg-elevated);
+  color: var(--text);
+  cursor: pointer;
+}
+.btn-mini:hover {
+  border-color: var(--brand);
+}
+.btn-mini:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+.op-login {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+}
+.op-login input[type='email'],
+.op-login input[type='password'] {
+  font: inherit;
+  font-family: var(--font-sans);
+  color: var(--text);
+  background: var(--bg-elevated);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  padding: 0.5rem 0.65rem;
+  min-height: 40px;
+}
+.op-error {
+  color: var(--st-failed);
+  font-size: 0.82rem;
+}
+.op-portfolio {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.4rem;
+}
+.op-trip-list {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: 0.3rem 0.9rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.op-ingest {
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+  border-top: 1px solid var(--line-soft);
+  padding-top: 0.7rem;
+}
+.op-ingest-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.82rem;
+  color: var(--text-dim);
+}
+.op-ingest textarea {
+  font: inherit;
+  font-family: var(--font-sans);
+  color: var(--text);
+  background: var(--bg-elevated);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  padding: 0.6rem 0.7rem;
+  resize: vertical;
+}
+.op-ingest .btn-mini {
+  align-self: flex-start;
+}
+.op-ingest-msg {
+  font-size: 0.82rem;
+  color: var(--st-reconfirmed);
+}
+.spin {
+  animation: op-spin 0.9s linear infinite;
+}
+@keyframes op-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .spin {
+    animation: none;
+  }
+}

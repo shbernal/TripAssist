@@ -59,4 +59,31 @@ describe('store', () => {
     expect(back).not.toBeNull()
     expect(back!.metrics.callsMade).toBe(3)
   })
+
+  it('defaults ownership to demo and scopes listTrips by owner', () => {
+    const s = seed()
+    saveTrip('camille', s) // no owner → demo
+    saveTrip('t-axa', s, 'axa')
+    saveTrip('t-handi', s, 'handitour')
+
+    expect(listTrips('demo').map((t) => t.id)).toEqual(['camille'])
+    expect(listTrips('axa').map((t) => t.id)).toEqual(['t-axa'])
+    // no filter → everything
+    expect(
+      listTrips()
+        .map((t) => t.id)
+        .sort(),
+    ).toEqual(['camille', 't-axa', 't-handi'])
+    // owner is surfaced on the summary
+    expect(listTrips('axa')[0].owner).toBe('axa')
+  })
+
+  it('preserves owner on re-save (does not clobber back to demo)', () => {
+    const s = seed()
+    saveTrip('t-axa', s, 'axa')
+    // a later default-owner save (e.g. an unrelated writer) must not steal the trip
+    saveTrip('t-axa', { ...s, metrics: { ...s.metrics, callsMade: 9 } })
+    expect(listTrips('axa').map((t) => t.id)).toEqual(['t-axa'])
+    expect(loadTrip('t-axa')!.metrics.callsMade).toBe(9)
+  })
 })

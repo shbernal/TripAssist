@@ -30,15 +30,23 @@ function open(): DatabaseSync {
        id         TEXT PRIMARY KEY,
        label      TEXT,
        state      TEXT NOT NULL,
+       owner      TEXT DEFAULT 'demo',
        updated_at TEXT NOT NULL
      )`,
   )
+  // Migration for DBs created before ownership existed: add the column and back-fill
+  // existing rows to the demo tenant so the additive auth model holds.
+  const cols = handle.prepare('PRAGMA table_info(trips)').all() as Array<{ name: string }>
+  if (!cols.some((c) => c.name === 'owner')) {
+    handle.exec("ALTER TABLE trips ADD COLUMN owner TEXT DEFAULT 'demo'")
+  }
   return handle
 }
 
 export interface TripSummary {
   id: string
   label: string
+  owner: string
   updated_at: string
 }
 
@@ -54,21 +62,39 @@ export function loadTrip(id: string): AppState | null {
   }
 }
 
-// Upsert a trip's AppState. `label` is denormalized from the state for cheap listing.
-export function saveTrip(id: string, state: AppState): void {
+// Upsert a trip's AppState. `label` is denormalized from the state for cheap listing;
+// `owner` scopes the trip to a tenant. Omit `owner` to preserve the existing tenant on
+// re-save (new trips then default to demo), so callers that don't care about ownership —
+// e.g. the single-trip demo writer — never accidentally reassign a trip.
+export function saveTrip(id: string, state: AppState, owner?: string): void {
+  let finalOwner = owner
+  if (finalOwner === undefined) {
+    const row = db.prepare('SELECT owner FROM trips WHERE id = ?').get(id) as
+      { owner?: string } | undefined
+    finalOwner = row?.owner ?? 'demo'
+  }
   db.prepare(
-    `INSERT INTO trips (id, label, state, updated_at)
-     VALUES (?, ?, ?, ?)
+    `INSERT INTO trips (id, label, state, owner, updated_at)
+     VALUES (?, ?, ?, ?, ?)
      ON CONFLICT(id) DO UPDATE SET label = excluded.label,
                                    state = excluded.state,
+                                   owner = excluded.owner,
                                    updated_at = excluded.updated_at`,
-  ).run(id, state.trip?.label ?? null, JSON.stringify(state), new Date().toISOString())
+  ).run(id, state.trip?.label ?? null, JSON.stringify(state), finalOwner, new Date().toISOString())
 }
 
-// All trips, most-recently-updated first — for the future multi-tenant portfolio view.
-export function listTrips(): TripSummary[] {
+// Trips, most-recently-updated first. Pass an owner to scope to one tenant's portfolio;
+// omit it to list everything (admin/testing).
+export function listTrips(owner?: string): TripSummary[] {
+  if (owner) {
+    return db
+      .prepare(
+        'SELECT id, label, owner, updated_at FROM trips WHERE owner = ? ORDER BY updated_at DESC',
+      )
+      .all(owner) as unknown as TripSummary[]
+  }
   return db
-    .prepare('SELECT id, label, updated_at FROM trips ORDER BY updated_at DESC')
+    .prepare('SELECT id, label, owner, updated_at FROM trips ORDER BY updated_at DESC')
     .all() as unknown as TripSummary[]
 }
 
