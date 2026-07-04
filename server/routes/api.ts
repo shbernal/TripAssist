@@ -134,7 +134,7 @@ router.post('/replan/apply', (req, res) => {
 
     const entry = appendLedger({
       step: item.stepId,
-      confirmed_by: 'Agent planificateur AccessTrip',
+      confirmed_by: 'Agent planificateur TripAssist',
       channel: 'replanification',
       at: "aujourd'hui",
       ref: step.ref,

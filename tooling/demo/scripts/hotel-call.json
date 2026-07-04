@@ -1,11 +1,11 @@
 {
   "id": "hotel-call",
-  "title": "AccessTrip AI → Hôtel Beau Rivage (Nice)",
+  "title": "TripAssist AI → Hôtel le Mistral (Cannes)",
   "subtitle": "Confirmation d'une chambre avec douche à l'italienne (roll-in)",
   "locale": "fr-FR",
   "participants": {
     "agent": {
-      "name": "Assistant AccessTrip",
+      "name": "Assistant TripAssist",
       "shortName": "IA",
       "role": "caller",
       "voiceId": "${ELEVENLABS_VOICE_AGENT}",
@@ -13,7 +13,7 @@
       "settings": { "stability": 0.45, "similarity_boost": 0.75, "style": 0.25 }
     },
     "callee": {
-      "name": "Réception - Hôtel Beau Rivage",
+      "name": "Réception - Hôtel le Mistral",
       "shortName": "Hôtel",
       "role": "receptionist",
       "voiceId": "${ELEVENLABS_VOICE_HOTEL}",
@@ -24,20 +24,20 @@
   "context": {
     "traveler": "Camille Moreau",
     "need": "Chambre PMR avec douche à l'italienne (roll-in shower), accès sans marche, lit à hauteur transfert",
-    "stay": "Hôtel Beau Rivage, Nice - 12 au 15 septembre, chambre 104",
+    "stay": "Hôtel le Mistral, Cannes - 12 au 15 septembre, chambre 104",
     "goal": "Confirmer une vraie douche à l'italienne (pas une baignoire), l'accès de plain-pied et un siège de douche"
   },
   "lines": [
     {
       "id": 1,
       "speaker": "callee",
-      "text": "Hôtel Beau Rivage, bonjour, que puis-je faire pour vous ?",
+      "text": "Hôtel le Mistral, bonjour, que puis-je faire pour vous ?",
       "caption": "La réception décroche."
     },
     {
       "id": 2,
       "speaker": "agent",
-      "text": "Bonjour, ici l'assistant AccessTrip, j'appelle pour la réservation de Madame Camille Moreau, du 12 au 15 septembre, chambre 104. Je souhaite confirmer un point d'accessibilité essentiel avant son arrivée.",
+      "text": "Bonjour, ici l'assistant TripAssist, j'appelle pour la réservation de Madame Camille Moreau, du 12 au 15 septembre, chambre 104. Je souhaite confirmer un point d'accessibilité essentiel avant son arrivée.",
       "caption": "L'IA se présente et donne la réservation."
     },
     {
@@ -95,7 +95,7 @@
     "summary": "Chambre réattribuée à la 210 (douche à l'italienne de plain-pied, siège rabattable, accès sans marche, lit hauteur transfert) sans supplément. Réf. BR-9901.",
     "notification": {
       "title": "Douche à l'italienne confirmée ✅",
-      "body": "L'Hôtel Beau Rivage vous a surclassé·e en chambre 210 avec douche roll-in (réf. BR-9901). Aucun supplément."
+      "body": "L'Hôtel le Mistral vous a surclassé·e en chambre 210 avec douche roll-in (réf. BR-9901). Aucun supplément."
     }
   }
 }

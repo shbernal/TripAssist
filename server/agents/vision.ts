@@ -25,7 +25,7 @@ const VERDICT_SCHEMA = {
   required: ['conforme', 'confiance', 'critere', 'preuve', 'recommandation'],
 }
 
-const SYSTEM = `Tu es l'agent de vérification visuelle d'AccessTrip. Compare la photo au besoin d'accessibilité du voyageur (notamment: douche à l'italienne / roll-in, sans ressaut, accès de plain-pied). Réponds en JSON strict: {conforme: bool, confiance: number (0-1), critere: string, preuve: string (citation de ce que tu observes), recommandation: string}. Sois factuel et prudent.`
+const SYSTEM = `Tu es l'agent de vérification visuelle d'TripAssist. Compare la photo au besoin d'accessibilité du voyageur (notamment: douche à l'italienne / roll-in, sans ressaut, accès de plain-pied). Réponds en JSON strict: {conforme: bool, confiance: number (0-1), critere: string, preuve: string (citation de ce que tu observes), recommandation: string}. Sois factuel et prudent.`
 
 // Pre-seeded fallback verdict - the spec's shower-lip example.
 function fallbackVerdict(): VisionVerdict {

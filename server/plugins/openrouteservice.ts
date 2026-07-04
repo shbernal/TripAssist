@@ -46,7 +46,7 @@ export async function fetchAccessibleRoute(): Promise<AccessibleRoute> {
         Authorization: TOKEN,
         'Content-Type': 'application/json',
         Accept: 'application/json',
-        'User-Agent': 'AccessTrip/1.0 (hackathon demo)',
+        'User-Agent': 'TripAssist/1.0 (hackathon demo)',
       },
       body: JSON.stringify({ coordinates: [FROM, TO] }),
     })

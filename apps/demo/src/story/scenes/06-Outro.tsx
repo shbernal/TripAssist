@@ -43,7 +43,7 @@ export function Outro() {
             L’accessibilité, <span className="text-gradient-brand">garantie et traçable</span>.
           </h3>
           <p className="mt-4 max-w-md text-slate-400">
-            AccessTrip transforme un voyage semé d’incertitudes en une suite de confirmations. Le
+            TripAssist transforme un voyage semé d’incertitudes en une suite de confirmations. Le
             travail est fait en amont - le voyageur n’a plus à le porter.
           </p>
           <a

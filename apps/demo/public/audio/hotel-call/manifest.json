@@ -1,6 +1,6 @@
 {
   "id": "hotel-call",
-  "title": "AccessTrip AI → Hôtel Beau Rivage (Nice)",
+  "title": "TripAssist AI → Hôtel le Mistral (Cannes)",
   "locale": "fr-FR",
   "model": "eleven_multilingual_v2",
   "generatedAt": "2026-07-04T13:59:50.552Z",
@@ -94,7 +94,7 @@
     "summary": "Chambre réattribuée à la 210 (douche à l'italienne de plain-pied, siège rabattable, accès sans marche, lit hauteur transfert) sans supplément. Réf. BR-9901.",
     "notification": {
       "title": "Douche à l'italienne confirmée ✅",
-      "body": "L'Hôtel Beau Rivage vous a surclassé·e en chambre 210 avec douche roll-in (réf. BR-9901). Aucun supplément."
+      "body": "L'Hôtel le Mistral vous a surclassé·e en chambre 210 avec douche roll-in (réf. BR-9901). Aucun supplément."
     }
   }
 }

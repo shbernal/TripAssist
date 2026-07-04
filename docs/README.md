@@ -1,4 +1,4 @@
-# AccessTrip — Documentation
+# TripAssist — Documentation
 
 AI trip-orchestration platform for disabled travelers. Start with the root
 [`README.md`](../README.md) for setup and run instructions; this folder holds the

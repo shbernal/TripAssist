@@ -1,4 +1,4 @@
-# AccessTrip
+# TripAssist
 
 AI trip-orchestration platform for disabled travelers. One traveler (Camille Moreau), one
 trip (Paris → Nice), French UI.

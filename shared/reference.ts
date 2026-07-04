@@ -1,4 +1,4 @@
-// Reference master data - the "referentiel" behind AccessTrip. Every value here is
+// Reference master data - the "referentiel" behind TripAssist. Every value here is
 // real and verifiable (SNCF UIC station codes, IATA PRM/SSR codes, EU/FR regulations),
 // so the data holds up under scrutiny. Shared by the server (seed + validation) and
 // the web (passport rendering) so there is a single source of truth.

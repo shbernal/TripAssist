@@ -1,4 +1,4 @@
-# AccessTrip — Restructure Plan: Stylized Demo + Real MVP
+# TripAssist — Restructure Plan: Stylized Demo + Real MVP
 
 **Status:** proposed · **Date:** 2026-07-04 · **Owner:** shbernal
 
@@ -279,10 +279,32 @@ app so work continues cleanly.
 
 **Phase 4 — MVP hardening** (post-demo) — section 5.
 
+- [x] **§5.1 Real phone calls** — Vapi wired end-to-end (`server/agents/caller.ts` +
+      `routes/vapi-webhook.ts`), a brief live assistant configured per call target. **Live
+      dialing is gated** — do not place a real outbound call until explicitly given the
+      go-ahead; the offline sim remains the default/test path. Public-URL + webhook runbook:
+      [`docs/guides/vapi-setup.md`](docs/guides/vapi-setup.md).
+- [ ] **§5.2 Real reasoning** — planner/extractor/vision on `ANTHROPIC_API_KEY`; deterministic
+      fallbacks kept for tests/CI only. _(Claude reachable via local CLI bridge
+      `ANTHROPIC_VIA_CLI`; full end-to-end promotion still open.)_
+- [x] **§5.3 Real data — booking ingestion** — `server/ingest.ts` + `POST /api/ingest`:
+      pasted itinerary → structured steps via Claude with deterministic offline fallback.
+      _(Live open-data plugins — SNCF/Open-Meteo/Navitia/acceslibre/ORS — still open.)_
+- [x] **§5.4 Persistence** — durable SQLite store (`server/store.ts`, `node:sqlite`) with
+      per-tenant `owner` scoping; replaces `data/state.json`.
+- [x] **§5.5 Auth & multi-tenant** — additive login (`server/auth.ts`: scrypt + HMAC session
+      cookie, seeded operators); anonymous traffic → `demo` tenant owning the `camille` seed so
+      the demo stays open. Real password store / operator CRUD deferred.
+- [ ] **§5.6 Deploy target** — Node host (Render/Fly/Railway) for Express + SSE + webhooks,
+      separate from the demo's static deploy.
+
 **Phase 5 — Ship**
 
-- [ ] Demo live on Vercel; README updated with both apps; runbook refreshed for the new
-      (proactive-setup) narrative.
+- [ ] Demo live on **GitHub Pages** (`--base=/AccessTrip/`); Vercel an optional later switch
+      (§6). README updated with both apps; runbook refreshed for the new (proactive-setup)
+      narrative.
+- [ ] Docs reconciliation: bring `docs/architecture/spec.md` + `docs/product/brief.md` in line
+      with the proactive-setup narrative (or confirm their pivot banners suffice).
 
 ---
 

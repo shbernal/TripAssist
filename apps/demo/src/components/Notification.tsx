@@ -38,7 +38,7 @@ export function Notification({ title, body, kind, delay = 0 }: NotificationProps
         </div>
         <p className="mt-0.5 text-xs leading-snug text-slate-700">{body}</p>
         <p className="mt-1 text-[10px] uppercase tracking-wide text-slate-400">
-          AccessTrip · maintenant
+          TripAssist · maintenant
         </p>
       </div>
     </motion.div>

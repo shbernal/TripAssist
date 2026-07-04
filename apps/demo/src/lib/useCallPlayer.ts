@@ -120,7 +120,6 @@ export function useCallPlayer(callId: CallId): CallPlayer {
       howl.unload()
       howlRef.current = null
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [manifest])
 
   const stopRaf = (): void => {

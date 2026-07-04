@@ -1,4 +1,4 @@
-# AccessTrip — Modèle de données
+# TripAssist — Modèle de données
 
 Dictionnaire de données du système. Toutes les entités sont typées (TypeScript
 strict, `shared/types.ts`), les données de référence sont réelles et vérifiables

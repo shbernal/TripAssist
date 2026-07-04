@@ -1,11 +1,11 @@
-# AGENTS.md — AccessTrip
+# AGENTS.md — TripAssist
 
 > Canonical orientation for anyone (human or agent) working in this repo.
 > `CLAUDE.md` is a symlink to this file. If older docs (README, `docs/product/brief.md`,
 > `docs/architecture/spec.md`) disagree with this file on the **narrative**, this file wins —
 > those docs predate the pivot and are being brought in line.
 
-## What AccessTrip is
+## What TripAssist is
 
 AI trip-orchestration for travelers with disabilities. The product's job is to make
 accessibility **guaranteed and traceable**, not left to the traveler to chase.

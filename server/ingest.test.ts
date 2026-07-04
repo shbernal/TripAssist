@@ -20,7 +20,7 @@ afterEach(() => {
   }
 })
 
-const SAMPLE = `Réservation AccessTrip
+const SAMPLE = `Réservation TripAssist
 TGV 6173 Paris → Nice, place PMR voiture 3 - 12/09 09:03
 Assistance gare Paris Gare de Lyon - 12/09 08:15
 Taxi adapté gare → hôtel - 12/09 15:15

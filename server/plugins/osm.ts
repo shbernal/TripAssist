@@ -21,7 +21,7 @@ async function overpass(query: string, timeoutMs = 12000): Promise<any> {
       // Overpass rejects requests without a descriptive User-Agent (returns 406).
       headers: {
         'content-type': 'application/x-www-form-urlencoded',
-        'User-Agent': 'AccessTrip/1.0 (hackathon demo)',
+        'User-Agent': 'TripAssist/1.0 (hackathon demo)',
       },
       body: `data=${encodeURIComponent(query)}`,
     })

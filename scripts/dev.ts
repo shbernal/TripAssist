@@ -38,4 +38,4 @@ function shutdown(): never {
 process.on('SIGINT', shutdown)
 process.on('SIGTERM', shutdown)
 
-console.log('\n  AccessTrip dev → API on http://localhost:3000, UI on http://localhost:5173\n')
+console.log('\n  TripAssist dev → API on http://localhost:3000, UI on http://localhost:5173\n')

@@ -17,7 +17,8 @@ export function Hero() {
         <div>
           <span className="inline-flex items-center gap-2 rounded-full border border-slate-700 bg-slate-900/70 px-4 py-1.5 text-sm text-slate-300">
             <ShieldCheck aria-hidden="true" className="h-4 w-4 text-emerald-400" />
-            Accessibilité garantie, pas à courir après
+            Votre voyage, aménagé par{' '}
+            <span className="font-semibold text-slate-100">TripAssist</span>
           </span>
           <h1
             id="hero-heading"
@@ -26,9 +27,9 @@ export function Hero() {
             Voyager <span className="text-gradient-brand">sans obstacle</span>.
           </h1>
           <p className="mt-6 max-w-md text-pretty text-lg text-slate-400">
-            Dès la réservation, un agent IA appelle l’aéroport et l’hôtel pour sécuriser
-            l’accessibilité de Camille - <strong className="text-slate-200">avant le départ</strong>
-            . Elle reçoit simplement les confirmations.
+            Camille s’apprête à réaliser un voyage de Paris à Cannes. En fauteuil roulant
+            électrique, elle a des besoins d’accessibilité précis -{' '}
+            <strong className="text-slate-200">TripAssist s’en occupe avant le départ</strong>.
           </p>
           <a
             href="#itinerary"

@@ -1,6 +1,6 @@
 @import 'tailwindcss';
 
-/* Design tokens - a small bespoke layer over Tailwind's palette. AccessTrip's
+/* Design tokens - a small bespoke layer over Tailwind's palette. TripAssist's
    brand runs teal → violet (the AI agent's gradient), on a deep slate canvas. */
 @theme {
   --color-brand-teal: #2dd4bf;
@@ -24,6 +24,17 @@
       radial-gradient(60rem 60rem at 80% -10%, rgba(45, 212, 191, 0.12), transparent 60%),
       radial-gradient(50rem 50rem at 0% 20%, rgba(167, 139, 250, 0.12), transparent 55%);
     background-attachment: fixed;
+  }
+
+  /* The horizontal story scrolls sideways inside #main. Hide the native scrollbar
+     (the "overflow bar" at the bottom) - progress is shown by the top gradient bar
+     and driven by SceneNav / wheel, so the scrollbar is redundant chrome. */
+  #main {
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* legacy Edge */
+  }
+  #main::-webkit-scrollbar {
+    display: none; /* Chromium, Safari */
   }
 
   /* Visible focus everywhere - WCAG AA, keyboard-first. */

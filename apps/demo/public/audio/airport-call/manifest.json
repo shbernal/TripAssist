@@ -1,6 +1,6 @@
 {
   "id": "airport-call",
-  "title": "AccessTrip AI → Assistance PMR CDG",
+  "title": "TripAssist AI → Assistance PMR CDG",
   "locale": "fr-FR",
   "model": "eleven_multilingual_v2",
   "generatedAt": "2026-07-04T13:59:32.271Z",

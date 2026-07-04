@@ -1,4 +1,4 @@
-# AccessTrip - Brief projet
+# TripAssist - Brief projet
 
 **Document de cadrage a destination de l'equipe**
 Version 1 - 4 juillet 2026
@@ -16,7 +16,7 @@ Contexte : Hackathon Capgemini
 
 ## 1. Le projet en une phrase
 
-AccessTrip est une plateforme d'orchestration de voyage pilotee par IA pour les voyageurs en situation de handicap : elle planifie, confirme, surveille et re-confirme en continu chaque maillon d'un trajet, et reagit automatiquement quand un imprevu menace l'accessibilite.
+TripAssist est une plateforme d'orchestration de voyage pilotee par IA pour les voyageurs en situation de handicap : elle planifie, confirme, surveille et re-confirme en continu chaque maillon d'un trajet, et reagit automatiquement quand un imprevu menace l'accessibilite.
 
 ---
 
@@ -36,7 +36,7 @@ Le cout de l'echec n'est pas un desagrement : c'est un voyageur bloque sur un qu
 
 ## 3. La vision et la proposition de valeur
 
-AccessTrip transforme une chaine de reservations passives en un systeme vivant, surveille et auto-correcteur.
+TripAssist transforme une chaine de reservations passives en un systeme vivant, surveille et auto-correcteur.
 
 Trois promesses :
 

@@ -230,7 +230,7 @@ export default function TripReport({ state }: { state: AppState }) {
         </section>
 
         <footer className="report-foot">
-          <span>AccessTrip - orchestration de voyage accessible</span>
+          <span>TripAssist - orchestration de voyage accessible</span>
           <span>
             {reportRef} · généré le {generated}
           </span>

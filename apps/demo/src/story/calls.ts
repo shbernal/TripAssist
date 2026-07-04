@@ -45,8 +45,8 @@ export const CALLS: Record<CallId, CallMeta> = {
   'airport-call': {
     id: 'airport-call',
     label: 'Appel - aéroport',
-    title: 'AccessTrip IA → Assistance PMR, Paris-CDG',
-    agent: { name: 'Assistant AccessTrip', short: 'IA', face: 'faces/ai-agent.png' },
+    title: 'TripAssist IA → Assistance PMR, Paris-CDG',
+    agent: { name: 'Assistant TripAssist', short: 'IA', face: 'faces/ai-agent.png' },
     callee: {
       name: 'Assistance PMR - Paris-CDG',
       short: 'CDG',
@@ -54,7 +54,7 @@ export const CALLS: Record<CallId, CallMeta> = {
     },
     transcript: {
       1: 'Assistance passagers à mobilité réduite de Paris-Charles-de-Gaulle, bonjour.',
-      2: "Bonjour, je suis l'assistant AccessTrip et j'appelle au nom de Madame Camille Moreau pour organiser son assistance embarquement. Elle voyage sur le vol Air France 7612 vers Nice, le 12 septembre au départ de dix heures cinq.",
+      2: "Bonjour, je suis l'assistant TripAssist et j'appelle au nom de Madame Camille Moreau pour organiser son assistance embarquement. Elle voyage sur le vol Air France 7612 vers Nice, le 12 septembre au départ de dix heures cinq.",
       3: "Très bien, je note le vol AF 7612 du 12 septembre. Quel est le type d'assistance requis ?",
       4: "Madame Moreau se déplace en fauteuil roulant électrique et ne peut pas effectuer de transfert sans aide. Nous demandons une assistance de catégorie WCHC : prise en charge dès la dépose-minute, passage sécurité prioritaire, et embarquement assisté avec transfert jusqu'au siège.",
       5: "Entendu. Pour le fauteuil, s'agit-il d'une batterie sèche ou d'une batterie au lithium ? Nous devons le déclarer au commandant de bord.",
@@ -78,16 +78,16 @@ export const CALLS: Record<CallId, CallMeta> = {
   'hotel-call': {
     id: 'hotel-call',
     label: 'Appel - hôtel',
-    title: 'AccessTrip IA → Réception, Hôtel Beau Rivage (Nice)',
-    agent: { name: 'Assistant AccessTrip', short: 'IA', face: 'faces/ai-agent.png' },
+    title: 'TripAssist IA → Réception, Hôtel le Mistral (Cannes)',
+    agent: { name: 'Assistant TripAssist', short: 'IA', face: 'faces/ai-agent.png' },
     callee: {
-      name: 'Réception - Hôtel Beau Rivage',
+      name: 'Réception - Hôtel le Mistral',
       short: 'Hôtel',
       face: 'faces/hotel-receptionist.png',
     },
     transcript: {
-      1: 'Hôtel Beau Rivage, bonjour, que puis-je faire pour vous ?',
-      2: "Bonjour, ici l'assistant AccessTrip, j'appelle pour la réservation de Madame Camille Moreau, du 12 au 15 septembre, chambre 104. Je souhaite confirmer un point d'accessibilité essentiel avant son arrivée.",
+      1: 'Hôtel le Mistral, bonjour, que puis-je faire pour vous ?',
+      2: "Bonjour, ici l'assistant TripAssist, j'appelle pour la réservation de Madame Camille Moreau, du 12 au 15 septembre, chambre 104. Je souhaite confirmer un point d'accessibilité essentiel avant son arrivée.",
       3: 'Bien sûr, je vois la réservation de Madame Moreau, trois nuits en chambre 104. De quel point s’agit-il ?',
       4: "Madame Moreau se déplace en fauteuil roulant. Elle a besoin d'une douche à l'italienne, de plain-pied, sans rebord ni marche - surtout pas d'une baignoire. Pouvez-vous me confirmer que la chambre 104 en dispose bien ?",
       5: 'Alors, laissez-moi vérifier… La chambre 104 est notre chambre PMR, mais je vois qu’elle est équipée d’une baignoire à porte, pas d’une douche de plain-pied.',
@@ -104,7 +104,7 @@ export const CALLS: Record<CallId, CallMeta> = {
         'Chambre réattribuée à la 210 (douche à l’italienne de plain-pied, siège rabattable, accès sans marche, lit hauteur transfert) sans supplément. Réf. BR-9901.',
       notification: {
         title: 'Douche à l’italienne confirmée ✅',
-        body: 'L’Hôtel Beau Rivage vous a surclassé·e en chambre 210 avec douche roll-in (réf. BR-9901). Aucun supplément.',
+        body: 'L’Hôtel le Mistral vous a surclassé·e en chambre 210 avec douche roll-in (réf. BR-9901). Aucun supplément.',
       },
     },
   },

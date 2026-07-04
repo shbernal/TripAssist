@@ -1,6 +1,6 @@
 # TypeScript Migration Plan
 
-Migrating AccessTrip from JavaScript (ESM) to TypeScript, switching the package manager to **pnpm**, and adding **Vitest** unit tests, **ESLint**, **Prettier**, and **Lefthook** pre-commit hooks.
+Migrating TripAssist from JavaScript (ESM) to TypeScript, switching the package manager to **pnpm**, and adding **Vitest** unit tests, **ESLint**, **Prettier**, and **Lefthook** pre-commit hooks.
 
 ## Current state
 

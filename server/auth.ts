@@ -33,7 +33,7 @@ function makeOperator(id: string, email: string, name: string, password: string)
 // operators whose names match clients already present in the fleet seed, so their
 // portfolios feel real. Demo credentials are intentionally simple (hackathon).
 const OPERATORS: Operator[] = [
-  makeOperator(DEFAULT_OPERATOR_ID, 'demo@accesstrip.fr', 'Démo AccessTrip', 'demo'),
+  makeOperator(DEFAULT_OPERATOR_ID, 'demo@tripassist.fr', 'Démo TripAssist', 'demo'),
   makeOperator('axa', 'ops@axa-assistance.fr', 'AXA Assistance', 'axa2026'),
   makeOperator('handitour', 'ops@handitour.fr', "Handi'Tour", 'handi2026'),
 ]

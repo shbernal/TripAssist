@@ -15,7 +15,7 @@ Everything below is the only part I can't do for you — it needs your accounts.
 3. **Create an assistant** with a French voice (ElevenLabs or Azure FR). Paste this
    as its **system prompt** (verbatim from the spec):
 
-   > Tu es l'assistante vocale d'AccessTrip, appelant au nom de [Assureur] pour Mme
+   > Tu es l'assistante vocale d'TripAssist, appelant au nom de [Assureur] pour Mme
    > Camille Moreau. Objectif: re-confirmer la réservation de la chambre 104
    > accessible (douche à l'italienne, référence BR-104-ACC) pour le 12 septembre.
    > Sois brève, polie, professionnelle. Annonce en début d'appel que tu es une

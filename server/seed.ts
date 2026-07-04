@@ -141,7 +141,7 @@ export function seed(): AppState {
 }
 
 // A portfolio of travelers with varied disability profiles, trip types, B2B
-// clients (insurers / travel agencies) and live states - to show AccessTrip
+// clients (insurers / travel agencies) and live states - to show TripAssist
 // orchestrating at scale rather than a single journey.
 function fleetSeed(): FleetTraveler[] {
   return [

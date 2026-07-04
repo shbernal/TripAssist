@@ -1,4 +1,4 @@
-// AccessTrip server: Express + SSE + static serving in one Node process.
+// TripAssist server: Express + SSE + static serving in one Node process.
 import express, { type Request, type Response, type NextFunction } from 'express'
 import path from 'node:path'
 import fs from 'node:fs'
@@ -83,7 +83,7 @@ if (fs.existsSync(distDir)) {
 }
 
 app.listen(PORT, () => {
-  console.log(`\n  AccessTrip server → http://localhost:${PORT}`)
+  console.log(`\n  TripAssist server → http://localhost:${PORT}`)
   if (!fs.existsSync(distDir)) {
     console.log('  (dev) frontend served by Vite → http://localhost:5173')
   }

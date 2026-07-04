@@ -35,7 +35,7 @@ async function get(path: string, timeoutMs = 12000): Promise<any> {
       signal: c.signal,
       headers: {
         Accept: 'application/json',
-        'User-Agent': 'AccessTrip/1.0 (hackathon demo)',
+        'User-Agent': 'TripAssist/1.0 (hackathon demo)',
         // acceslibre expects `Authorization: Api-Key <token>`.
         Authorization: `Api-Key ${TOKEN}`,
       },

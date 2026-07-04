@@ -1,4 +1,4 @@
-# AccessTrip - Runbook de démo (5 minutes)
+# TripAssist - Runbook de démo (5 minutes)
 
 Script scène par scène pour le jury. Objectif : montrer des agents IA qui font un
 vrai travail, pas des écrans. Répète-le 3 fois avant de monter.
@@ -20,7 +20,7 @@ vrai travail, pas des écrans. Répète-le 3 fois avant de monter.
 
 > « Pour une personne en situation de handicap, un voyage n'est pas une suite de
 > réservations, c'est une chaîne de dépendances fragiles. Un maillon casse et tout
-> s'effondre. AccessTrip est une plateforme d'agents IA qui planifient, confirment,
+> s'effondre. TripAssist est une plateforme d'agents IA qui planifient, confirment,
 > surveillent et réparent chaque étape, sans jamais transiger sur l'accessibilité.
 > Et ce n'est pas pour une personne : c'est vendu à des assureurs et des agences. »
 

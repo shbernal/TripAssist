@@ -31,7 +31,7 @@ async function nav(path: string, timeoutMs = 8000): Promise<any> {
       signal: c.signal,
       headers: {
         Authorization: process.env.NAVITIA_TOKEN as string,
-        'User-Agent': 'AccessTrip/1.0',
+        'User-Agent': 'TripAssist/1.0',
       },
     })
     if (!res.ok) throw new Error(`Navitia HTTP ${res.status}`)

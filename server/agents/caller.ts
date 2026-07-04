@@ -125,7 +125,7 @@ const SCRIPTS: Record<string, Array<[TranscriptChunk['speaker'], string]>> = {
   B1: [
     [
       'assistant',
-      "Bonjour, ici l'assistante vocale d'AccessTrip pour Mme Camille Moreau. Cet appel est enregistré. Je confirme la chambre 104 accessible pour le 12 septembre ?",
+      "Bonjour, ici l'assistante vocale d'TripAssist pour Mme Camille Moreau. Cet appel est enregistré. Je confirme la chambre 104 accessible pour le 12 septembre ?",
     ],
     ['human', "Oui bonjour, alors… la 104, douche à l'italienne, c'est bien réservé."],
     ['assistant', 'Parfait. Puis-je avoir votre nom pour notre registre ?'],
@@ -135,7 +135,7 @@ const SCRIPTS: Record<string, Array<[TranscriptChunk['speaker'], string]>> = {
   B2: [
     [
       'assistant',
-      "Bonjour, ici l'assistante vocale d'AccessTrip pour Mme Camille Moreau. Cet appel est enregistré. Je confirme la chambre 104 accessible pour le 12 septembre ?",
+      "Bonjour, ici l'assistante vocale d'TripAssist pour Mme Camille Moreau. Cet appel est enregistré. Je confirme la chambre 104 accessible pour le 12 septembre ?",
     ],
     [
       'human',
@@ -154,7 +154,7 @@ const SCRIPTS: Record<string, Array<[TranscriptChunk['speaker'], string]>> = {
   B3: [
     [
       'assistant',
-      "Bonjour, ici l'assistante vocale d'AccessTrip pour Mme Camille Moreau. Cet appel est enregistré. Je confirme la chambre 104 accessible pour le 12 septembre ?",
+      "Bonjour, ici l'assistante vocale d'TripAssist pour Mme Camille Moreau. Cet appel est enregistré. Je confirme la chambre 104 accessible pour le 12 septembre ?",
     ],
     ['human', 'Euh… il faudrait voir avec ma collègue demain, je ne peux pas vous dire là.'],
     [
