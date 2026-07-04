@@ -1,6 +1,6 @@
 # TripAssist — Restructure Plan: Stylized Demo + Real MVP
 
-**Status:** proposed · **Date:** 2026-07-04 · **Owner:** shbernal
+**Status:** executed — demo shipped, MVP hardening in progress (see §7) · **Date:** 2026-07-04 · **Owner:** shbernal
 
 This plan splits the current single offline-simulation app into two deliverables in one
 repo. They live in a pnpm **workspace** (for dependency isolation), **not** a full monorepo
@@ -302,11 +302,15 @@ app so work continues cleanly.
 
 **Phase 5 — Ship**
 
-- [ ] Demo live on **GitHub Pages** (`--base=/TripAssist/`); Vercel an optional later switch
-      (§6). README updated with both apps; runbook refreshed for the new (proactive-setup)
-      narrative.
-- [ ] Docs reconciliation: bring `docs/architecture/spec.md` + `docs/product/brief.md` in line
-      with the proactive-setup narrative (or confirm their pivot banners suffice).
+- [x] Demo live on **GitHub Pages** — <https://shbernal.github.io/TripAssist/>
+      (`--base=/TripAssist/`, auto-deployed by `.github/workflows/deploy-demo.yml`); Vercel an
+      optional later switch (§6). README updated with both apps (deliverables table + demo run
+      commands); runbook opens with the proactive-setup narrative (demo landing page first,
+      disruption flow presented as a future capability).
+- [x] Docs reconciliation: **pivot banners confirmed sufficient** for
+      `docs/architecture/spec.md` + `docs/product/brief.md` (both carry a ⚠️ superseded-narrative
+      banner pointing at AGENTS.md; their technical content still holds). `docs/README.md` now
+      says so explicitly. Full rewrites deferred — post-hackathon, if these docs stay load-bearing.
 
 ---
 
@@ -329,5 +333,6 @@ app so work continues cleanly.
 5. **Demo hosting → GitHub Pages first.** No external account; Vercel considered later.
 6. **`.env.example` → includes ElevenLabs** (`ELEVENLABS_API_KEY` + optional voice IDs).
 
-**Status:** decisions above resolved 2026-07-04; docs (README + `docs/`) being brought in
-line with the new narrative. Implementation of Phase 1 pending go-ahead.
+**Status:** decisions above resolved 2026-07-04. Phases 0–3 and 5 **shipped** (demo live on
+GitHub Pages, docs reconciled). Phase 4: §5.1–§5.5 done; remaining open items are the live
+open-data plugins (§5.3 second half) and the MVP's Node-host deploy (§5.6).

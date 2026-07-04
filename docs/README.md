@@ -2,7 +2,10 @@
 
 AI trip-orchestration platform for disabled travelers. Start with the root
 [`README.md`](../README.md) for setup and run instructions; this folder holds the
-deeper product and technical docs.
+deeper product and technical docs. The canonical narrative (proactive
+initial-reservation) lives in [`AGENTS.md`](../AGENTS.md); the stylized demo is live
+at <https://shbernal.github.io/TripAssist/>. Docs marked with a ⚠️ banner predate
+the pivot — their technical content holds, their narrative is superseded.
 
 ## Product
 

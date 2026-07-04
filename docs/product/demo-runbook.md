@@ -1,5 +1,16 @@
 # TripAssist - Runbook de démo (5 minutes)
 
+> ⚠️ **Narratif mis à jour (2026-07-04).** La présentation s'ouvre désormais sur la
+> **réservation initiale proactive** : la landing page scrollytelling
+> (**<https://shbernal.github.io/TripAssist/>**, `apps/demo`) raconte l'histoire —
+> l'agent reçoit l'itinéraire, **appelle l'aéroport** (assistance WCHC) puis
+> **l'hôtel** (douche à l'italienne), et Camille reçoit deux notifications de
+> confirmation. Commencer par la landing page, puis basculer sur le MVP ci-dessous
+> pour montrer le vrai produit. Le script ci-dessous (cascade d'imprévu) reste
+> valable comme démonstration du MVP, mais la perturbation est désormais présentée
+> comme une **capacité future**, pas comme le cœur du produit. Référence :
+> [`AGENTS.md`](../../AGENTS.md).
+
 Script scène par scène pour le jury. Objectif : montrer des agents IA qui font un
 vrai travail, pas des écrans. Répète-le 3 fois avant de monter.
 

@@ -15,6 +15,22 @@ trip (Paris → Nice), French UI.
 Full documentation lives in [`docs/`](docs/README.md) — note some deeper docs predate the
 pivot and carry a banner pointing here.
 
+## The two deliverables
+
+| App                                         | What                                                                                                            | Where                                                                      |
+| ------------------------------------------- | --------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------- |
+| **Demo** (`apps/demo`)                      | Stylized scrollytelling landing page telling Camille's story — static, zero keys, committed AI-generated assets | **Live: <https://shbernal.github.io/TripAssist/>** (auto-deployed on push) |
+| **MVP** (repo root: `server/ web/ shared/`) | The real Express + React app — agents, SSE, SQLite, auth, Vapi, open-data plugins                               | `pnpm dev` → <http://localhost:5173> (this README)                         |
+
+Run the demo locally:
+
+```bash
+pnpm --filter @tripassist/demo dev       # Vite dev server
+pnpm --filter @tripassist/demo build     # static build (CI adds --base=/TripAssist/)
+```
+
+The rest of this README is about the **MVP**.
+
 ## Architecture (tech)
 
 Full technical map, diagram, and an honest "real vs demo" table:
@@ -64,7 +80,7 @@ history and the code still runs; treat the _narrative_ as superseded by AGENTS.m
 
 The demo runs **fully offline** with no keys: the planner/extractor/vision agents fall back to deterministic results, and `/api/call/start` plays a scripted call over the same SSE pipeline. To go live, fill `TripAssist/.env`:
 
-- `ANTHROPIC_API_KEY` (direct key, sent as `x-api-key`) **or** `ANTHROPIC_AUTH_TOKEN` + `ANTHROPIC_BASE_URL` (gateway/OAuth, sent as `Authorization: Bearer`) — real Claude planning / extraction / vision.
+- `ANTHROPIC_API_KEY` (direct key, sent as `x-api-key`) **or** `ANTHROPIC_AUTH_TOKEN` + `ANTHROPIC_BASE_URL` (gateway/OAuth, sent as `Authorization: Bearer`) **or** `ANTHROPIC_VIA_CLI=1` (bridge through the local `claude` CLI, no token needed) — real Claude planning / extraction / vision / ingestion. Vision works on all three paths (the CLI bridge reads the photo from a temp file). Tests always run the deterministic fallbacks — the Vitest server project clears these gates.
 - `VAPI_*` + `RECEPTIONIST_PHONE` + `PUBLIC_URL` (ngrok) — a real phone call with streamed transcript. Full walkthrough in **[docs/guides/vapi-setup.md](docs/guides/vapi-setup.md)**.
 
 ### Autofill (M5) — one-time setup
