@@ -81,5 +81,3 @@ export async function runAutofill({
     return { ok: false, error: (err as Error).message }
   }
 }
-
-export default { runAutofill }

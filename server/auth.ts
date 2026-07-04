@@ -114,14 +114,3 @@ export function verifySession(token: string | undefined | null): string | null {
 }
 
 export const SESSION_COOKIE = 'at_session'
-
-export default {
-  DEFAULT_OPERATOR_ID,
-  SESSION_COOKIE,
-  getOperator,
-  listOperators,
-  publicOperator,
-  verifyPassword,
-  signSession,
-  verifySession,
-}

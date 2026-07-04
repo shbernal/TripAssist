@@ -321,5 +321,3 @@ function fleetSeed(): FleetTraveler[] {
     },
   ]
 }
-
-export default seed

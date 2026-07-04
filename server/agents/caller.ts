@@ -190,5 +190,3 @@ async function simulateCall(branch: string) {
 function delay(ms: number) {
   return new Promise((r) => setTimeout(r, ms))
 }
-
-export default { startCall, hasVapi }

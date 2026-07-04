@@ -111,5 +111,3 @@ export function closeDb(): void {
 export function reopenDb(): void {
   db = open()
 }
-
-export default { loadTrip, saveTrip, listTrips, deleteTrip, closeDb, reopenDb }

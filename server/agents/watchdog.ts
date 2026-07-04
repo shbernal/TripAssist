@@ -127,12 +127,3 @@ export async function handleChaos(scenarioId = 'tgv-delay'): Promise<ReplanPlan>
 
   return planWithMeta
 }
-
-// SNCF poller stub: if a real API key is set, real data would replace the fake
-// disruption here. Left as a no-op hook (offline-first).
-export function pollSNCF() {
-  if (!process.env.SNCF_API_KEY) return null
-  return null
-}
-
-export default { handleChaos, pollSNCF }

@@ -7,14 +7,7 @@ import path from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { seed } from './seed.js'
 import { loadTrip, saveTrip } from './store.js'
-import type {
-  AppState,
-  Step,
-  StepStatus,
-  LedgerEntry,
-  AgentLogEntry,
-  TranscriptChunk,
-} from '../shared/types.js'
+import type { AppState, Step, StepStatus, LedgerEntry, AgentLogEntry } from '../shared/types.js'
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
 // The single trip the running MVP drives. Multi-trip scoping is the auth workstream.
@@ -107,21 +100,4 @@ export function appendAgentLog(entry: AgentLogEntry): AgentLogEntry {
   if (state.agentLog.length > 500) state.agentLog.splice(0, state.agentLog.length - 500)
   persist()
   return entry
-}
-
-export function appendTranscript(chunk: TranscriptChunk): TranscriptChunk {
-  state.transcript.push(chunk)
-  persist()
-  return chunk
-}
-
-export default {
-  getState,
-  updateState,
-  resetState,
-  findStep,
-  setStepStatus,
-  appendLedger,
-  appendAgentLog,
-  appendTranscript,
 }

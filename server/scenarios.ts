@@ -173,5 +173,3 @@ export function getScenario(id: string): Scenario {
 export function scenarioList(): Array<{ id: string; label: string }> {
   return Object.values(SCENARIOS).map((s) => ({ id: s.id, label: s.label }))
 }
-
-export default { SCENARIOS, getScenario, scenarioList }

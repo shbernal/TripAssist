@@ -65,5 +65,3 @@ export async function fetchNiceWeather(): Promise<NiceWeather> {
     clearTimeout(t)
   }
 }
-
-export default { fetchNiceWeather }

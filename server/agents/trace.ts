@@ -29,5 +29,3 @@ export async function reason(
 export function delay(ms: number): Promise<void> {
   return new Promise((r) => setTimeout(r, ms))
 }
-
-export default { agentActive, think, reason, delay }

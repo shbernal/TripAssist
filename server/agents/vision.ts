@@ -101,5 +101,3 @@ async function claudeVision(image: ImageInput): Promise<VisionVerdict> {
     maxTokens: 1000,
   })) as VisionVerdict
 }
-
-export default { checkPhoto }

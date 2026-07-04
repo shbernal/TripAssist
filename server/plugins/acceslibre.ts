@@ -87,5 +87,3 @@ export async function fetchAccessRegistry(): Promise<AccessRegistry> {
     return reference()
   }
 }
-
-export default { fetchAccessRegistry }

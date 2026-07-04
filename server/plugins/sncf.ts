@@ -104,5 +104,3 @@ export async function fetchRealtimeDisruptions(): Promise<RealtimeDisruptions> {
 function round1(n: unknown): number | null {
   return typeof n === 'number' ? Math.round(n * 10) / 10 : null
 }
-
-export default { fetchAxisRegularity, fetchRealtimeDisruptions }

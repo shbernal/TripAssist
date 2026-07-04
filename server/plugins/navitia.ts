@@ -11,7 +11,7 @@ import type { LiveJourney } from '../../shared/types.js'
 const PARIS_GDL = '2.373481;48.844924' // Paris Gare de Lyon (lon;lat)
 const NICE_VILLE = '7.261927;43.704326' // Nice-Ville
 
-export function hasNavitia(): boolean {
+function hasNavitia(): boolean {
   return Boolean(process.env.NAVITIA_TOKEN)
 }
 
@@ -77,5 +77,3 @@ function fmt(dt: string | undefined): string | null {
   if (!dt || dt.length < 15) return null
   return `${dt.slice(9, 11)}:${dt.slice(11, 13)}`
 }
-
-export default { hasNavitia, fetchLiveJourney }

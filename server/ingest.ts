@@ -213,5 +213,3 @@ export async function ingestItinerary(raw: string): Promise<IngestResult> {
     }
   }
 }
-
-export default { ingestItinerary }

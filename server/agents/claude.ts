@@ -101,7 +101,7 @@ const IMAGE_EXT: Record<string, string> = {
 // longer default timeout and is only reached when hasClaude() is false.
 // An `image` is passed by writing it to a temp file the CLI reads itself
 // (`--add-dir` grants access) - print mode has no other image channel.
-export function claudeCLIJSON({
+function claudeCLIJSON({
   system,
   user,
   schema,
@@ -210,5 +210,3 @@ export async function claudeJSON(args: ClaudeJSONArgs): Promise<any> {
     clearTimeout(timer)
   }
 }
-
-export default { hasClaude, hasClaudeCLI, claudeEnabled, claudeJSON, claudeCLIJSON }

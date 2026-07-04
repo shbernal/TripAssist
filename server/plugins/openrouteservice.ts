@@ -75,5 +75,3 @@ export async function fetchAccessibleRoute(): Promise<AccessibleRoute> {
     clearTimeout(t)
   }
 }
-
-export default { fetchAccessibleRoute }

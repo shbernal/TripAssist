@@ -61,5 +61,3 @@ export async function fetchAccessibleVenues(): Promise<AccessibleVenues> {
     }
   }
 }
-
-export default { fetchAccessibleVenues }

@@ -36,5 +36,3 @@ function isoNow(): string | null {
     return null
   }
 }
-
-export default { addClient, pushEvent, clientCount }

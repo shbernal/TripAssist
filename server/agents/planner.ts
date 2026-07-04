@@ -33,7 +33,7 @@ const SYSTEM = `Tu es l'agent planificateur de TripAssist. Voici le profil fonct
 
 // Deterministic fallback for the seed disruption (TGV 6173 retardé). Chosen to
 // match the spec's Flow A narrative exactly so the demo is predictable.
-export function fallbackPlan(): ReplanPlan {
+function fallbackPlan(): ReplanPlan {
   return {
     at_risk: ['s3', 's4'],
     plan: [
@@ -104,5 +104,3 @@ export async function planRemediation({
     return { plan: fb, source: 'fallback', error: (err as Error).message }
   }
 }
-
-export default { planRemediation, fallbackPlan }

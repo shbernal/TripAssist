@@ -218,5 +218,3 @@ export async function runExtractionAndRecover(transcript: TranscriptChunk[]): Pr
   pushEvent('call_status', { status: 'extracted', extracted: data })
   return data
 }
-
-export default { runExtractionAndRecover }

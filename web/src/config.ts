@@ -3,5 +3,3 @@
 export const APP_NAME = 'TripAssist'
 export const APP_NAME_PARTS = ['Trip', 'Assist']
 export const APP_TAGLINE = 'orchestration de voyage accessible'
-
-export default { APP_NAME, APP_NAME_PARTS, APP_TAGLINE }
