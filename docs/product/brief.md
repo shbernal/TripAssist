@@ -9,8 +9,8 @@ Contexte : Hackathon Capgemini
 > (perturbation → re-planification). Le produit met desormais en avant la **reservation
 > initiale** : l'agent appelle les prestataires de maniere proactive pour securiser
 > l'accessibilite _avant le depart_. La partie perturbation est conservee comme piste future.
-> Reference qui fait foi : [`AGENTS.md`](../../AGENTS.md). Ce document sera reecrit en
-> consequence.
+> Reference qui fait foi : [`AGENTS.md`](../../AGENTS.md). La reecriture complete est
+> differee (post-hackathon) : ce banner suffit, le contenu technique reste valable.
 
 ---
 
@@ -133,7 +133,7 @@ Statuts d'une etape : identifie, contacte, confirme, re-confirme (nuances de ver
 
 **Variables d'environnement (`.env`)** : `ANTHROPIC_API_KEY`, `VAPI_API_KEY`, `VAPI_PHONE_NUMBER_ID`, `VAPI_ASSISTANT_ID`, `RECEPTIONIST_PHONE`, `SNCF_API_KEY` (optionnelle), `PUBLIC_URL` (URL ngrok pour les webhooks).
 
-> Note technique : le dossier de travail contient un caractere ":" qui perturbe le PATH. Les scripts npm appellent directement `node <entrypoint>` pour contourner ce probleme. Lancer avec `npm run dev` (UI sur le port 5173, API sur le port 3000).
+> Note technique : le dossier de travail contient un caractere ":" qui perturbe le PATH. Les scripts appellent directement `node <entrypoint>` pour contourner ce probleme. Lancer avec `pnpm dev` (UI sur le port 5173, API sur le port 3000).
 
 ---
 
@@ -235,7 +235,7 @@ A preparer en parallele :
 
 - Depot et code : dossier `TripAssist/`.
 - Specification technique detaillee : [`docs/architecture/spec.md`](../architecture/spec.md).
-- Lancement : `npm install` puis `npm run dev`, ouvrir http://localhost:5173.
+- Lancement : `pnpm install` puis `pnpm dev`, ouvrir http://localhost:5173.
 - Reinitialisation : vue `/demo`, bouton Reset.
 
 ---

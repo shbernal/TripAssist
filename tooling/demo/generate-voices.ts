@@ -4,6 +4,8 @@
  * Turns the phone-call scripts (tooling/demo/scripts/*.json) into narrated audio
  * for the stylized landing page:
  *   - synthesizes each line to its own MP3 (distinct voice per speaker),
+ *   - loudness-normalizes every clip to a common target (the TTS voices come
+ *     back at very different levels — callees were up to ~9 dB under the agent),
  *   - probes each clip's duration with ffprobe,
  *   - stitches the lines into one conversation track (with natural gaps) via ffmpeg,
  *   - emits a timing manifest so the frontend can sync captions + animation to audio.
@@ -44,6 +46,11 @@ const GAP_SECONDS = 0.45 // silence inserted between lines when stitching
 const TRIM_THRESHOLD = '-45dB'
 const TRIM_KEEP_START = 0.12 // seconds of silence kept at clip start
 const TRIM_KEEP_END = 0.2 // seconds of silence kept at clip end
+// Loudness target for every clip (EBU R128). -16 LUFS matches what the agent
+// voice already produces, so normalization mostly lifts the callee voices.
+const TARGET_LUFS = -16
+const TARGET_TRUE_PEAK = -1.5
+const TARGET_LRA = 11
 
 interface Speaker {
   name: string
@@ -164,6 +171,48 @@ async function trimSilence(file: string, workDir: string) {
   renameSync(tmp, file)
 }
 
+/**
+ * Two-pass EBU R128 loudness normalization in place. Pass 1 measures the clip,
+ * pass 2 applies a linear gain toward TARGET_LUFS (linear=true keeps speech
+ * dynamics intact; loudnorm's resampling to 192 kHz is undone with -ar 44100).
+ */
+async function normalizeLoudness(file: string, workDir: string) {
+  const measureArgs = `I=${TARGET_LUFS}:TP=${TARGET_TRUE_PEAK}:LRA=${TARGET_LRA}`
+  const { stderr } = await execFileAsync('ffmpeg', [
+    '-i',
+    file,
+    '-af',
+    `loudnorm=${measureArgs}:print_format=json`,
+    '-f',
+    'null',
+    '-',
+  ])
+  const jsonMatch = stderr.match(/\{[\s\S]*\}/)
+  if (!jsonMatch) throw new Error(`loudnorm measurement failed for ${file}`)
+  const m = JSON.parse(jsonMatch[0]) as {
+    input_i: string
+    input_tp: string
+    input_lra: string
+    input_thresh: string
+  }
+  const tmp = join(workDir, '_norm.mp3')
+  await execFileAsync('ffmpeg', [
+    '-y',
+    '-i',
+    file,
+    '-af',
+    `loudnorm=${measureArgs}:measured_I=${m.input_i}:measured_TP=${m.input_tp}:measured_LRA=${m.input_lra}:measured_thresh=${m.input_thresh}:linear=true`,
+    '-ar',
+    '44100',
+    '-c:a',
+    'libmp3lame',
+    '-q:a',
+    '4',
+    tmp,
+  ])
+  renameSync(tmp, file)
+}
+
 async function stitch(clips: string[], outFile: string, workDir: string) {
   // Build a concat list with a short silence between clips.
   const silence = join(workDir, '_gap.mp3')
@@ -229,6 +278,7 @@ async function processScript(script: Script, apiKey: string, doStitch: boolean, 
       await synthLine(apiKey, voiceId, line.text, sp.settings, clip)
     }
     await trimSilence(clip, outDir)
+    await normalizeLoudness(clip, outDir)
 
     const duration = await ffprobeDuration(clip)
     console.log(`  ✅ line ${line.id} [${sp.shortName ?? line.speaker}] ${duration.toFixed(2)}s`)

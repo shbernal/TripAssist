@@ -9,8 +9,7 @@ trip (Paris → Nice), French UI.
 > the confirmations. The earlier **disruption / re-planning** flow (below) is kept but demoted
 > to a possible future feature. The repo now holds **two deliverables** — a stylized static
 > demo landing page (`apps/demo`, → GitHub Pages) and this real MVP (repo root), in a pnpm
-> workspace. **Canonical vision + repo map: [`AGENTS.md`](AGENTS.md)** · plan:
-> [`RESTRUCTURE_PLAN.md`](RESTRUCTURE_PLAN.md).
+> workspace. **Canonical vision, repo map, and status/roadmap: [`AGENTS.md`](AGENTS.md).**
 
 Full documentation lives in [`docs/`](docs/README.md) — note some deeper docs predate the
 pivot and carry a banner pointing here.
@@ -19,14 +18,14 @@ pivot and carry a banner pointing here.
 
 | App                                         | What                                                                                                            | Where                                                                      |
 | ------------------------------------------- | --------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------- |
-| **Demo** (`apps/demo`)                      | Stylized scrollytelling landing page telling Camille's story — static, zero keys, committed AI-generated assets | **Live: <https://shbernal.github.io/TripAssist/>** (auto-deployed on push) |
+| **Demo** (`apps/demo`)                      | Stylized animated story landing page telling Camille's story — static, zero keys, committed AI-generated assets | **Live: <https://shbernal.github.io/TripAssist/>** (auto-deployed on push) |
 | **MVP** (repo root: `server/ web/ shared/`) | The real Express + React app — agents, SSE, SQLite, auth, Vapi, open-data plugins                               | `pnpm dev` → <http://localhost:5173> (this README)                         |
 
-Run the demo locally:
+Run the demo locally (full demo docs: [`apps/demo/README.md`](apps/demo/README.md)):
 
 ```bash
 pnpm --filter @tripassist/demo dev       # Vite dev server
-pnpm --filter @tripassist/demo build     # static build (CI adds --base=/TripAssist/)
+pnpm --filter @tripassist/demo build     # static build (base=/TripAssist/ set in vite.config.ts)
 ```
 
 The rest of this README is about the **MVP**.
@@ -123,7 +122,7 @@ including inside the git hooks.
 
 ```bash
 pnpm typecheck     # tsc --noEmit for server + web
-pnpm test          # Vitest (55 tests, node + jsdom in one run)
+pnpm test          # Vitest (91 tests, node + jsdom in one run)
 pnpm test:watch    # Vitest watch mode
 pnpm lint          # ESLint
 pnpm lint:fix      # ESLint --fix

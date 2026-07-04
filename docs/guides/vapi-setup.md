@@ -49,7 +49,7 @@ each call.
 Put the five `VAPI_*` values + `PUBLIC_URL` into `TripAssist/.env`, then:
 
 ```bash
-npm run start        # or npm run dev
+pnpm build && pnpm start        # or pnpm dev
 ```
 
 On boot, `hasVapi()` becomes true and `POST /api/call/start` places a real call

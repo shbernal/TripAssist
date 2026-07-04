@@ -1,7 +1,7 @@
 # TripAssist - Runbook de démo (5 minutes)
 
 > ⚠️ **Narratif mis à jour (2026-07-04).** La présentation s'ouvre désormais sur la
-> **réservation initiale proactive** : la landing page scrollytelling
+> **réservation initiale proactive** : la landing page animée
 > (**<https://shbernal.github.io/TripAssist/>**, `apps/demo`) raconte l'histoire —
 > l'agent reçoit l'itinéraire, **appelle l'aéroport** (assistance WCHC) puis
 > **l'hôtel** (douche à l'italienne), et Camille reçoit deux notifications de
@@ -18,7 +18,7 @@ vrai travail, pas des écrans. Répète-le 3 fois avant de monter.
 
 ## 0. Avant de monter sur scène (checklist, 2 min)
 
-- [ ] `cd TripAssist && npm run dev` puis ouvrir **http://localhost:5173** (ou `npm run start` sur :3000).
+- [ ] `cd TripAssist && pnpm dev` puis ouvrir **http://localhost:5173** (ou `pnpm build && pnpm start` sur :3000).
 - [ ] Cliquer **Démo → Réinitialiser la démo** (état propre).
 - [ ] Navigateur en **plein écran**, zoom à 100 %.
 - [ ] **Son de la salle activé** (la voix de l'IA passe par les haut-parleurs).

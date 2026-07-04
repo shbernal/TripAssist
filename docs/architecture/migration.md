@@ -1,5 +1,9 @@
 # TypeScript Migration Plan
 
+> **Status: executed** — this migration is complete (the repo is strict TS on pnpm with
+> Vitest/ESLint/Prettier/Lefthook). Kept as history; the "Current state" below describes
+> the pre-migration codebase.
+
 Migrating TripAssist from JavaScript (ESM) to TypeScript, switching the package manager to **pnpm**, and adding **Vitest** unit tests, **ESLint**, **Prettier**, and **Lefthook** pre-commit hooks.
 
 ## Current state

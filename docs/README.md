@@ -14,10 +14,16 @@ the pivot — their technical content holds, their narrative is superseded.
 
 ## Architecture
 
-- [Spec](architecture/spec.md) — technical specification (milestones M1–M6).
-- [Migration](architecture/migration.md) — migration notes (npm → pnpm, tooling, strict TS).
+- [Architecture](architecture/ARCHITECTURE.md) — **the current technical map** (FR): diagram, agents, plugins, real-vs-demo table, how to verify.
 - [Data Model](architecture/data-model.md) — data dictionary: entities, reference master data (real UIC/IATA codes), integrity invariants, data sources.
+- [Spec](architecture/spec.md) — ⚠️ original build spec (milestones M1–M6, disruption-centric).
+- [Migration](architecture/migration.md) — historical: the executed npm → pnpm / strict-TS migration plan.
 
 ## Guides
 
 - [Vapi Setup](guides/vapi-setup.md) — configuring a real phone call with streamed transcript.
+
+## App-local docs
+
+- [`apps/demo/README.md`](../apps/demo/README.md) — the demo landing page: deck architecture, scenes, a11y, deploy.
+- [`tooling/demo/README.md`](../tooling/demo/README.md) — regenerating the demo's faces (Codex) and call audio (ElevenLabs).

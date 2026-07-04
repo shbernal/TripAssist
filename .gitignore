@@ -11,3 +11,6 @@ data/*.db-shm
 .DS_Store
 *.log
 _archive/
+
+# ffmpeg intermediates left by tooling/demo/generate-voices.ts
+apps/demo/public/audio/*/_*
