@@ -12,13 +12,21 @@
  *   node node_modules/tsx/dist/cli.mjs tooling/demo/generate-voices.ts
  *   node node_modules/tsx/dist/cli.mjs tooling/demo/generate-voices.ts --only airport-call
  *   node node_modules/tsx/dist/cli.mjs tooling/demo/generate-voices.ts --no-stitch
+ *   node node_modules/tsx/dist/cli.mjs tooling/demo/generate-voices.ts --reuse   # keep takes, re-trim/stitch only
  *
  * Requires: ELEVENLABS_API_KEY in .env, plus `ffmpeg`/`ffprobe` on PATH.
  * Optional per-speaker voice overrides via env (referenced as ${NAME} in the scripts):
  *   ELEVENLABS_VOICE_AGENT, ELEVENLABS_VOICE_AIRPORT, ELEVENLABS_VOICE_HOTEL
  */
 import { execFile } from 'node:child_process'
-import { existsSync, mkdirSync, readdirSync, readFileSync, writeFileSync } from 'node:fs'
+import {
+  existsSync,
+  mkdirSync,
+  readdirSync,
+  readFileSync,
+  renameSync,
+  writeFileSync,
+} from 'node:fs'
 import { dirname, join, resolve } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { promisify } from 'node:util'
@@ -31,6 +39,11 @@ const OUT_ROOT = resolve(REPO_ROOT, 'apps/demo/public/audio')
 
 const MODEL_ID = 'eleven_multilingual_v2'
 const GAP_SECONDS = 0.45 // silence inserted between lines when stitching
+// Trim TTS lead-in/lead-out silence, keeping a small natural breath so the
+// exchange feels dynamic without lines cutting into each other.
+const TRIM_THRESHOLD = '-45dB'
+const TRIM_KEEP_START = 0.12 // seconds of silence kept at clip start
+const TRIM_KEEP_END = 0.2 // seconds of silence kept at clip end
 
 interface Speaker {
   name: string
@@ -131,6 +144,26 @@ async function synthLine(
   writeFileSync(outPath, buf)
 }
 
+/** Trim leading/trailing silence in place (keeps a short natural pause). */
+async function trimSilence(file: string, workDir: string) {
+  const tmp = join(workDir, '_trim.mp3')
+  const removeStart = `silenceremove=start_periods=1:start_threshold=${TRIM_THRESHOLD}:start_silence=${TRIM_KEEP_START}`
+  const removeEnd = `silenceremove=start_periods=1:start_threshold=${TRIM_THRESHOLD}:start_silence=${TRIM_KEEP_END}`
+  await execFileAsync('ffmpeg', [
+    '-y',
+    '-i',
+    file,
+    '-af',
+    `${removeStart},areverse,${removeEnd},areverse`,
+    '-c:a',
+    'libmp3lame',
+    '-q:a',
+    '4',
+    tmp,
+  ])
+  renameSync(tmp, file)
+}
+
 async function stitch(clips: string[], outFile: string, workDir: string) {
   // Build a concat list with a short silence between clips.
   const silence = join(workDir, '_gap.mp3')
@@ -169,7 +202,7 @@ async function stitch(clips: string[], outFile: string, workDir: string) {
   ])
 }
 
-async function processScript(script: Script, apiKey: string, doStitch: boolean) {
+async function processScript(script: Script, apiKey: string, doStitch: boolean, reuse: boolean) {
   const outDir = join(OUT_ROOT, script.id)
   mkdirSync(outDir, { recursive: true })
   console.log(`\n▶ ${script.id} - ${script.title} (${script.lines.length} lines)`)
@@ -192,7 +225,10 @@ async function processScript(script: Script, apiKey: string, doStitch: boolean) 
     const voiceId = resolveVoiceId(sp)
     const clip = join(outDir, `${String(line.id).padStart(2, '0')}-${line.speaker}.mp3`)
 
-    await synthLine(apiKey, voiceId, line.text, sp.settings, clip)
+    if (!(reuse && existsSync(clip))) {
+      await synthLine(apiKey, voiceId, line.text, sp.settings, clip)
+    }
+    await trimSilence(clip, outDir)
 
     const duration = await ffprobeDuration(clip)
     console.log(`  ✅ line ${line.id} [${sp.shortName ?? line.speaker}] ${duration.toFixed(2)}s`)
@@ -239,7 +275,7 @@ function parseArgs(argv: string[]) {
   const only =
     argv.find((a) => a.startsWith('--only='))?.split('=')[1] ??
     (argv.includes('--only') ? argv[argv.indexOf('--only') + 1] : undefined)
-  return { only, doStitch: !argv.includes('--no-stitch') }
+  return { only, doStitch: !argv.includes('--no-stitch'), reuse: argv.includes('--reuse') }
 }
 
 async function main() {
@@ -249,7 +285,7 @@ async function main() {
     console.error('Missing ELEVENLABS_API_KEY (put it in .env).')
     process.exit(1)
   }
-  const { only, doStitch } = parseArgs(process.argv.slice(2))
+  const { only, doStitch, reuse } = parseArgs(process.argv.slice(2))
 
   const files = readdirSync(SCRIPTS_DIR).filter((f) => f.endsWith('.json'))
   const scripts = files
@@ -263,7 +299,7 @@ async function main() {
 
   mkdirSync(OUT_ROOT, { recursive: true })
   for (const script of scripts) {
-    await processScript(script, apiKey, doStitch)
+    await processScript(script, apiKey, doStitch, reuse)
   }
   console.log('\nDone.')
 }

@@ -3,8 +3,8 @@
   "title": "TripAssist AI → Assistance PMR CDG",
   "locale": "fr-FR",
   "model": "eleven_multilingual_v2",
-  "generatedAt": "2026-07-04T20:27:19.572Z",
-  "totalDuration": 33.954059,
+  "generatedAt": "2026-07-04T20:38:46.893Z",
+  "totalDuration": 32.802651999999995,
   "track": "audio/airport-call/conversation.mp3",
   "lines": [
     {
@@ -14,7 +14,7 @@
       "text": "Assistance de Paris-Charles-de-Gaulle, bonjour.",
       "file": "audio/airport-call/01-callee.mp3",
       "start": 0,
-      "duration": 2.832834
+      "duration": 2.595873
     },
     {
       "id": 2,
@@ -22,8 +22,8 @@
       "caption": "L'IA demande l'accompagnement.",
       "text": "Bonjour, j'appelle pour Madame Camille Moreau, vol Air France pour Cannes le 12 septembre. Elle voyage en fauteuil roulant électrique et aura besoin d'aide pour monter à bord.",
       "file": "audio/airport-call/02-agent.mp3",
-      "start": 3.2828340000000003,
-      "duration": 9.891701
+      "start": 3.0458730000000003,
+      "duration": 9.692494
     },
     {
       "id": 3,
@@ -31,8 +31,8 @@
       "caption": "L'aéroport prend note.",
       "text": "Très bien, c'est noté. Le fauteuil voyage avec elle ?",
       "file": "audio/airport-call/03-callee.mp3",
-      "start": 13.624534999999998,
-      "duration": 2.693515
+      "start": 13.188367,
+      "duration": 2.536893
     },
     {
       "id": 4,
@@ -40,8 +40,8 @@
       "caption": "Le fauteuil rendu à la sortie de l'avion.",
       "text": "Oui. Et si possible, qu'on le lui rende dès la sortie de l'avion, pas aux bagages.",
       "file": "audio/airport-call/04-agent.mp3",
-      "start": 16.76805,
-      "duration": 4.597551
+      "start": 16.17526,
+      "duration": 4.453107
     },
     {
       "id": 5,
@@ -49,8 +49,8 @@
       "caption": "✅ Confirmé, référence donnée.",
       "text": "Pas de souci. Une équipe l'attendra au Terminal 2F, quarante-cinq minutes avant l'embarquement. Référence WCH-9427.",
       "file": "audio/airport-call/05-callee.mp3",
-      "start": 21.815601,
-      "duration": 7.987664
+      "start": 21.078367,
+      "duration": 7.819138
     },
     {
       "id": 6,
@@ -58,8 +58,8 @@
       "caption": "L'IA scelle la confirmation.",
       "text": "Parfait, c'est enregistré. Merci beaucoup, bonne journée.",
       "file": "audio/airport-call/06-agent.mp3",
-      "start": 30.253265,
-      "duration": 3.250794
+      "start": 29.347504999999998,
+      "duration": 3.005147
     }
   ],
   "outcome": {
