@@ -58,17 +58,6 @@ export function Hero() {
             alt="Camille Moreau, 34 ans, souriante dans son fauteuil roulant électrique, un smartphone à la main."
             className="relative max-h-[34dvh] w-full max-w-xs rounded-[2rem] border border-slate-800 object-cover shadow-2xl sm:max-w-sm md:max-h-[60dvh]"
           />
-          <div
-            aria-hidden="true"
-            className="absolute inset-x-3 bottom-3 rounded-2xl border border-slate-700/70 bg-slate-950/80 px-4 py-2.5 backdrop-blur"
-          >
-            <span className="block text-sm font-semibold text-slate-100">
-              Camille Moreau · 34 ans
-            </span>
-            <span className="block text-xs text-slate-400">
-              Fauteuil électrique Permobil M3 · Paris → Cannes
-            </span>
-          </div>
         </motion.div>
       </div>
 

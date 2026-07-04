@@ -17,11 +17,14 @@ const NEEDS = [
     img: 'scenes/wchc-boarding.png',
     label: 'Assistance WCHC',
     alt: 'Un agent d’assistance aéroportuaire accompagne une voyageuse en fauteuil roulant à l’entrée de la passerelle d’embarquement.',
+    // The source photo is wide with the wheelchair right of center; shift the crop.
+    pos: 'object-[78%_center]',
   },
   {
     img: 'scenes/roll-in-shower.png',
     label: 'Douche à l’italienne',
     alt: 'Salle de bain accessible avec une douche à l’italienne de plain-pied, barres d’appui et siège de douche rabattable.',
+    pos: 'object-center',
   },
 ]
 
@@ -91,7 +94,7 @@ export function Itinerary() {
                     <img
                       src={asset(o.img)}
                       alt={o.alt}
-                      className="relative h-24 w-24 rounded-full object-cover shadow-xl ring-2 ring-brand-blue/50 sm:h-28 sm:w-28"
+                      className={`relative h-24 w-24 rounded-full object-cover shadow-xl ring-2 ring-brand-blue/50 sm:h-28 sm:w-28 ${o.pos}`}
                     />
                   </div>
                   <figcaption className="mt-3 inline-flex items-center gap-1.5 text-xs font-medium text-slate-200 sm:text-sm">

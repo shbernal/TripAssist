@@ -27,6 +27,7 @@ import {
   readdirSync,
   readFileSync,
   renameSync,
+  rmSync,
   writeFileSync,
 } from 'node:fs'
 import { dirname, join, resolve } from 'node:path'
@@ -195,13 +196,21 @@ async function normalizeLoudness(file: string, workDir: string) {
     input_lra: string
     input_thresh: string
   }
+  // linear=true refuses any gain that would push peaks past TP, silently
+  // leaving hot-peaked quiet clips (phone callees) under target. When that
+  // would happen, lift with a plain gain + limiter instead.
+  const gainDb = TARGET_LUFS - parseFloat(m.input_i)
+  const peakBound = parseFloat(m.input_tp) + gainDb > TARGET_TRUE_PEAK
+  const filter = peakBound
+    ? `volume=${gainDb.toFixed(2)}dB,alimiter=limit=${Math.pow(10, TARGET_TRUE_PEAK / 20).toFixed(3)}:level=false`
+    : `loudnorm=${measureArgs}:measured_I=${m.input_i}:measured_TP=${m.input_tp}:measured_LRA=${m.input_lra}:measured_thresh=${m.input_thresh}:linear=true`
   const tmp = join(workDir, '_norm.mp3')
   await execFileAsync('ffmpeg', [
     '-y',
     '-i',
     file,
     '-af',
-    `loudnorm=${measureArgs}:measured_I=${m.input_i}:measured_TP=${m.input_tp}:measured_LRA=${m.input_lra}:measured_thresh=${m.input_thresh}:linear=true`,
+    filter,
     '-ar',
     '44100',
     '-c:a',
@@ -319,6 +328,11 @@ async function processScript(script: Script, apiKey: string, doStitch: boolean, 
   }
   writeFileSync(join(outDir, 'manifest.json'), JSON.stringify(manifest, null, 2))
   console.log(`  📄 manifest → ${join(outDir, 'manifest.json')}`)
+
+  // Scratch files from trim/normalize/stitch live in outDir, which is committed.
+  for (const scratch of ['_trim.mp3', '_norm.mp3', '_gap.mp3', '_concat.txt']) {
+    rmSync(join(outDir, scratch), { force: true })
+  }
 }
 
 function parseArgs(argv: string[]) {
