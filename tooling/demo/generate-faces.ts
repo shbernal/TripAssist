@@ -109,12 +109,14 @@ async function generateOne(
   outDir: string,
   force: boolean,
 ): Promise<boolean> {
-  const outPath = join(outDir, char.file)
+  // Entries may point outside outDir (the logo lives at `../logo.png`); anchor the
+  // codex workspace-write sandbox on the file's own directory so the copy can land.
+  const outPath = resolve(outDir, char.file)
   if (existsSync(outPath) && !force) {
     console.log(`  ⏭  ${char.id}: exists (use --force to regenerate) → ${outPath}`)
     return true
   }
-  const prompt = `Generate an image: ${char.prompt} ${style} Save it as ${outPath} and report the path.`
+  const prompt = `Generate an image: ${[char.prompt, style].filter(Boolean).join(' ')} Save it as ${outPath} and report the path.`
 
   console.log(`  🎨 ${char.id}: generating…`)
   const startMs = Date.now()
@@ -125,7 +127,7 @@ async function generateOne(
     existsSync(outPath) && (beforeMtime === null || statSync(outPath).mtimeMs !== beforeMtime)
 
   try {
-    await runCodex(outDir, prompt)
+    await runCodex(dirname(outPath), prompt)
   } catch (err) {
     // Couldn't even launch Codex (not on PATH, etc.). A timeout kill lands on 'close',
     // not here, so fall through to recovery in that case.
@@ -162,7 +164,12 @@ async function main() {
   const outDir = resolve(REPO_ROOT, manifest.outputDir)
   mkdirSync(outDir, { recursive: true })
 
-  const all = [...manifest.characters, ...manifest.avatars]
+  // The shared photoreal-portrait style only fits the character portraits; avatars
+  // and the logo carry their full art direction in their own prompt.
+  const all = [
+    ...manifest.characters.map((c) => ({ ...c, style: manifest.style })),
+    ...manifest.avatars.map((c) => ({ ...c, style: '' })),
+  ]
   const todo = only ? all.filter((c) => only.has(c.id)) : all
   if (todo.length === 0) {
     console.error(`No characters matched --only. Known ids: ${all.map((c) => c.id).join(', ')}`)
@@ -174,7 +181,7 @@ async function main() {
   for (const char of todo) {
     // Serial on purpose: codex image runs are heavy and rate-limited, and one image
     // per `codex exec` call is the reliable pattern.
-    const ok = await generateOne(char, manifest.style, outDir, force)
+    const ok = await generateOne(char, char.style, outDir, force)
     if (!ok) failures += 1
   }
 

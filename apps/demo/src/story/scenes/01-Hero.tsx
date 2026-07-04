@@ -16,7 +16,7 @@ export function Hero() {
       <div className="m-auto grid w-full max-w-5xl items-center gap-6 md:grid-cols-2 md:gap-12">
         <div>
           <span className="inline-flex items-center gap-2 rounded-full border border-slate-700 bg-slate-900/70 px-4 py-1.5 text-sm text-slate-300">
-            <img src={asset('logo.svg')} alt="" aria-hidden="true" className="h-5 w-5" />
+            <img src={asset('logo.png')} alt="" aria-hidden="true" className="h-5 w-5 rounded-md" />
             <span className="font-semibold text-slate-100">TripAssist</span>
           </span>
           <h1
@@ -25,8 +25,13 @@ export function Hero() {
           >
             Voyager <span className="text-gradient-brand">sans obstacle</span>.
           </h1>
-          <p className="mt-5 max-w-md text-pretty text-lg text-slate-400">
-            Camille part pour Cannes en fauteuil roulant.{' '}
+          <p className="mt-6 text-2xl font-semibold text-slate-100">
+            Camille Moreau, <span className="font-normal text-slate-400">34 ans</span>
+          </p>
+          <p className="mt-2 max-w-md text-pretty text-lg text-slate-400">
+            Camille voyage en fauteuil roulant électrique. Jusqu&rsquo;ici, chaque départ voulait
+            dire des appels, des attentes, de l&rsquo;incertitude. Cette fois, elle part pour Cannes
+            - et{' '}
             <strong className="text-slate-200">TripAssist sécurise tout avant le départ.</strong>
           </p>
           <a
@@ -53,6 +58,17 @@ export function Hero() {
             alt="Camille Moreau, 34 ans, souriante dans son fauteuil roulant électrique, un smartphone à la main."
             className="relative max-h-[34dvh] w-full max-w-xs rounded-[2rem] border border-slate-800 object-cover shadow-2xl sm:max-w-sm md:max-h-[60dvh]"
           />
+          <div
+            aria-hidden="true"
+            className="absolute inset-x-3 bottom-3 rounded-2xl border border-slate-700/70 bg-slate-950/80 px-4 py-2.5 backdrop-blur"
+          >
+            <span className="block text-sm font-semibold text-slate-100">
+              Camille Moreau · 34 ans
+            </span>
+            <span className="block text-xs text-slate-400">
+              Fauteuil électrique Permobil M3 · Paris → Cannes
+            </span>
+          </div>
         </motion.div>
       </div>
 

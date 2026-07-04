@@ -27,7 +27,12 @@
     {
       "id": "ai-agent",
       "file": "ai-agent.png",
-      "prompt": "A minimalist flat-vector avatar of a friendly AI travel assistant, glowing teal-to-violet gradient orb with a subtle circuit motif and a soft ring, centered on transparent background, modern app icon style, no face, no text."
+      "prompt": "Generate an image with a transparent background: the avatar of a friendly AI travel assistant - a single luminous glowing orb with a smooth gradient from deep blue (#1d4ed8) at the base to bright sky blue (#7dd3fc) at the top, a thin elegant orbital ring around it, a soft outer glow and a few tiny light particles. Minimal, modern, calm and trustworthy, matching a dark navy travel-app brand. No face, no text, no watermark, no circuit lines. Square 1:1, orb centered with generous padding - it is displayed small as a circular avatar."
+    },
+    {
+      "id": "logo",
+      "file": "../logo.png",
+      "prompt": "App icon logo for TripAssist, an AI travel-accessibility assistant. A rounded-square app icon on a deep navy background (#0f172a): a glowing map pin whose head holds a bold check mark, drawn in a luminous gradient from deep blue (#1d4ed8) to bright sky blue (#7dd3fc), a subtle dotted travel route curving up into the pin, soft outer glow. Minimal, modern, flat design with subtle depth, crisp edges, reads clearly at small favicon sizes. No text, no letters, no watermark. Square 1:1."
     }
   ]
 }

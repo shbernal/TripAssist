@@ -10,17 +10,20 @@ import { AirportCall } from './scenes/03-AirportCall'
 import { HotelCall } from './scenes/04-HotelCall'
 import { Notifications } from './scenes/05-Notifications'
 import { Outro } from './scenes/06-Outro'
+import { UseCases } from './scenes/07-UseCases'
 
 /** How long a non-call scene holds before the story moves on by itself (ms).
-    Call scenes advance when their audio ends; the outro is the resting state. */
+    Call scenes advance when their audio ends; the use-cases scene is the
+    resting state. */
 const DWELL: Partial<Record<SceneId, number>> = {
   hero: 5000,
   itinerary: 7000,
   notifications: 7000,
+  outro: 9000,
 }
 
 /**
- * The six-scene story, driven as a discrete slide deck (see `useStoryDeck`).
+ * The seven-scene story, driven as a discrete slide deck (see `useStoryDeck`).
  * Exactly one scene is active and the whole track is translated to it - sideways
  * on wide screens, vertically stacked on mobile. Every wheel notch, swipe, arrow
  * key, or dot moves one whole scene, so navigation is predictable and never
@@ -131,6 +134,7 @@ export function Story() {
           <HotelCall active={index === 3} />
           <Notifications />
           <Outro />
+          <UseCases />
         </div>
       </main>
       <SceneNav
