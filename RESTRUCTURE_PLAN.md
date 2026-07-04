@@ -253,7 +253,8 @@ app so work continues cleanly.
 
 **Phase 2 — Generate assets**
 
-- [ ] Run both generators; review faces & listen to calls; tune prompts/voice settings.
+- [x] Run both generators; review faces & listen to calls; tune prompts/voice settings.
+      _(Faces + call audio generated and committed under `apps/demo/public/{faces,audio}`.)_
 
 **Phase 3 — Demo build (the "huge" part)**
 
@@ -266,7 +267,10 @@ app so work continues cleanly.
       motion path, skip link + `:focus-visible` + semantic `section`/heading outline,
       `aria-live` captions, full DOM transcripts, alt text on every face. Typecheck + prod
       build green; assets serve 200 under `--base=/AccessTrip/`.
-- [ ] Lighthouse a11y ≥ 95 — audit pending a real browser run.
+- [x] Lighthouse a11y ≥ 95 — **scored 100/100**, zero failed audits (headless Chromium
+      against the `--base=/AccessTrip/` production preview, 2026-07-04). Note: Lighthouse only
+      grades the initial above-the-fold state; scroll-pinned scenes 2–6 still rely on the
+      manual reduced-motion / keyboard / transcript passes above.
 
 **Phase 4 — MVP hardening** (post-demo) — section 5.
 

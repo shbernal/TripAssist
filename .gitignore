@@ -1,6 +1,7 @@
 node_modules
 web/dist
 apps/demo/dist
+apps/demo/lighthouse-a11y.report.*
 coverage
 data/state.json
 data/*.db
