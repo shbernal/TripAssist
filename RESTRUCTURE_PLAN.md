@@ -257,9 +257,16 @@ app so work continues cleanly.
 
 **Phase 3 — Demo build (the "huge" part)**
 
-- [ ] Wire Lenis + GSAP ScrollTrigger master timeline; build scenes 1–6.
-- [ ] Build `Phone`, `CallStage`, `Waveform`, `Caption`, `Notification`, `useCallPlayer`.
-- [ ] Reduced-motion + keyboard + screen-reader passes; Lighthouse a11y ≥ 95.
+- [x] Wire Lenis + GSAP (smooth scroll) + Framer Motion (`useScroll`/`whileInView`);
+      build scenes 1–6 (`src/story/scenes/01-Hero`…`06-Outro`, assembled in `Story.tsx`).
+- [x] Build `Phone`, `CallStage`, `Caption`, `Notification`, `useCallPlayer` (+ `Waveform`,
+      `AudioControls`, `Chip`, `Reveal`, `Scene`). Waveform is a bespoke CSS-bar visual driven
+      by the player rather than wavesurfer.js — one audio engine (Howler), no dual-decode sync.
+- [x] Reduced-motion + keyboard + screen-reader passes: `useReducedMotion` gates every
+      motion path, skip link + `:focus-visible` + semantic `section`/heading outline,
+      `aria-live` captions, full DOM transcripts, alt text on every face. Typecheck + prod
+      build green; assets serve 200 under `--base=/AccessTrip/`.
+- [ ] Lighthouse a11y ≥ 95 — audit pending a real browser run.
 
 **Phase 4 — MVP hardening** (post-demo) — section 5.
 
