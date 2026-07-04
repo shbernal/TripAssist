@@ -34,7 +34,7 @@ export function Itinerary() {
       eyebrow="L’itinéraire est reçu"
       heading="L’agent lit le voyage. Deux appels à passer."
     >
-      <div className="grid items-center gap-8 md:grid-cols-2">
+      <div className="grid items-center gap-6 md:grid-cols-2 md:gap-8">
         {/* The booking, as received */}
         <Reveal from="left">
           <div className="rounded-3xl border border-slate-800 bg-slate-900/70 p-5 shadow-xl">

@@ -28,7 +28,7 @@ export function Scene({ id, step, eyebrow, heading, hideHeading, children }: Sce
       id={id}
       tabIndex={-1}
       aria-labelledby={headingId}
-      className="relative flex h-dvh w-screen shrink-0 overflow-y-auto px-6 pb-16 pt-8 outline-none sm:px-10"
+      className="relative flex h-dvh w-screen shrink-0 overflow-y-auto px-6 pb-16 pt-6 outline-none sm:px-10"
     >
       <div className="m-auto w-full max-w-5xl">
         {(step || eyebrow) && (
@@ -48,7 +48,7 @@ export function Scene({ id, step, eyebrow, heading, hideHeading, children }: Sce
           className={
             hideHeading
               ? 'sr-only'
-              : 'mb-5 text-2xl font-semibold tracking-tight text-slate-100 sm:text-3xl'
+              : 'mb-4 text-2xl font-semibold tracking-tight text-slate-100 sm:text-3xl'
           }
         >
           {heading}
