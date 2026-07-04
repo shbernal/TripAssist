@@ -1,7 +1,7 @@
 {
   "id": "airport-call",
   "title": "TripAssist AI → Assistance PMR CDG",
-  "subtitle": "Réservation de l'assistance embarquement fauteuil roulant",
+  "subtitle": "Réservation de l'accompagnement à l'aéroport",
   "locale": "fr-FR",
   "participants": {
     "agent": {
@@ -23,55 +23,55 @@
   },
   "context": {
     "traveler": "Camille Moreau",
-    "need": "Assistance embarquement et débarquement, fauteuil roulant électrique Permobil M3 (140 kg, batterie Lithium-ion conforme IATA)",
-    "flight": "AF 7612 - Paris-CDG → Cannes-Mandelieu, 12 septembre, départ 10h05",
-    "goal": "Confirmer l'assistance WCHC de bout en bout et l'acheminement du fauteuil en soute avec restitution passerelle"
+    "need": "Aide à l'embarquement et au débarquement, fauteuil roulant électrique",
+    "flight": "Vol Air France Paris-CDG → Cannes, 12 septembre",
+    "goal": "Réserver l'accompagnement à l'aéroport et récupérer le fauteuil à la sortie de l'avion"
   },
   "lines": [
     {
       "id": 1,
       "speaker": "callee",
-      "text": "Assistance PMR de Paris-Charles-de-Gaulle, bonjour.",
+      "text": "Assistance de Paris-Charles-de-Gaulle, bonjour.",
       "caption": "L'aéroport décroche."
     },
     {
       "id": 2,
       "speaker": "agent",
-      "text": "Bonjour, assistant TripAssist, pour Madame Camille Moreau, vol Air France 7612 vers Cannes-Mandelieu le 12 septembre. Elle voyage en fauteuil roulant électrique : nous demandons une assistance WCHC complète.",
-      "caption": "L'IA demande l'assistance WCHC."
+      "text": "Bonjour, j'appelle pour Madame Camille Moreau, vol Air France pour Cannes le 12 septembre. Elle voyage en fauteuil roulant électrique et aura besoin d'aide pour monter à bord.",
+      "caption": "L'IA demande l'accompagnement."
     },
     {
       "id": 3,
       "speaker": "callee",
-      "text": "Très bien. Pour le fauteuil, quel type de batterie ? Nous devons le déclarer.",
-      "caption": "Question réglementaire batterie."
+      "text": "Très bien, c'est noté. Le fauteuil voyage avec elle ?",
+      "caption": "L'aéroport prend note."
     },
     {
       "id": 4,
       "speaker": "agent",
-      "text": "Un Permobil M3, batterie lithium-ion conforme IATA. Merci de le restituer en passerelle à Cannes-Mandelieu, pas au tapis bagages.",
-      "caption": "Fauteuil déclaré, restitution passerelle."
+      "text": "Oui. Et si possible, qu'on le lui rende dès la sortie de l'avion, pas aux bagages.",
+      "caption": "Le fauteuil rendu à la sortie de l'avion."
     },
     {
       "id": 5,
       "speaker": "callee",
-      "text": "C'est noté : assistance WCHC complète, prise en charge Terminal 2F quarante-cinq minutes avant l'embarquement. Référence WCH-9427.",
-      "caption": "Confirmé, référence donnée."
+      "text": "Pas de souci. Une équipe l'attendra au Terminal 2F, quarante-cinq minutes avant l'embarquement. Référence WCH-9427.",
+      "caption": "✅ Confirmé, référence donnée."
     },
     {
       "id": 6,
       "speaker": "agent",
-      "text": "Je confirme WCH-9427 et je l'enregistre au registre de voyage de Madame Moreau. Merci, excellente journée.",
+      "text": "Parfait, c'est enregistré. Merci beaucoup, bonne journée.",
       "caption": "L'IA scelle la confirmation."
     }
   ],
   "outcome": {
     "status": "confirmed",
     "reference": "WCH-9427",
-    "summary": "Assistance WCHC à CDG · prise en charge T2F −45 min · fauteuil restitué en passerelle.",
+    "summary": "Accompagnement à CDG · rendez-vous Terminal 2F 45 min avant · fauteuil rendu à la sortie de l'avion.",
     "notification": {
       "title": "Aéroport confirmé",
-      "body": "Réf. WCH-9427 · prise en charge Terminal 2F, 45 min avant le vol."
+      "body": "Accompagnement réservé · Terminal 2F, 45 min avant le vol (réf. WCH-9427)."
     }
   }
 }
