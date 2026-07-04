@@ -24,10 +24,6 @@ export const STATIONS: Record<string, Station> = {
   rennes: { uic: '87471003', name: 'Rennes', city: 'Rennes' },
 }
 
-export function stationByCity(city: string): Station | undefined {
-  return Object.values(STATIONS).find((s) => s.city.toLowerCase() === city.toLowerCase())
-}
-
 // --- IATA PRM / SSR codes (special service request codes used by carriers) ------
 
 export type DisabilityCategory =
