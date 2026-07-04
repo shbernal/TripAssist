@@ -19,6 +19,14 @@ Build proceeds milestone by milestone (M1 → M6). See `SPEC.md`.
 - **Voix live** ✅ — the simulated call is spoken aloud in a French voice (Web Speech API), a distinct voice for the AI vs. the receptionist, with a mute toggle.
 - **Sprint 1 (storytelling)** ✅ — impact-metrics KPI band (incidents caught, remediations applied, minutes recovered, calls made, accessibility held, all live); a catalogue of **5 disruption scenarios** (`server/scenarios.js`: TGV delay, SNCF strike, PMR elevator down, storm, taxi cancelled), each with its own cascade + accessibility-safe remediation; and animations on status changes, bubbles, chips, and KPI updates (reduced-motion aware).
 - **Sprint 2 (visible reasoning)** ✅ — the **agent orchestra** (`web/src/ops/AgentGraph.jsx`): five agent nodes (Veille, Planificateur, Appelant, Extracteur, Vision) that light up and pulse as they work, plus a live reasoning stream showing each agent's chain of thought. Backed by `server/agents/trace.js` (`agent_state` + `agent_reasoning` SSE events) woven through the watchdog, planner, caller, extractor, and vision agents.
+- **Sprint 3 (fleet)** ✅ — a **fleet dashboard** (`web/src/fleet/`) is the new home: a portfolio of monitored travelers (Camille live + 3 seeded profiles with varied disabilities and trip states), fleet-level KPIs, and per-traveler detail at `/traveler/:id`.
+- **Sprint 4 (guided demo)** ✅ — a **narrated auto-play** (`web/src/demo/GuidedDemo.jsx`) launched from the demo panel: it drives the three flows end-to-end (disruption → replan → live call → recovery → vision) with a caption bar and progress, polling server state for readiness. The presenter's zero-stress path.
+- **Sprint 5 (visual refonte)** ✅ — SVG logo mark + wordmark (`web/src/Logo.jsx`), centralized brand name (`web/src/config.js` — swap `APP_NAME` to rename everywhere), refined design system (gradients, depth, fleet/KPI cards, header). Name is a working title pending final choice.
+- **Real open-data plugins** ✅ — `server/plugins/sncf.js` pulls **real SNCF punctuality** for the Paris→Nice (Sud-Est) axis from data.sncf.com (Opendatasoft Explore v2.1), and `server/plugins/weather.js` pulls **real Nice weather** from Open-Meteo. Surfaced in a live "Contexte réel" strip (`web/src/ops/RealContext.jsx`) via `GET /api/context`, and the watchdog grounds its reasoning in these real figures during a disruption. All calls have timeout + cache + fallback — the demo never blocks on the network.
+
+### The 7 hackathon "wow" ideas — status
+
+1. Live AI phone call ✅ (Vapi + offline sim with live French voice; real phone needs keys/ngrok) · 2. Multi-agent orchestration you can watch ✅ (agent orchestra) · 3. Real SNCF data ✅ (Sud-Est axis punctuality, live) · 4. Transcript→ledger extraction ✅ · 5. Passport auto-fill (Playwright) ✅ · 6. Vision verification ✅ · 7. Voice-first / screen-reader-native ✅. Plugins: Open-Meteo ✅, SNCF Open Data ✅.
 
 ### Live vs. offline
 

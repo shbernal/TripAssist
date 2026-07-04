@@ -6,6 +6,8 @@ import { pushEvent } from '../events.js'
 import { planRemediation } from './planner.js'
 import { getScenario } from '../scenarios.js'
 import { reason, agentActive, think, delay } from './trace.js'
+import { fetchAxisRegularity } from '../plugins/sncf.js'
+import { fetchNiceWeather } from '../plugins/weather.js'
 
 function log(agent, level, message) {
   const entry = appendAgentLog({ agent, level, message })
@@ -23,12 +25,29 @@ export async function handleChaos(scenarioId = 'tgv-delay') {
   updateState((s) => { s.disruptions.push(disruption) })
   pushEvent('disruption', disruption)
   log('watchdog', 'warn', `Perturbation détectée — ${disruption.source} : ${disruption.details}.`)
-  await reason('watchdog', [
-    `Signal reçu de ${scenario.source}.`,
-    `Incident : ${scenario.details}.`,
-    `Recherche des étapes dépendantes en aval…`,
-    `Étapes impactées : ${affectedIds}. Escalade au planificateur.`,
-  ], { keepActive: true })
+
+  // Ground the reasoning in real open data (SNCF punctuality / Nice weather).
+  const realThoughts = [`Signal reçu de ${scenario.source}.`, `Incident : ${scenario.details}.`]
+  try {
+    if (scenario.source === 'SNCF') {
+      const r = await fetchAxisRegularity()
+      if (r) {
+        const tag = r.live ? 'données réelles SNCF' : 'référence SNCF'
+        realThoughts.push(`Contexte axe ${r.axe} : ${r.regularite}% de régularité${r.month ? ` (${tag}, ${r.month})` : ` (${tag})`}.`)
+        disruption.realData = { type: 'sncf', ...r }
+      }
+    } else if (scenario.source === 'Météo-France') {
+      const w = await fetchNiceWeather()
+      if (w && w.tempC != null) {
+        realThoughts.push(`Conditions réelles à Nice : ${w.tempC}°C, ${w.label}, vent ${w.windKmh} km/h (${w.source}).`)
+        disruption.realData = { type: 'weather', ...w }
+      }
+    }
+  } catch { /* never block the demo on the network */ }
+  realThoughts.push('Recherche des étapes dépendantes en aval…', `Étapes impactées : ${affectedIds}. Escalade au planificateur.`)
+
+  await reason('watchdog', realThoughts, { keepActive: true })
+  if (disruption.realData) pushEvent('disruption', disruption) // re-emit enriched
 
   // 2. Flip affected steps with reason chips (amber or red per scenario)
   for (const a of scenario.affected) {

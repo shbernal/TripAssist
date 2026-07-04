@@ -31,11 +31,14 @@ html, body, #root { height: 100%; }
 
 body {
   margin: 0;
-  background: var(--bg);
+  background:
+    radial-gradient(1200px 600px at 80% -10%, rgba(79, 176, 255, 0.06), transparent),
+    var(--bg);
   color: var(--text);
   font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
   font-size: 16px;
   line-height: 1.5;
+  padding-bottom: 64px; /* room for the fixed guided-demo bar */
 }
 
 a { color: var(--brand); }
@@ -170,6 +173,27 @@ select, input[type="text"] {
 }
 .guided-caption { flex: 1; font-size: 1rem; font-weight: 600; }
 .guided-stop { flex: 0 0 auto; }
+
+/* ---------- real-world context strip (plugins) ---------- */
+.real-context {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem 1.1rem;
+  padding: 0.6rem 0.9rem;
+  margin: 0.4rem 0 1rem;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: linear-gradient(180deg, #121c2e, var(--bg-panel));
+  font-size: 0.9rem;
+}
+.rc-title { font-weight: 800; color: var(--text-dim); text-transform: uppercase; font-size: 0.72rem; letter-spacing: 0.5px; }
+.rc-item { display: inline-flex; align-items: center; gap: 0.4rem; }
+.rc-badge {
+  font-size: 0.68rem; font-weight: 700; padding: 0.1rem 0.45rem; border-radius: 999px;
+  background: var(--st-identified); color: #fff;
+}
+.rc-badge.live { background: var(--st-reconfirmed); color: #06120c; }
 
 /* ---------- KPI impact band ---------- */
 .kpi-band {

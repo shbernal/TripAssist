@@ -7,6 +7,7 @@ import CallPanel from './CallPanel.jsx'
 import VisionCheck from './VisionCheck.jsx'
 import KpiBand from './KpiBand.jsx'
 import AgentGraph from './AgentGraph.jsx'
+import RealContext from './RealContext.jsx'
 
 // Operations control center. Watchlist + agent log + ledger + remediation card.
 // Later milestones drop CallPanel / VisionCheck into this grid.
@@ -17,6 +18,8 @@ export default function OpsView({ state, reload }) {
       <p className="muted" style={{ marginTop: '-0.4rem' }}>
         Voyageuse : {state.traveler.name} · {state.trip.label}
       </p>
+
+      <RealContext />
 
       <KpiBand state={state} />
 

@@ -8,6 +8,8 @@ import { scenarioList } from '../scenarios.js'
 import { startCall, hasVapi } from '../agents/caller.js'
 import { checkPhoto } from '../agents/vision.js'
 import { runAutofill } from '../autofill.js'
+import { fetchAxisRegularity, fetchRealtimeDisruptions } from '../plugins/sncf.js'
+import { fetchNiceWeather } from '../plugins/weather.js'
 
 const router = express.Router()
 
@@ -26,6 +28,20 @@ router.post('/demo/reset', (req, res) => {
 
 // List available disruption scenarios (for the demo panel).
 router.get('/scenarios', (req, res) => res.json({ scenarios: scenarioList() }))
+
+// Real-world context: live SNCF punctuality (Sud-Est axis) + Nice weather.
+router.get('/context', async (req, res) => {
+  try {
+    const [sncf, weather, realtime] = await Promise.all([
+      fetchAxisRegularity(),
+      fetchNiceWeather(),
+      fetchRealtimeDisruptions(),
+    ])
+    res.json({ ok: true, sncf, weather, realtime })
+  } catch (err) {
+    res.status(200).json({ ok: false, error: err.message })
+  }
+})
 
 // Inject a disruption scenario → watchdog + planner cascade (Flow A).
 // Body: { scenarioId } (defaults to 'tgv-delay').
