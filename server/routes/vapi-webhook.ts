@@ -51,7 +51,7 @@ router.post('/vapi', async (req, res) => {
     }
     res.json({ ok: true })
   } catch (err) {
-    res.status(200).json({ ok: false, error: err.message }) // 200 so Vapi doesn't retry-storm
+    res.status(200).json({ ok: false, error: (err as Error).message }) // 200 so Vapi doesn't retry-storm
   }
 })
 

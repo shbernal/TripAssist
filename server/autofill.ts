@@ -77,8 +77,8 @@ export async function runAutofill({
     return { ok: true }
   } catch (err) {
     if (browser) await browser.close().catch(() => {})
-    log('error', `Échec autofill : ${err.message}`)
-    return { ok: false, error: err.message }
+    log('error', `Échec autofill : ${(err as Error).message}`)
+    return { ok: false, error: (err as Error).message }
   }
 }
 

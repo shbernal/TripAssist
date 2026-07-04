@@ -44,7 +44,7 @@ router.get('/context', async (req, res) => {
     ])
     res.json({ ok: true, sncf, weather, realtime })
   } catch (err) {
-    res.status(200).json({ ok: false, error: err.message })
+    res.status(200).json({ ok: false, error: (err as Error).message })
   }
 })
 
@@ -56,7 +56,7 @@ router.post('/demo/chaos', async (req, res) => {
     const plan = await handleChaos(scenarioId)
     res.json({ ok: true, plan })
   } catch (err) {
-    res.status(500).json({ ok: false, error: err.message })
+    res.status(500).json({ ok: false, error: (err as Error).message })
   }
 })
 
@@ -66,10 +66,10 @@ router.post('/call/start', async (req, res) => {
   try {
     const branch = req.body?.branch || 'B2'
     // fire-and-forget: the call streams over SSE; respond immediately
-    startCall({ branch }).catch((err) => console.error('[call] failed:', err.message))
+    startCall({ branch }).catch((err) => console.error('[call] failed:', (err as Error).message))
     res.json({ ok: true, mode: hasVapi() ? 'vapi' : 'simulation', branch })
   } catch (err) {
-    res.status(500).json({ ok: false, error: err.message })
+    res.status(500).json({ ok: false, error: (err as Error).message })
   }
 })
 
@@ -128,7 +128,7 @@ router.post('/vision/check', async (req, res) => {
     const verdict = await checkPhoto(image)
     res.json({ ok: true, verdict })
   } catch (err) {
-    res.status(500).json({ ok: false, error: err.message })
+    res.status(500).json({ ok: false, error: (err as Error).message })
   }
 })
 
@@ -169,7 +169,7 @@ router.post('/autofill/run', async (req, res) => {
     const result = await runAutofill({ port: process.env.PORT || 3000 })
     res.json(result)
   } catch (err) {
-    res.status(500).json({ ok: false, error: err.message })
+    res.status(500).json({ ok: false, error: (err as Error).message })
   }
 })
 

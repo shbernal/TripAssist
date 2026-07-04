@@ -89,7 +89,7 @@ Migrating AccessTrip from JavaScript (ESM) to TypeScript, switching the package 
   - Component smoke tests `ops/RealContext.test.tsx` (mocked `/api/context` fetch, incl. not-ok + null-weather degrade paths) and `traveler/Timeline.test.tsx` (steps render, receipt count, at-risk reason chip, `StatusBadge` fallback).
 - Done **after** Phase 4 so tests are authored in TS against the shared types; the existing `scripts/smoke.ts` stays as the live end-to-end check.
 
-## Phase 6 — ESLint & Prettier
+## Phase 6 — ESLint & Prettier ✅ done
 
 **ESLint**
 
@@ -111,7 +111,7 @@ Migrating AccessTrip from JavaScript (ESM) to TypeScript, switching the package 
   - `"format:check": "node node_modules/prettier/bin/prettier.cjs --check ."`
 - Do this **after** the TS migration so it covers `.ts`/`.tsx`; run `format` then `lint:fix` once to normalize the tree, then triage remaining lint findings.
 
-## Phase 7 — Lefthook pre-commit hooks
+## Phase 7 — Lefthook pre-commit hooks ✅ done
 
 - Add dev dep: `lefthook`.
 - Add `lefthook.yml` with a `pre-commit` hook that runs on staged files only, invoking every tool through `node node_modules/...` (the `:` PATH bug applies inside hooks):
@@ -121,7 +121,7 @@ Migrating AccessTrip from JavaScript (ESM) to TypeScript, switching the package 
 - Install the git hooks: `node node_modules/lefthook/bin/index.js install` (not the bare `lefthook install` bin). Wire it into a `"prepare"` script so `pnpm install` sets hooks up automatically — but call it via `node node_modules/...` there too.
 - **Note:** the repo lives in a folder whose name contains `:`; confirm the generated `.git/hooks/pre-commit` shim resolves (Lefthook writes an absolute path to its own runner). If it can't find `lefthook`, invoke the runner explicitly with `node`.
 
-## Phase 8 — Tighten & verify
+## Phase 8 — Tighten & verify ✅ done
 
 - Flip `strict: true`; fix resulting `any`s and null-checks.
 - Run `pnpm typecheck`, `pnpm lint`, `pnpm format:check`, `pnpm test`, `pnpm dev` (manual smoke of the UI + SSE), and `pnpm smoke` against the running server.

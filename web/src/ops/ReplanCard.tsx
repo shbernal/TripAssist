@@ -23,7 +23,7 @@ export default function ReplanCard({ replan, onApplied }: ReplanCardProps) {
       if (!res.ok) throw new Error(`HTTP ${res.status}`)
       if (onApplied) await onApplied()
     } catch (err) {
-      setError(err.message)
+      setError((err as Error).message)
     } finally {
       setBusy(false)
     }

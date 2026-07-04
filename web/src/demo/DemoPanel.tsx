@@ -31,7 +31,7 @@ export default function DemoPanel({ state, reload }: DemoPanelProps) {
       await reload()
       setStatus(`${label} : OK`)
     } catch (err) {
-      setStatus(`${label} : échec (${err.message})`)
+      setStatus(`${label} : échec (${(err as Error).message})`)
     } finally {
       setBusy(false)
     }

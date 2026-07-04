@@ -77,7 +77,7 @@ async function startVapiCall() {
     log('caller', 'info', 'Le téléphone sonne… transcription en direct via webhook.')
     return { mode: 'vapi', id: data.id }
   } catch (err) {
-    log('caller', 'error', `Échec Vapi (${err.message}). Bascule en simulation.`)
+    log('caller', 'error', `Échec Vapi (${(err as Error).message}). Bascule en simulation.`)
     return simulateCall('B2')
   }
 }
@@ -128,7 +128,7 @@ const SCRIPTS: Record<string, Array<[TranscriptChunk['speaker'], string]>> = {
   ],
 }
 
-async function simulateCall(branch) {
+async function simulateCall(branch: string) {
   const script = SCRIPTS[branch] || SCRIPTS.B2
   setCall({ status: 'in_progress', id: `sim-${branch}` })
   log('caller', 'info', 'Appel simulé (mode hors ligne) — bulles en direct.')
@@ -149,7 +149,7 @@ async function simulateCall(branch) {
   return { mode: 'simulation', branch }
 }
 
-function delay(ms) {
+function delay(ms: number) {
   return new Promise((r) => setTimeout(r, ms))
 }
 

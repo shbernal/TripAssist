@@ -66,6 +66,28 @@ Smoke check (server must be running):
 pnpm smoke
 ```
 
+## Quality & tests
+
+The project is TypeScript (strict) with Vitest, ESLint (flat config), and Prettier.
+Every tool is invoked via `node node_modules/...` — the folder name's `:` breaks the
+`node_modules/.bin` PATH shim, so `npx`/`pnpm exec`/bare bins are avoided everywhere,
+including inside the git hooks.
+
+```bash
+pnpm typecheck     # tsc --noEmit for server + web
+pnpm test          # Vitest (55 tests, node + jsdom in one run)
+pnpm test:watch    # Vitest watch mode
+pnpm lint          # ESLint
+pnpm lint:fix      # ESLint --fix
+pnpm format        # Prettier --write
+pnpm format:check  # Prettier --check
+```
+
+Lefthook installs git hooks on `pnpm install` (via `prepare`):
+
+- **pre-commit** — Prettier `--write` then ESLint `--fix` on staged files, auto-re-staged.
+- **pre-push** — `typecheck` + `test`.
+
 ## Views
 
 - `/` — traveler timeline in a phone frame + accessibility passport.

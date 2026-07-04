@@ -101,7 +101,7 @@ export async function planRemediation({
     if (!plan.at_risk?.length || !plan.plan?.length) return { plan: fb, source: 'fallback' }
     return { plan, source: 'claude' }
   } catch (err) {
-    return { plan: fb, source: 'fallback', error: err.message }
+    return { plan: fb, source: 'fallback', error: (err as Error).message }
   }
 }
 

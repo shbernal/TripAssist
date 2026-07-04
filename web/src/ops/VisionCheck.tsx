@@ -29,7 +29,7 @@ export default function VisionCheck({ verdict }: VisionCheckProps) {
       if (!res.ok) throw new Error(`HTTP ${res.status}`)
       setNote('Verdict rendu.')
     } catch (err) {
-      setNote(`Échec : ${err.message}`)
+      setNote(`Échec : ${(err as Error).message}`)
     } finally {
       setBusy(false)
     }
@@ -43,7 +43,7 @@ export default function VisionCheck({ verdict }: VisionCheckProps) {
       const data = await res.json()
       setNote(data.ok ? 'Formulaire PMR rempli.' : `Autofill indisponible : ${data.error}`)
     } catch (err) {
-      setNote(`Échec : ${err.message}`)
+      setNote(`Échec : ${(err as Error).message}`)
     } finally {
       setBusy(false)
     }
