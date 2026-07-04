@@ -36,6 +36,11 @@ function FleetTravelerDetail({ traveler }) {
             <p className="muted" style={{ margin: 0, fontSize: '0.85rem' }}>Bonjour {traveler.name.split(' ')[0]}</p>
             <h2 style={{ margin: '0.25rem 0 0.1rem' }}>{traveler.route}, {traveler.dates}</h2>
             <p>{traveler.profileShort}</p>
+            <div className="fleet-tags" style={{ marginTop: '0.2rem' }}>
+              {traveler.category && <span className="fleet-tag">{traveler.category}</span>}
+              {traveler.tripType && <span className="fleet-tag">{traveler.tripType}</span>}
+              {traveler.client && <span className="fleet-tag client">{traveler.client}</span>}
+            </div>
           </section>
 
           <ol className="timeline" aria-live="off">

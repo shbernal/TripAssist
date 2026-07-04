@@ -123,7 +123,29 @@ select, input[type="text"] {
 
 .page { padding: 1.25rem; max-width: 1200px; margin: 0 auto; }
 
-/* ---------- fleet dashboard (Sprint 3) ---------- */
+/* ---------- fleet dashboard (Sprint 3 + scale) ---------- */
+.fleet-head { margin-bottom: 0.6rem; }
+.scale-note { color: var(--brand); }
+.fleet-filters {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.6rem;
+  margin: 0.3rem 0 1rem;
+}
+.fleet-search {
+  flex: 1 1 260px;
+  min-width: 200px;
+}
+.fleet-count { margin-left: auto; font-size: 0.85rem; white-space: nowrap; }
+.fleet-tags { display: flex; flex-wrap: wrap; gap: 0.35rem; margin-top: 0.4rem; }
+.fleet-tag {
+  font-size: 0.72rem; font-weight: 600;
+  padding: 0.12rem 0.5rem; border-radius: 6px;
+  background: var(--bg-elevated); border: 1px solid var(--line); color: var(--text-dim);
+}
+.fleet-tag.client { color: var(--brand); border-color: #2b4c72; background: #16273c; }
+
 .fleet-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
