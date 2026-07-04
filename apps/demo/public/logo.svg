@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="TripAssist">
+  <!-- TripAssist mark: a map pin whose head holds a check - the trip is not
+       just located, it is *confirmed*. Brand gradient (deep -> bright blue)
+       on the navy canvas the whole demo lives on. Reads down to 16px. -->
+  <defs>
+    <linearGradient id="ta-g" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#1d4ed8"/>
+      <stop offset="1" stop-color="#7dd3fc"/>
+    </linearGradient>
+  </defs>
+  <rect x="1" y="1" width="62" height="62" rx="16" fill="#0f172a"/>
+  <rect x="1" y="1" width="62" height="62" rx="16" fill="none" stroke="url(#ta-g)" stroke-opacity="0.45" stroke-width="2"/>
+  <!-- dashed route sweeping up into the pin -->
+  <path d="M12 52 C 20 50, 24 44, 26 38" fill="none" stroke="#7dd3fc" stroke-opacity="0.55" stroke-width="2.5" stroke-linecap="round" stroke-dasharray="0.5 6"/>
+  <!-- pin -->
+  <path d="M36 8c-8.6 0-15.5 6.8-15.5 15.2 0 10.9 13.1 24.6 14.7 26.2a1.1 1.1 0 0 0 1.6 0c1.6-1.6 14.7-15.3 14.7-26.2C51.5 14.8 44.6 8 36 8z" fill="url(#ta-g)"/>
+  <!-- check inside the pin head -->
+  <path d="M29.5 23.4l4.6 4.6 8.4-8.6" fill="none" stroke="#0f172a" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>

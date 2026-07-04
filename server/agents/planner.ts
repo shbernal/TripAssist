@@ -29,7 +29,7 @@ const PLAN_SCHEMA = {
   required: ['at_risk', 'plan', 'message_voyageur'],
 }
 
-const SYSTEM = `Tu es l'agent planificateur d'TripAssist. Voici le profil fonctionnel du voyageur, les étapes du voyage avec dépendances, et un événement de perturbation. Détermine quelles étapes sont à risque et propose un plan de remédiation minimal qui préserve les besoins d'accessibilité (jamais de compromis sur: transfert assisté, sans marche, douche italienne). Réponds en JSON: {at_risk: [stepId], plan: [{stepId, action, new_time, rationale}], message_voyageur: '...'}. Le message_voyageur doit être calme et rassurant, 2 phrases max.`
+const SYSTEM = `Tu es l'agent planificateur de TripAssist. Voici le profil fonctionnel du voyageur, les étapes du voyage avec dépendances, et un événement de perturbation. Détermine quelles étapes sont à risque et propose un plan de remédiation minimal qui préserve les besoins d'accessibilité (jamais de compromis sur: transfert assisté, sans marche, douche italienne). Réponds en JSON: {at_risk: [stepId], plan: [{stepId, action, new_time, rationale}], message_voyageur: '...'}. Le message_voyageur doit être calme et rassurant, 2 phrases max.`
 
 // Deterministic fallback for the seed disruption (TGV 6173 retardé). Chosen to
 // match the spec's Flow A narrative exactly so the demo is predictable.

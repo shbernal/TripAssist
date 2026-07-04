@@ -64,21 +64,22 @@ export function CallStage({ callId, active }: { callId: CallId; active: boolean 
 
   // Playback follows the active scene: autoplay (or resume) on arrival, pause on
   // departure. If the browser blocks the initial autoplay (no gesture yet) the
-  // visible controls take over.
-  const { status: callStatus, play: playCall, pause: pauseCall } = player
+  // visible controls take over. A pause the *user* asked for (userPaused) is
+  // never overridden - only deck-driven pauses auto-resume.
+  const { status: callStatus, userPaused, play: playCall, pause: pauseCall } = player
   useEffect(() => {
     if (active) {
       if (reduced) return
       if (callStatus === 'ready' && !autoplayedRef.current) {
         autoplayedRef.current = true
         playCall()
-      } else if (callStatus === 'paused') {
+      } else if (callStatus === 'paused' && !userPaused) {
         playCall()
       }
     } else if (callStatus === 'playing') {
       pauseCall()
     }
-  }, [active, reduced, callStatus, playCall, pauseCall])
+  }, [active, reduced, callStatus, userPaused, playCall, pauseCall])
 
   const ended = player.status === 'ended'
 

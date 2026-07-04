@@ -43,6 +43,9 @@ export interface CallPlayer {
   /** 0..1 across the whole conversation. */
   progress: number
   muted: boolean
+  /** True while the pause came from the user (via `toggle`), not from the deck
+      pausing an off-screen scene - callers must not auto-resume over it. */
+  userPaused: boolean
   play: () => void
   pause: () => void
   toggle: () => void
@@ -71,6 +74,7 @@ export function useCallPlayer(callId: CallId): CallPlayer {
   const [activeIndex, setActiveIndex] = useState<number>(-1)
   const [progress, setProgress] = useState(0)
   const [muted, setMuted] = useState(false)
+  const [userPaused, setUserPaused] = useState(false)
 
   const howlRef = useRef<Howl | null>(null)
   const rafRef = useRef<number | null>(null)
@@ -113,8 +117,10 @@ export function useCallPlayer(callId: CallId): CallPlayer {
         setStatus('ended')
       },
       onplayerror: () => {
-        // Autoplay was blocked (no user gesture yet); wait for an explicit play.
-        setStatus('paused')
+        // Autoplay was blocked (no user gesture yet). Fall back to 'ready' so
+        // the visible controls take over - reporting 'paused' here would make
+        // CallStage retry play() in a loop the browser keeps refusing.
+        setStatus('ready')
       },
     })
     howlRef.current = howl
@@ -147,6 +153,7 @@ export function useCallPlayer(callId: CallId): CallPlayer {
     const howl = howlRef.current
     if (!howl) return
     if (status === 'ended') howl.seek(0)
+    setUserPaused(false)
     howl.play()
     setStatus('playing')
     stopRaf()
@@ -159,9 +166,15 @@ export function useCallPlayer(callId: CallId): CallPlayer {
     setStatus('paused')
   }, [])
 
+  // `toggle` is only ever wired to the visible controls, so a pause through it
+  // is *user intent* - remembered so scene logic doesn't auto-resume over it.
   const toggle = useCallback((): void => {
-    if (status === 'playing') pause()
-    else play()
+    if (status === 'playing') {
+      setUserPaused(true)
+      pause()
+    } else {
+      play()
+    }
   }, [status, play, pause])
 
   const replay = useCallback((): void => {
@@ -170,6 +183,7 @@ export function useCallPlayer(callId: CallId): CallPlayer {
     howl.seek(0)
     setActiveIndex(-1)
     setProgress(0)
+    setUserPaused(false)
     howl.play()
     setStatus('playing')
     stopRaf()
@@ -214,6 +228,7 @@ export function useCallPlayer(callId: CallId): CallPlayer {
     activeSpeaker: activeLine?.speaker ?? null,
     progress,
     muted,
+    userPaused,
     play,
     pause,
     toggle,

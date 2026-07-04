@@ -29,12 +29,17 @@
 
   /* #main clips its overflow (overflow-clip) and translates an inner track, so
      there is no native scrollbar to hide; these rules are a defensive no-op for
-     any UA that still exposes one. Progress lives in the top gradient bar. */
-  #main {
+     any UA that still exposes one. Scenes, however, keep overflow-y-auto as a
+     safety net for very short viewports - hide *their* scrollbars too, or the
+     bar renders at the screen edge and reads as a page scrollbar. Progress
+     lives in the top gradient bar. */
+  #main,
+  #main section {
     scrollbar-width: none; /* Firefox */
     -ms-overflow-style: none; /* legacy Edge */
   }
-  #main::-webkit-scrollbar {
+  #main::-webkit-scrollbar,
+  #main section::-webkit-scrollbar {
     display: none; /* Chromium, Safari */
   }
 

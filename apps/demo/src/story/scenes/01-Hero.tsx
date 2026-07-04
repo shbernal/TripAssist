@@ -13,7 +13,7 @@ export function Hero() {
       aria-labelledby="hero-heading"
       className="relative flex h-dvh w-screen shrink-0 items-center overflow-y-auto px-6 pb-16 pt-8 outline-none sm:px-10"
     >
-      <div className="m-auto grid w-full max-w-5xl items-center gap-12 md:grid-cols-2">
+      <div className="m-auto grid w-full max-w-5xl items-center gap-6 md:grid-cols-2 md:gap-12">
         <div>
           <span className="inline-flex items-center gap-2 rounded-full border border-slate-700 bg-slate-900/70 px-4 py-1.5 text-sm text-slate-300">
             <ShieldCheck aria-hidden="true" className="h-4 w-4 text-emerald-400" />
@@ -51,7 +51,7 @@ export function Hero() {
           <img
             src={asset('faces/camille.png')}
             alt="Camille Moreau, 34 ans, souriante dans son fauteuil roulant électrique, un smartphone à la main."
-            className="relative max-h-[60dvh] w-full max-w-xs rounded-[2rem] border border-slate-800 object-cover shadow-2xl sm:max-w-sm"
+            className="relative max-h-[34dvh] w-full max-w-xs rounded-[2rem] border border-slate-800 object-cover shadow-2xl sm:max-w-sm md:max-h-[60dvh]"
           />
         </motion.div>
       </div>
