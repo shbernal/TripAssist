@@ -30,7 +30,7 @@ OpenRouteService) each follow a timeout + cache + reference fallback contract. G
 principle: **never breaks in the demo, goes live the moment a key is present**.
 `~6,250` lines, **91 tests**, TS strict, ESLint/Prettier, Lefthook pre-commit/pre-push.
 A one-page jury brief lives at
-[`docs/AccessTrip_Brief-Technique_v1.pdf`](docs/AccessTrip_Brief-Technique_v1.pdf).
+[`docs/TripAssist_Brief-Technique_v1.pdf`](docs/TripAssist_Brief-Technique_v1.pdf).
 
 ## History — the milestone build (M1 → M6)
 
@@ -62,7 +62,7 @@ history and the code still runs; treat the _narrative_ as superseded by AGENTS.m
 
 ### Live vs. offline
 
-The demo runs **fully offline** with no keys: the planner/extractor/vision agents fall back to deterministic results, and `/api/call/start` plays a scripted call over the same SSE pipeline. To go live, fill `AccessTrip/.env`:
+The demo runs **fully offline** with no keys: the planner/extractor/vision agents fall back to deterministic results, and `/api/call/start` plays a scripted call over the same SSE pipeline. To go live, fill `TripAssist/.env`:
 
 - `ANTHROPIC_API_KEY` (direct key, sent as `x-api-key`) **or** `ANTHROPIC_AUTH_TOKEN` + `ANTHROPIC_BASE_URL` (gateway/OAuth, sent as `Authorization: Bearer`) — real Claude planning / extraction / vision.
 - `VAPI_*` + `RECEPTIONIST_PHONE` + `PUBLIC_URL` (ngrok) — a real phone call with streamed transcript. Full walkthrough in **[docs/guides/vapi-setup.md](docs/guides/vapi-setup.md)**.

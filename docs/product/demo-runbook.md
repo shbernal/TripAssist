@@ -7,7 +7,7 @@ vrai travail, pas des écrans. Répète-le 3 fois avant de monter.
 
 ## 0. Avant de monter sur scène (checklist, 2 min)
 
-- [ ] `cd AccessTrip && npm run dev` puis ouvrir **http://localhost:5173** (ou `npm run start` sur :3000).
+- [ ] `cd TripAssist && npm run dev` puis ouvrir **http://localhost:5173** (ou `npm run start` sur :3000).
 - [ ] Cliquer **Démo → Réinitialiser la démo** (état propre).
 - [ ] Navigateur en **plein écran**, zoom à 100 %.
 - [ ] **Son de la salle activé** (la voix de l'IA passe par les haut-parleurs).

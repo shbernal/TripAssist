@@ -13,7 +13,7 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url))
 
 // `:memory:` (tests) gets an ephemeral DB; anything else is a file path we own.
 function dbPath(): string {
-  return process.env.ACCESSTRIP_DB || path.join(__dirname, '..', 'data', 'accesstrip.db')
+  return process.env.TRIPASSIST_DB || path.join(__dirname, '..', 'data', 'tripassist.db')
 }
 
 let db: DatabaseSync = open()
@@ -102,7 +102,7 @@ export function deleteTrip(id: string): void {
   db.prepare('DELETE FROM trips WHERE id = ?').run(id)
 }
 
-// Close + reopen the handle. Reopening honors the current ACCESSTRIP_DB, so tests
+// Close + reopen the handle. Reopening honors the current TRIPASSIST_DB, so tests
 // can point the store at a temp file, close, and reopen to prove restart-survival.
 export function closeDb(): void {
   db.close()

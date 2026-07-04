@@ -31,7 +31,7 @@ workspace member. Both center on the same **initial-reservation** narrative (see
 
 | Concern                 | Recommendation                                                              | Why                                                                                                                                                                                              |
 | ----------------------- | --------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| **Demo hosting**        | **GitHub Pages** (primary), Vercel considered later                         | No external account needed; the repo's already on GitHub. `base`-aware Vite build (`--base=/AccessTrip/`) publishes `dist/` to `gh-pages`. Vercel (preview URLs per PR) is an easy later switch. |
+| **Demo hosting**        | **GitHub Pages** (primary), Vercel considered later                         | No external account needed; the repo's already on GitHub. `base`-aware Vite build (`--base=/TripAssist/`) publishes `dist/` to `gh-pages`. Vercel (preview URLs per PR) is an easy later switch. |
 | **Demo framework**      | **Vite + React + TypeScript** (SPA, static build)                           | Matches existing toolchain; no server needed; trivial to deploy anywhere.                                                                                                                        |
 | **Scroll storytelling** | **GSAP + ScrollTrigger**                                                    | The industry standard for scene-by-scene, scroll-pinned "scrollytelling". Drives the whole narrative timeline.                                                                                   |
 | **Smooth scroll**       | **Lenis** (`@studio-freight/lenis`)                                         | Buttery inertia scroll that ScrollTrigger hooks into.                                                                                                                                            |
@@ -58,11 +58,11 @@ pnpm add -D vite @vitejs/plugin-react typescript tailwindcss @tailwindcss/vite \
 ## 1. Target repository layout
 
 ```
-AccessTrip/
+TripAssist/
 ├─ apps/
 │  ├─ demo/                     # NEW — stylized landing page (static, → GitHub Pages)
 │  │  ├─ index.html
-│  │  ├─ vite.config.ts         # base: '/AccessTrip/' for GH Pages ('/' toggle if Vercel later)
+│  │  ├─ vite.config.ts         # base: '/TripAssist/' for GH Pages ('/' toggle if Vercel later)
 │  │  ├─ src/
 │  │  │  ├─ main.tsx
 │  │  │  ├─ App.tsx
@@ -230,7 +230,7 @@ app so work continues cleanly.
 
 ## 6. Deployment
 
-- **Demo → GitHub Pages (primary).** A workflow builds `apps/demo` with `--base=/AccessTrip/`
+- **Demo → GitHub Pages (primary).** A workflow builds `apps/demo` with `--base=/TripAssist/`
   and publishes `dist/` to `gh-pages`. No external account needed. **Vercel later (optional):**
   root `apps/demo`, `vite build` → `dist/`, `vercel.json` SPA rewrite, preview URL per PR —
   an easy switch if we want it.
@@ -253,7 +253,7 @@ app so work continues cleanly.
 - [x] Add `packages: ["apps/*"]` to `pnpm-workspace.yaml`; **leave `server`/`web`/`shared` at
       the root** (MVP stays the root package). Verify `pnpm test` still green. _(60/60 pass.)_
 - [x] Scaffold `apps/demo` (Vite + React + TS + Tailwind) with its own `package.json` holding
-      the animation deps; hello-world deploy to **GitHub Pages** (`--base=/AccessTrip/`).
+      the animation deps; hello-world deploy to **GitHub Pages** (`--base=/TripAssist/`).
       _(`.github/workflows/deploy-demo.yml` builds + publishes `apps/demo/dist`.)_
 
 **Phase 2 — Generate assets**
@@ -271,9 +271,9 @@ app so work continues cleanly.
 - [x] Reduced-motion + keyboard + screen-reader passes: `useReducedMotion` gates every
       motion path, skip link + `:focus-visible` + semantic `section`/heading outline,
       `aria-live` captions, full DOM transcripts, alt text on every face. Typecheck + prod
-      build green; assets serve 200 under `--base=/AccessTrip/`.
+      build green; assets serve 200 under `--base=/TripAssist/`.
 - [x] Lighthouse a11y ≥ 95 — **scored 100/100**, zero failed audits (headless Chromium
-      against the `--base=/AccessTrip/` production preview, 2026-07-04). Note: Lighthouse only
+      against the `--base=/TripAssist/` production preview, 2026-07-04). Note: Lighthouse only
       grades the initial above-the-fold state; scroll-pinned scenes 2–6 still rely on the
       manual reduced-motion / keyboard / transcript passes above.
 
@@ -300,7 +300,7 @@ app so work continues cleanly.
 
 **Phase 5 — Ship**
 
-- [ ] Demo live on **GitHub Pages** (`--base=/AccessTrip/`); Vercel an optional later switch
+- [ ] Demo live on **GitHub Pages** (`--base=/TripAssist/`); Vercel an optional later switch
       (§6). README updated with both apps; runbook refreshed for the new (proactive-setup)
       narrative.
 - [ ] Docs reconciliation: bring `docs/architecture/spec.md` + `docs/product/brief.md` in line

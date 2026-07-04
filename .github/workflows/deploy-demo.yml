@@ -1,6 +1,6 @@
 name: Deploy demo → GitHub Pages
 
-# Builds apps/demo with base=/AccessTrip/ and publishes dist/ to GitHub Pages.
+# Builds apps/demo with base=/TripAssist/ and publishes dist/ to GitHub Pages.
 # No external account needed. The MVP (root package) is never built here.
 on:
   push:
@@ -34,7 +34,7 @@ jobs:
           node-version: 22
           cache: pnpm
       - run: pnpm install --frozen-lockfile
-      - run: pnpm --filter @accesstrip/demo build
+      - run: pnpm --filter @tripassist/demo build
       - uses: actions/upload-pages-artifact@v3
         with:
           path: apps/demo/dist

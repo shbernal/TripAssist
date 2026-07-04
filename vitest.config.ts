@@ -12,7 +12,7 @@ export default defineConfig({
           name: 'server',
           environment: 'node',
           // Persist to an ephemeral in-memory SQLite DB - no disk, no cross-test bleed.
-          env: { ACCESSTRIP_DB: ':memory:' },
+          env: { TRIPASSIST_DB: ':memory:' },
           include: ['server/**/*.test.ts', 'scripts/**/*.test.ts'],
         },
       },

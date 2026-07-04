@@ -49,7 +49,7 @@ place at the repo root** — no `apps/mvp` move, no `packages/shared` extraction
 a clean post-hackathon step if shared code actually grows.
 
 ```
-AccessTrip/
+TripAssist/
 ├─ package.json            # the MVP (root package): server/ + web/ + shared/
 ├─ pnpm-workspace.yaml     # declares apps/* as workspace members
 ├─ server/  web/  shared/  # MVP, unmoved

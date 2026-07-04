@@ -1,6 +1,6 @@
 import { describe, it, expect, beforeEach } from 'vitest'
 
-// The store persists to an in-memory SQLite DB in tests (ACCESSTRIP_DB=':memory:',
+// The store persists to an in-memory SQLite DB in tests (TRIPASSIST_DB=':memory:',
 // set in vitest.config.ts), so state.ts never touches disk and each run starts clean.
 
 import {

@@ -46,7 +46,7 @@ each call.
 
 ## 3. Fill `.env` and restart
 
-Put the five `VAPI_*` values + `PUBLIC_URL` into `AccessTrip/.env`, then:
+Put the five `VAPI_*` values + `PUBLIC_URL` into `TripAssist/.env`, then:
 
 ```bash
 npm run start        # or npm run dev

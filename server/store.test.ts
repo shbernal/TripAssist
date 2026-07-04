@@ -6,10 +6,10 @@ import { seed } from './seed'
 import { loadTrip, saveTrip, listTrips, deleteTrip, closeDb, reopenDb } from './store'
 
 // A real temp FILE DB (not :memory:) so the restart-survival test is meaningful.
-const dbFile = path.join(os.tmpdir(), `accesstrip-store-test-${process.pid}.db`)
+const dbFile = path.join(os.tmpdir(), `tripassist-store-test-${process.pid}.db`)
 
 beforeAll(() => {
-  process.env.ACCESSTRIP_DB = dbFile
+  process.env.TRIPASSIST_DB = dbFile
   closeDb() // drop the :memory: handle opened at import (vitest env default)
   reopenDb() // reopen onto the temp file
 })
@@ -23,7 +23,7 @@ afterAll(() => {
       /* best effort */
     }
   }
-  delete process.env.ACCESSTRIP_DB
+  delete process.env.TRIPASSIST_DB
 })
 
 beforeEach(() => {

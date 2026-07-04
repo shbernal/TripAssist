@@ -38,7 +38,7 @@ function load(): AppState {
 function migrateLegacy(): AppState | null {
   try {
     // An ephemeral in-memory store (tests) starts from the seed, never the legacy file.
-    if (process.env.ACCESSTRIP_DB === ':memory:') return null
+    if (process.env.TRIPASSIST_DB === ':memory:') return null
     if (!fs.existsSync(LEGACY_STATE_FILE)) return null
     const raw = fs.readFileSync(LEGACY_STATE_FILE, 'utf8')
     if (!raw.trim()) return null

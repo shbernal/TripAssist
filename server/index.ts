@@ -90,7 +90,7 @@ app.listen(PORT, () => {
   console.log('')
 })
 
-// Minimal .env parser - avoids adding dotenv as a dependency. Reads AccessTrip/.env
+// Minimal .env parser - avoids adding dotenv as a dependency. Reads TripAssist/.env
 // first, then the parent workspace .env as a fallback (so an existing Claude
 // gateway config is reused without duplicating the token into a new file).
 function loadDotEnv(): void {

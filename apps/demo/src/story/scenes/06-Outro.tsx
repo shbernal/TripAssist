@@ -4,7 +4,7 @@ import { Reveal } from '../../components/Reveal'
 import { Chip } from '../../components/Chip'
 import { CALLS } from '../calls'
 
-const REPO_URL = 'https://github.com/1cekubesv1/AccessTrip'
+const REPO_URL = 'https://github.com/shbernal/TripAssist'
 
 export function Outro() {
   const entries = [CALLS['airport-call'].outcome, CALLS['hotel-call'].outcome]

@@ -76,7 +76,7 @@ export function verifyPassword(email: string, password: string): Operator | null
 // session store needed; tampering flips the HMAC so verify returns null.
 
 function secret(): string {
-  return process.env.SESSION_SECRET || 'accesstrip-dev-session-secret'
+  return process.env.SESSION_SECRET || 'tripassist-dev-session-secret'
 }
 
 function b64url(s: string): string {

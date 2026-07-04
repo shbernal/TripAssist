@@ -1,4 +1,4 @@
-# AccessTrip · Architecture technique
+# TripAssist · Architecture technique
 
 > La partie visible de l'iceberg pour un jury qui regarde sous le capot.
 > Plateforme d'orchestration de voyage pilotée par IA pour les personnes en

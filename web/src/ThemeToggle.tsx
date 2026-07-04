@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { Sun, Moon } from 'lucide-react'
 
 type Theme = 'light' | 'dark'
-const STORAGE_KEY = 'accesstrip-theme'
+const STORAGE_KEY = 'tripassist-theme'
 
 function initialTheme(): Theme {
   try {
