@@ -4,7 +4,6 @@ import express from 'express'
 import { getState, resetState, setStepStatus, appendLedger, appendAgentLog } from '../state.js'
 import { pushEvent } from '../events.js'
 import { handleChaos } from '../agents/watchdog.js'
-import { scenarioList } from '../scenarios.js'
 import { startCall, hasVapi } from '../agents/caller.js'
 import { checkPhoto } from '../agents/vision.js'
 import { runAutofill } from '../autofill.js'
@@ -37,9 +36,6 @@ router.post('/demo/reset', (req, res) => {
   pushEvent('state_reset', { at: new Date().toISOString() })
   res.json({ ok: true, state })
 })
-
-// List available disruption scenarios (for the demo panel).
-router.get('/scenarios', (req, res) => res.json({ scenarios: scenarioList() }))
 
 // Real-world context: live SNCF punctuality (Sud-Est axis) + Nice weather.
 router.get('/context', async (req, res) => {

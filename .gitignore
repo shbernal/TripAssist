@@ -12,5 +12,7 @@ data/*.db-shm
 *.log
 _archive/
 
-# ffmpeg intermediates left by tooling/demo/generate-voices.ts
+# intermediates left by tooling/demo/generate-voices.ts (the app only plays the
+# stitched conversation.mp3; per-line clips are kept locally for debugging)
 apps/demo/public/audio/*/_*
+apps/demo/public/audio/*/[0-9]*.mp3

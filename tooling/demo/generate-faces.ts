@@ -1,7 +1,7 @@
 /**
  * generate-faces.ts - Demo asset tooling (image generation)
  *
- * Generates the storytelling portraits (Camille, Julien, airport & hotel staff)
+ * Generates the storytelling portraits (Camille, airport & hotel staff)
  * and the AI-agent avatar for the stylized landing page, by talking directly to
  * the Codex CLI's built-in image tool. This rides the ChatGPT subscription via
  * Codex's stored OAuth login - no OpenAI API key, no per-image billing.

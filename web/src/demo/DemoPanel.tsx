@@ -129,7 +129,7 @@ export default function DemoPanel({ state, reload }: DemoPanelProps) {
   )
 }
 
-// mirrors server/scenarios.js
+// mirrors server/scenarios.ts (SCENARIOS catalog)
 const SCENARIOS = [
   { id: 'tgv-delay', label: 'Retard TGV (55 min)' },
   { id: 'strike', label: 'Grève SNCF (train supprimé)' },
