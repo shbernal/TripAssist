@@ -1,8 +1,12 @@
-// In-memory state with lightweight JSON persistence. Single source of truth.
+// In-memory state persisted to SQLite (server/store.ts). Single source of truth.
+// The active trip's AppState lives in memory as the working set; every mutation is
+// written back to its row. The store is a document store keyed by trip id, so this
+// module owns a single active trip while the schema is ready for many.
 import fs from 'node:fs'
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { seed } from './seed.js'
+import { loadTrip, saveTrip } from './store.js'
 import type {
   AppState,
   Step,
@@ -13,28 +17,42 @@ import type {
 } from '../shared/types.js'
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
-const STATE_FILE = path.join(__dirname, '..', 'data', 'state.json')
+// The single trip the running MVP drives. Multi-trip scoping is the auth workstream.
+const ACTIVE_TRIP_ID = 'camille'
+// Legacy single-file store — imported once if present, then superseded by SQLite.
+const LEGACY_STATE_FILE = path.join(__dirname, '..', 'data', 'state.json')
 
 let state: AppState = load()
 
 function load(): AppState {
-  try {
-    if (fs.existsSync(STATE_FILE)) {
-      const raw = fs.readFileSync(STATE_FILE, 'utf8')
-      if (raw.trim()) return JSON.parse(raw) as AppState
-    }
-  } catch (err) {
-    console.warn('[state] could not load persisted state, seeding fresh:', (err as Error).message)
-  }
-  const fresh = seed()
+  const persisted = loadTrip(ACTIVE_TRIP_ID)
+  if (persisted) return persisted
+
+  // First boot on the SQLite store: adopt the old data/state.json if it exists so a
+  // demo in progress isn't lost, otherwise start from the seed. Either way, persist.
+  const fresh = migrateLegacy() ?? seed()
   persist(fresh)
   return fresh
 }
 
+function migrateLegacy(): AppState | null {
+  try {
+    // An ephemeral in-memory store (tests) starts from the seed, never the legacy file.
+    if (process.env.ACCESSTRIP_DB === ':memory:') return null
+    if (!fs.existsSync(LEGACY_STATE_FILE)) return null
+    const raw = fs.readFileSync(LEGACY_STATE_FILE, 'utf8')
+    if (!raw.trim()) return null
+    console.log('[state] migrating legacy data/state.json into SQLite store')
+    return JSON.parse(raw) as AppState
+  } catch (err) {
+    console.warn('[state] legacy state.json migration skipped:', (err as Error).message)
+    return null
+  }
+}
+
 function persist(s: AppState = state): void {
   try {
-    fs.mkdirSync(path.dirname(STATE_FILE), { recursive: true })
-    fs.writeFileSync(STATE_FILE, JSON.stringify(s, null, 2))
+    saveTrip(ACTIVE_TRIP_ID, s)
   } catch (err) {
     console.warn('[state] persist failed:', (err as Error).message)
   }

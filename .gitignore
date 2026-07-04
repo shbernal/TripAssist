@@ -3,6 +3,9 @@ web/dist
 apps/demo/dist
 coverage
 data/state.json
+data/*.db
+data/*.db-wal
+data/*.db-shm
 .env
 .DS_Store
 *.log

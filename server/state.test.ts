@@ -1,17 +1,7 @@
-import { describe, it, expect, beforeEach, vi } from 'vitest'
+import { describe, it, expect, beforeEach } from 'vitest'
 
-// Mock the filesystem so state.ts never touches disk: existsSync=false forces a
-// fresh seed on import, and writes are no-ops. Both default and named exports are
-// provided because state.ts uses `import fs from 'node:fs'`.
-vi.mock('node:fs', () => {
-  const fake = {
-    existsSync: () => false,
-    readFileSync: () => '',
-    writeFileSync: vi.fn(),
-    mkdirSync: vi.fn(),
-  }
-  return { ...fake, default: fake }
-})
+// The store persists to an in-memory SQLite DB in tests (ACCESSTRIP_DB=':memory:',
+// set in vitest.config.ts), so state.ts never touches disk and each run starts clean.
 
 import {
   getState,
