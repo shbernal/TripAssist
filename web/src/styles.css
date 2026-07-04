@@ -991,6 +991,32 @@ input[type='text'] {
   border: 0;
 }
 
+/* passport: IATA SSR codes + regulatory footer (reference master data) */
+.ssr-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.35rem;
+  margin: 0 0 0.7rem;
+}
+.ssr-chip {
+  font-family: ui-monospace, monospace;
+  font-size: 0.74rem;
+  font-weight: 700;
+  letter-spacing: 0.4px;
+  padding: 0.12rem 0.45rem;
+  border-radius: 6px;
+  color: var(--brand-ink);
+  background: var(--brand);
+  cursor: help;
+}
+.passport-standards {
+  margin: 0.7rem 0 0;
+  padding-top: 0.5rem;
+  border-top: 1px solid var(--line);
+  font-size: 0.74rem;
+}
+
 @media (prefers-reduced-motion: reduce) {
   * {
     animation: none !important;

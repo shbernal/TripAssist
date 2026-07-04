@@ -18,11 +18,12 @@ function baseSeed(): { traveler: Traveler; trip: Trip; ledger_seed: LedgerEntry[
         type: 'Fauteuil roulant électrique',
         model: 'Permobil M3',
         weight_kg: 140,
-        battery: 'Lithium-ion 25.2V (conforme IATA)',
+        battery: 'Lithium-ion 25.2V · non-spillable · conforme IATA DGR (aide à la mobilité)',
         dimensions_cm: { l: 85, w: 65, h: 96 },
       },
       caregiver: { name: 'Julien Moreau', relation: 'conjoint', access: 'read-only' },
-      emergency_contact: 'Julien Moreau — 06 XX XX XX XX',
+      // Numéro partiellement masqué (minimisation RGPD sur données personnelles).
+      emergency_contact: 'Julien Moreau — +33 6 24 55 •• ••',
     },
     trip: {
       label: 'Paris → Nice, 12–15 septembre',

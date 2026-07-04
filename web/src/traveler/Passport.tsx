@@ -1,9 +1,12 @@
 import React from 'react'
 import type { Traveler } from '../../../shared/types'
+import { ssrForCategory, STANDARDS } from '../../../shared/reference'
 
 // Accessibility passport: the traveler's functional needs + equipment, always visible.
+// Camille is the electric-wheelchair case → the "Moteur" SSR set (WCHC/WCLB/MAAS).
 export default function Passport({ traveler }: { traveler: Traveler }) {
   const eq = traveler.equipment
+  const ssr = ssrForCategory('Moteur')
   return (
     <section aria-labelledby="passport-title" className="panel" style={{ marginTop: '0.9rem' }}>
       <h3 id="passport-title" style={{ margin: '0 0 0.5rem', fontSize: '1rem' }}>
@@ -14,6 +17,17 @@ export default function Passport({ traveler }: { traveler: Traveler }) {
           <li key={i}>{need}</li>
         ))}
       </ul>
+
+      <div className="ssr-row" aria-label="Codes IATA de service spécial">
+        <span className="muted" style={{ fontSize: '0.78rem' }}>
+          Codes IATA
+        </span>
+        {ssr.map((s) => (
+          <span key={s.code} className="ssr-chip" title={s.label}>
+            {s.code}
+          </span>
+        ))}
+      </div>
       <dl style={{ margin: 0, fontSize: '0.9rem' }}>
         <div style={{ display: 'flex', gap: '0.5rem' }}>
           <dt className="muted" style={{ minWidth: 92 }}>
@@ -46,6 +60,10 @@ export default function Passport({ traveler }: { traveler: Traveler }) {
           </dd>
         </div>
       </dl>
+
+      <p className="passport-standards muted">
+        Conformité : {STANDARDS.map((s) => s.ref).join(' · ')}
+      </p>
     </section>
   )
 }

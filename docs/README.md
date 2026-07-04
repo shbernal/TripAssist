@@ -13,6 +13,7 @@ deeper product and technical docs.
 
 - [Spec](architecture/spec.md) — technical specification (milestones M1–M6).
 - [Migration](architecture/migration.md) — migration notes (npm → pnpm, tooling, strict TS).
+- [Data Model](architecture/data-model.md) — data dictionary: entities, reference master data (real UIC/IATA codes), integrity invariants, data sources.
 
 ## Guides
 
