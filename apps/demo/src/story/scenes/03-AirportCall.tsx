@@ -8,7 +8,7 @@ export function AirportCall() {
       id="airport-call"
       step="02"
       eyebrow="Appel n°1 - l’aéroport"
-      heading="L’agent appelle Paris-CDG pour l’assistance embarquement."
+      heading="Assistance embarquement, réglée."
     >
       <Reveal>
         <CallStage callId="airport-call" />

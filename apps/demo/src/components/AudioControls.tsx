@@ -2,40 +2,51 @@ import { Pause, Play, RotateCcw, Volume2, VolumeX } from 'lucide-react'
 import type { CallPlayer } from '../lib/useCallPlayer'
 
 /**
- * Visible transport for a call. Audio never plays without one of these controls
- * (or an explicit in-view trigger); sound is always opt-in and mutable.
+ * Visible transport for a call - deliberately quiet chrome: three small
+ * icon-only buttons (play/pause, restart, mute) tucked in the card header. The
+ * call drives itself; these exist for control, not for attention. Audio never
+ * plays without one of these controls (or an explicit in-view trigger); sound
+ * is always opt-in and mutable.
  */
 export function AudioControls({ player }: { player: CallPlayer }) {
   const isPlaying = player.status === 'playing'
   const disabled = player.status === 'loading' || player.status === 'error'
 
   const btn =
-    'inline-flex items-center gap-2 rounded-full border px-4 py-2 text-sm font-medium transition-colors disabled:opacity-40'
+    'inline-flex h-8 w-8 items-center justify-center rounded-full border border-slate-700/60 bg-slate-900/50 text-slate-400 transition-colors hover:border-brand-bright/60 hover:text-brand-bright disabled:opacity-40'
+
+  const playLabel = isPlaying
+    ? 'Pause'
+    : player.status === 'ended'
+      ? 'Réécouter'
+      : 'Écouter l’appel'
 
   return (
-    <div className="flex flex-wrap items-center gap-3">
+    <div className="flex shrink-0 items-center gap-1.5">
       <button
         type="button"
         onClick={player.toggle}
         disabled={disabled}
-        className={`${btn} border-brand-teal/50 bg-brand-teal/15 text-brand-teal hover:bg-brand-teal/25`}
+        aria-label={playLabel}
+        title={playLabel}
+        className={btn}
       >
         {isPlaying ? (
-          <Pause aria-hidden="true" className="h-4 w-4" />
+          <Pause aria-hidden="true" className="h-3.5 w-3.5" />
         ) : (
-          <Play aria-hidden="true" className="h-4 w-4" />
+          <Play aria-hidden="true" className="h-3.5 w-3.5" />
         )}
-        {isPlaying ? 'Pause' : player.status === 'ended' ? 'Réécouter' : 'Écouter l’appel'}
       </button>
 
       <button
         type="button"
         onClick={player.replay}
         disabled={disabled}
-        className={`${btn} border-slate-700 bg-slate-900/70 text-slate-300 hover:bg-slate-800`}
+        aria-label="Recommencer l’appel"
+        title="Recommencer"
+        className={btn}
       >
-        <RotateCcw aria-hidden="true" className="h-4 w-4" />
-        Recommencer
+        <RotateCcw aria-hidden="true" className="h-3.5 w-3.5" />
       </button>
 
       <button
@@ -43,14 +54,15 @@ export function AudioControls({ player }: { player: CallPlayer }) {
         onClick={player.toggleMute}
         disabled={disabled}
         aria-pressed={player.muted}
-        className={`${btn} border-slate-700 bg-slate-900/70 text-slate-300 hover:bg-slate-800`}
+        aria-label={player.muted ? 'Réactiver le son' : 'Couper le son'}
+        title={player.muted ? 'Réactiver le son' : 'Couper le son'}
+        className={btn}
       >
         {player.muted ? (
-          <VolumeX aria-hidden="true" className="h-4 w-4" />
+          <VolumeX aria-hidden="true" className="h-3.5 w-3.5" />
         ) : (
-          <Volume2 aria-hidden="true" className="h-4 w-4" />
+          <Volume2 aria-hidden="true" className="h-3.5 w-3.5" />
         )}
-        {player.muted ? 'Réactiver le son' : 'Couper le son'}
       </button>
     </div>
   )

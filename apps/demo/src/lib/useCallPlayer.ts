@@ -7,6 +7,9 @@ export interface ManifestLine {
   id: number
   speaker: Speaker
   caption: string
+  /** Full spoken sentence. Absent from manifests generated before it existed -
+      callers fall back to the transcript mirror in story/calls.ts. */
+  text?: string
   file: string
   start: number
   duration: number
@@ -182,6 +185,25 @@ export function useCallPlayer(callId: CallId): CallPlayer {
   }, [])
 
   useEffect(() => () => stopRaf(), [])
+
+  // Dev-only escape hatch so browser automation (Playwright) can drive the
+  // call without waiting out the full audio. Absent from production builds.
+  useEffect(() => {
+    if (!import.meta.env.DEV) return
+    const w = window as Window & {
+      __callPlayers?: Record<string, { seek: (t: number) => void; play: () => void }>
+    }
+    w.__callPlayers = w.__callPlayers ?? {}
+    w.__callPlayers[callId] = {
+      seek: (t: number) => {
+        howlRef.current?.seek(t)
+      },
+      play,
+    }
+    return () => {
+      delete w.__callPlayers?.[callId]
+    }
+  }, [callId, play])
 
   const activeLine = activeIndex >= 0 && manifest ? manifest.lines[activeIndex] : null
 

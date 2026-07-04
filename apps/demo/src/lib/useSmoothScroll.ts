@@ -1,16 +1,19 @@
 import { useCallback, useEffect, useRef } from 'react'
 import type { RefObject } from 'react'
 import Lenis from 'lenis'
+import Snap from 'lenis/snap'
 
 interface HorizontalScroll {
-  /** Scroll the track to an absolute horizontal offset (px). */
-  scrollToLeft: (left: number) => void
+  /** Scroll the track to a scene index (0-based). */
+  scrollToIndex: (index: number) => void
 }
 
 /**
  * Turns a horizontally-overflowing container into the story's single scroller:
  * a vertical wheel gesture moves the scenes sideways. Lenis provides the buttery
- * inertia (orientation horizontal, gesture read from the vertical wheel). Under
+ * inertia (orientation horizontal, gesture read from the vertical wheel) and its
+ * Snap plugin settles on whole scenes - CSS scroll-snap must stay OFF on the
+ * container, the two animation systems fight and the result stutters. Under
  * reduced motion Lenis is skipped and a tiny native handler maps the wheel to an
  * instant horizontal scroll, so the page is still navigable with no animation.
  *
@@ -26,12 +29,13 @@ export function useSmoothScroll(
 ): HorizontalScroll {
   const lenisRef = useRef<Lenis | null>(null)
 
-  const scrollToLeft = useCallback(
-    (left: number): void => {
+  const scrollToIndex = useCallback(
+    (index: number): void => {
       const wrapper = containerRef.current
       if (!wrapper) return
+      const left = index * wrapper.clientWidth
       if (lenisRef.current) {
-        lenisRef.current.scrollTo(left)
+        lenisRef.current.scrollTo(left, { duration: 1.4 })
       } else {
         wrapper.scrollTo({ left, behavior: smooth ? 'smooth' : 'auto' })
       }
@@ -64,9 +68,14 @@ export function useSmoothScroll(
       orientation: 'horizontal',
       gestureOrientation: 'vertical',
       smoothWheel: true,
-      duration: 1.1,
+      duration: 1.4,
+      easing: (t) => 1 - Math.pow(1 - t, 3),
     })
     lenisRef.current = lenis
+
+    // Always settle on a whole scene, softly, once the gesture ends.
+    const snap = new Snap(lenis, { type: 'mandatory', duration: 0.9, debounce: 300 })
+    snap.addElements(Array.from(content.children) as HTMLElement[], { align: 'start' })
 
     let raf = 0
     const loop = (time: number): void => {
@@ -77,6 +86,7 @@ export function useSmoothScroll(
 
     return () => {
       cancelAnimationFrame(raf)
+      snap.destroy()
       lenis.destroy()
       lenisRef.current = null
     }
@@ -100,13 +110,13 @@ export function useSmoothScroll(
         wrapper.scrollLeft +
         target.getBoundingClientRect().left -
         wrapper.getBoundingClientRect().left
-      scrollToLeft(left)
+      scrollToIndex(Math.round(left / wrapper.clientWidth))
       target.focus({ preventScroll: true })
     }
 
     document.addEventListener('click', onClick)
     return () => document.removeEventListener('click', onClick)
-  }, [containerRef, scrollToLeft])
+  }, [containerRef, scrollToIndex])
 
-  return { scrollToLeft }
+  return { scrollToIndex }
 }

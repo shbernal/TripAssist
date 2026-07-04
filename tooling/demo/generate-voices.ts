@@ -179,6 +179,7 @@ async function processScript(script: Script, apiKey: string, doStitch: boolean) 
     id: number
     speaker: string
     caption?: string
+    text: string
     file: string
     start: number
     duration: number
@@ -200,6 +201,9 @@ async function processScript(script: Script, apiKey: string, doStitch: boolean) 
       id: line.id,
       speaker: line.speaker,
       caption: line.caption,
+      // Full spoken sentence, so the frontend caption never needs a hand-kept
+      // transcript mirror to stay in sync with regenerated audio.
+      text: line.text,
       file: `audio/${script.id}/${clip.split('/').pop()}`,
       start: cursor,
       duration,

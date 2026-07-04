@@ -11,13 +11,12 @@ export function Hero() {
       id="hero"
       tabIndex={-1}
       aria-labelledby="hero-heading"
-      className="relative flex h-dvh w-screen shrink-0 snap-start items-center overflow-y-auto px-6 py-16 outline-none sm:px-10"
+      className="relative flex h-dvh w-screen shrink-0 items-center overflow-y-auto px-6 pb-16 pt-8 outline-none sm:px-10"
     >
       <div className="m-auto grid w-full max-w-5xl items-center gap-12 md:grid-cols-2">
         <div>
           <span className="inline-flex items-center gap-2 rounded-full border border-slate-700 bg-slate-900/70 px-4 py-1.5 text-sm text-slate-300">
             <ShieldCheck aria-hidden="true" className="h-4 w-4 text-emerald-400" />
-            Votre voyage, aménagé par{' '}
             <span className="font-semibold text-slate-100">TripAssist</span>
           </span>
           <h1
@@ -26,16 +25,15 @@ export function Hero() {
           >
             Voyager <span className="text-gradient-brand">sans obstacle</span>.
           </h1>
-          <p className="mt-6 max-w-md text-pretty text-lg text-slate-400">
-            Camille s’apprête à réaliser un voyage de Paris à Cannes. En fauteuil roulant
-            électrique, elle a des besoins d’accessibilité précis -{' '}
-            <strong className="text-slate-200">TripAssist s’en occupe avant le départ</strong>.
+          <p className="mt-5 max-w-md text-pretty text-lg text-slate-400">
+            Camille part pour Cannes en fauteuil roulant.{' '}
+            <strong className="text-slate-200">TripAssist sécurise tout avant le départ.</strong>
           </p>
           <a
             href="#itinerary"
-            className="mt-8 inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-brand-teal to-brand-violet px-5 py-2.5 text-sm font-semibold text-slate-950 transition-transform hover:scale-105"
+            className="mt-8 inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-brand-deep to-brand-bright px-5 py-2.5 text-sm font-semibold text-slate-950 transition-transform hover:scale-105"
           >
-            Voir l’histoire de Camille
+            Voir comment
             <ChevronRight aria-hidden="true" className="h-4 w-4" />
           </a>
         </div>
@@ -48,12 +46,12 @@ export function Hero() {
         >
           <div
             aria-hidden="true"
-            className="absolute -inset-6 rounded-[2.5rem] bg-gradient-to-br from-brand-teal/25 to-brand-violet/25 blur-2xl"
+            className="absolute -inset-6 rounded-[2.5rem] bg-gradient-to-br from-brand-deep/30 to-brand-bright/25 blur-2xl"
           />
           <img
             src={asset('faces/camille.png')}
             alt="Camille Moreau, 34 ans, souriante dans son fauteuil roulant électrique, un smartphone à la main."
-            className="relative w-full max-w-sm rounded-[2rem] border border-slate-800 object-cover shadow-2xl"
+            className="relative max-h-[60dvh] w-full max-w-xs rounded-[2rem] border border-slate-800 object-cover shadow-2xl sm:max-w-sm"
           />
         </motion.div>
       </div>

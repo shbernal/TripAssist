@@ -7,6 +7,8 @@ export default function App() {
       <a href="#main" className="sr-only sr-only-focusable">
         Aller au contenu principal
       </a>
+      {/* Slow-drifting blue glows behind the whole story. */}
+      <div aria-hidden="true" className="bg-blobs" />
       <Story />
     </>
   )

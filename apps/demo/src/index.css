@@ -1,10 +1,11 @@
 @import 'tailwindcss';
 
 /* Design tokens - a small bespoke layer over Tailwind's palette. TripAssist's
-   brand runs teal → violet (the AI agent's gradient), on a deep slate canvas. */
+   brand is a single blue scale, deep → bright, on a deep navy canvas. */
 @theme {
-  --color-brand-teal: #2dd4bf;
-  --color-brand-violet: #a78bfa;
+  --color-brand-deep: #1d4ed8;
+  --color-brand-blue: #3b82f6;
+  --color-brand-bright: #7dd3fc;
   --color-ink: #f1f5f9;
   --font-sans: 'Inter', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
 }
@@ -21,8 +22,8 @@
     @apply bg-slate-950 text-slate-100 antialiased;
     font-family: var(--font-sans);
     background-image:
-      radial-gradient(60rem 60rem at 80% -10%, rgba(45, 212, 191, 0.12), transparent 60%),
-      radial-gradient(50rem 50rem at 0% 20%, rgba(167, 139, 250, 0.12), transparent 55%);
+      radial-gradient(60rem 60rem at 80% -10%, rgba(125, 211, 252, 0.1), transparent 60%),
+      radial-gradient(50rem 50rem at 0% 20%, rgba(29, 78, 216, 0.18), transparent 55%);
     background-attachment: fixed;
   }
 
@@ -39,7 +40,7 @@
 
   /* Visible focus everywhere - WCAG AA, keyboard-first. */
   :focus-visible {
-    @apply outline-none ring-2 ring-brand-teal ring-offset-2 ring-offset-slate-950;
+    @apply outline-none ring-2 ring-brand-bright ring-offset-2 ring-offset-slate-950;
     border-radius: 0.35rem;
   }
 
@@ -90,10 +91,36 @@
   }
 
   .text-gradient-brand {
-    background-image: linear-gradient(100deg, var(--color-brand-teal), var(--color-brand-violet));
+    background-image: linear-gradient(100deg, var(--color-brand-deep), var(--color-brand-bright));
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
+  }
+
+  /* Two slow-drifting blue glows behind everything: alive but never distracting.
+     They collapse to a static wash under prefers-reduced-motion (global rule). */
+  .bg-blobs::before,
+  .bg-blobs::after {
+    content: '';
+    position: fixed;
+    z-index: -1;
+    width: 55vmax;
+    height: 55vmax;
+    border-radius: 50%;
+    filter: blur(80px);
+    pointer-events: none;
+  }
+  .bg-blobs::before {
+    top: -20vmax;
+    right: -15vmax;
+    background: radial-gradient(circle, rgba(125, 211, 252, 0.14), transparent 65%);
+    animation: blob-drift-a 26s ease-in-out infinite alternate;
+  }
+  .bg-blobs::after {
+    bottom: -25vmax;
+    left: -15vmax;
+    background: radial-gradient(circle, rgba(29, 78, 216, 0.22), transparent 65%);
+    animation: blob-drift-b 32s ease-in-out infinite alternate;
   }
 
   /* Live call waveform: each bar pulses on its own phase. Paused/reduced-motion
@@ -111,5 +138,23 @@
   }
   50% {
     transform: scaleY(1);
+  }
+}
+
+@keyframes blob-drift-a {
+  from {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  to {
+    transform: translate3d(-8vmax, 10vmax, 0) scale(1.15);
+  }
+}
+
+@keyframes blob-drift-b {
+  from {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  to {
+    transform: translate3d(10vmax, -8vmax, 0) scale(1.1);
   }
 }

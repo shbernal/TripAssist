@@ -30,13 +30,13 @@ export function Waveform({ playing, speaker, bars = 40 }: WaveformProps) {
 
   const color =
     speaker === 'agent'
-      ? 'bg-brand-teal'
+      ? 'bg-brand-bright'
       : speaker === 'callee'
-        ? 'bg-brand-violet'
+        ? 'bg-brand-blue'
         : 'bg-slate-600'
 
   return (
-    <div aria-hidden="true" className="flex h-16 items-center justify-center gap-[3px]">
+    <div aria-hidden="true" className="flex h-14 items-center justify-center gap-[3px]">
       {seeds.map((s, i) => (
         <span
           key={i}

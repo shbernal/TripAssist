@@ -28,12 +28,12 @@ export function Notification({ title, body, kind, delay = 0 }: NotificationProps
       }
       className="flex items-start gap-3 rounded-2xl border border-white/15 bg-white/85 p-3 text-slate-900 shadow-lg backdrop-blur"
     >
-      <span className="mt-0.5 flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-brand-teal to-brand-violet text-white">
+      <span className="mt-0.5 flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-brand-deep to-brand-bright text-white">
         <Icon aria-hidden="true" className="h-5 w-5" />
       </span>
       <div className="min-w-0 flex-1">
         <div className="flex items-center justify-between gap-2">
-          <p className="truncate text-sm font-semibold">{title}</p>
+          <p className="truncate text-[13px] font-semibold">{title}</p>
           <CheckCircle2 aria-hidden="true" className="h-4 w-4 shrink-0 text-emerald-600" />
         </div>
         <p className="mt-0.5 text-xs leading-snug text-slate-700">{body}</p>

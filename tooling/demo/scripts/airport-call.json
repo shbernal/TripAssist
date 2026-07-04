@@ -31,71 +31,47 @@
     {
       "id": 1,
       "speaker": "callee",
-      "text": "Assistance passagers à mobilité réduite de Paris-Charles-de-Gaulle, bonjour.",
+      "text": "Assistance PMR de Paris-Charles-de-Gaulle, bonjour.",
       "caption": "L'aéroport décroche."
     },
     {
       "id": 2,
       "speaker": "agent",
-      "text": "Bonjour, je suis l'assistant TripAssist et j'appelle au nom de Madame Camille Moreau pour organiser son assistance embarquement. Elle voyage sur le vol Air France 7612 vers Nice, le 12 septembre au départ de dix heures cinq.",
-      "caption": "L'IA se présente et donne le vol."
+      "text": "Bonjour, assistant TripAssist, pour Madame Camille Moreau, vol Air France 7612 vers Nice le 12 septembre. Elle voyage en fauteuil roulant électrique : nous demandons une assistance WCHC complète.",
+      "caption": "L'IA demande l'assistance WCHC."
     },
     {
       "id": 3,
       "speaker": "callee",
-      "text": "Très bien, je note le vol AF 7612 du 12 septembre. Quel est le type d'assistance requis ?",
-      "caption": "L'agent identifie le vol."
+      "text": "Très bien. Pour le fauteuil, quel type de batterie ? Nous devons le déclarer.",
+      "caption": "Question réglementaire batterie."
     },
     {
       "id": 4,
       "speaker": "agent",
-      "text": "Madame Moreau se déplace en fauteuil roulant électrique et ne peut pas effectuer de transfert sans aide. Nous demandons une assistance de catégorie WCHC : prise en charge dès la dépose-minute, passage sécurité prioritaire, et embarquement assisté avec transfert jusqu'au siège.",
-      "caption": "Assistance WCHC de bout en bout."
+      "text": "Un Permobil M3, batterie lithium-ion conforme IATA. Merci de le restituer en passerelle à Nice, pas au tapis bagages.",
+      "caption": "Fauteuil déclaré, restitution passerelle."
     },
     {
       "id": 5,
       "speaker": "callee",
-      "text": "Entendu. Pour le fauteuil, s'agit-il d'une batterie sèche ou d'une batterie au lithium ? Nous devons le déclarer au commandant de bord.",
-      "caption": "Question réglementaire batterie."
+      "text": "C'est noté : assistance WCHC complète, prise en charge Terminal 2F quarante-cinq minutes avant l'embarquement. Référence WCH-9427.",
+      "caption": "Confirmé, référence donnée."
     },
     {
       "id": 6,
       "speaker": "agent",
-      "text": "C'est un Permobil M3, cent quarante kilos, équipé d'une batterie Lithium-ion conforme à la réglementation IATA. Nous demandons qu'il voyage en soute et soit restitué en passerelle à l'arrivée à Nice, pas au tapis bagages.",
-      "caption": "Fauteuil détaillé, restitution passerelle."
-    },
-    {
-      "id": 7,
-      "speaker": "callee",
-      "text": "C'est parfaitement gérable. Je réserve l'assistance WCHC complète, avec restitution du fauteuil en passerelle à Nice. Je vous donne la référence : whisky-charlie-hôtel neuf-quatre-deux-sept.",
-      "caption": "Réservation + référence."
-    },
-    {
-      "id": 8,
-      "speaker": "agent",
-      "text": "Je confirme la référence WCH-9427. Une dernière chose : pouvez-vous prévoir la prise en charge quarante-cinq minutes avant l'embarquement, à la dépose-minute du Terminal 2F ?",
-      "caption": "L'IA confirme et précise l'horaire."
-    },
-    {
-      "id": 9,
-      "speaker": "callee",
-      "text": "C'est noté : prise en charge à la dépose-minute du Terminal 2F, quarante-cinq minutes avant l'embarquement. Tout est confirmé pour Madame Moreau.",
-      "caption": "Tout est confirmé."
-    },
-    {
-      "id": 10,
-      "speaker": "agent",
-      "text": "Parfait, je vous remercie. J'enregistre la confirmation au registre de voyage de Madame Moreau. Excellente journée.",
-      "caption": "L'IA inscrit la confirmation au registre."
+      "text": "Je confirme WCH-9427 et je l'enregistre au registre de voyage de Madame Moreau. Merci, excellente journée.",
+      "caption": "L'IA scelle la confirmation."
     }
   ],
   "outcome": {
     "status": "confirmed",
     "reference": "WCH-9427",
-    "summary": "Assistance WCHC confirmée à CDG : prise en charge T2F −45 min, embarquement assisté, fauteuil en soute restitué en passerelle à Nice.",
+    "summary": "Assistance WCHC à CDG · prise en charge T2F −45 min · fauteuil restitué en passerelle.",
     "notification": {
-      "title": "Assistance aéroport confirmée ✅",
-      "body": "CDG a confirmé votre assistance embarquement (réf. WCH-9427). Prise en charge Terminal 2F, 45 min avant le vol."
+      "title": "Aéroport confirmé",
+      "body": "Réf. WCH-9427 · prise en charge Terminal 2F, 45 min avant le vol."
     }
   }
 }

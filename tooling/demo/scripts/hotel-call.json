@@ -31,71 +31,47 @@
     {
       "id": 1,
       "speaker": "callee",
-      "text": "Hôtel le Mistral, bonjour, que puis-je faire pour vous ?",
+      "text": "Hôtel le Mistral, bonjour.",
       "caption": "La réception décroche."
     },
     {
       "id": 2,
       "speaker": "agent",
-      "text": "Bonjour, ici l'assistant TripAssist, j'appelle pour la réservation de Madame Camille Moreau, du 12 au 15 septembre, chambre 104. Je souhaite confirmer un point d'accessibilité essentiel avant son arrivée.",
-      "caption": "L'IA se présente et donne la réservation."
+      "text": "Bonjour, assistant TripAssist, pour la réservation de Madame Camille Moreau, chambre 104. Elle se déplace en fauteuil roulant : la chambre a-t-elle bien une douche à l'italienne, sans rebord ?",
+      "caption": "Exigence : vraie douche à l'italienne."
     },
     {
       "id": 3,
       "speaker": "callee",
-      "text": "Bien sûr, je vois la réservation de Madame Moreau, trois nuits en chambre 104. De quel point s'agit-il ?",
-      "caption": "La réception retrouve le dossier."
+      "text": "Laissez-moi vérifier… La 104 est notre chambre PMR, mais elle a une baignoire à porte, pas une douche de plain-pied.",
+      "caption": "⚠️ La 104 a une baignoire."
     },
     {
       "id": 4,
       "speaker": "agent",
-      "text": "Madame Moreau se déplace en fauteuil roulant. Elle a besoin d'une douche à l'italienne, de plain-pied, sans rebord ni marche - surtout pas d'une baignoire. Pouvez-vous me confirmer que la chambre 104 en dispose bien ?",
-      "caption": "Exigence : vraie douche à l'italienne."
+      "text": "Ce ne sera pas adapté, Madame Moreau ne peut pas franchir de rebord. Avez-vous une chambre avec une véritable douche à l'italienne et un accès sans marche ?",
+      "caption": "L'IA refuse le compromis."
     },
     {
       "id": 5,
       "speaker": "callee",
-      "text": "Alors, laissez-moi vérifier… La chambre 104 est notre chambre PMR, mais je vois qu'elle est équipée d'une baignoire à porte, pas d'une douche de plain-pied.",
-      "caption": "⚠️ La 104 a une baignoire, pas une douche."
+      "text": "Oui : la chambre 210, douche à l'italienne de plain-pied, siège rabattable, accès par ascenseur. Je bascule Madame Moreau dessus sans supplément, référence BR-9901.",
+      "caption": "✅ La 210, sans supplément."
     },
     {
       "id": 6,
       "speaker": "agent",
-      "text": "Ce ne sera pas adapté : Madame Moreau ne peut pas franchir de rebord. Disposez-vous d'une autre chambre accessible avec une véritable douche à l'italienne et un siège de douche rabattable ?",
-      "caption": "L'IA refuse le compromis et propose une alternative."
-    },
-    {
-      "id": 7,
-      "speaker": "callee",
-      "text": "Laissez-moi regarder… Oui, la chambre 210 est une chambre accessible avec douche à l'italienne de plain-pied, barres d'appui et siège de douche rabattable. Je peux la réattribuer à Madame Moreau sans supplément.",
-      "caption": "✅ La 210 correspond, sans supplément."
-    },
-    {
-      "id": 8,
-      "speaker": "agent",
-      "text": "C'est parfait. Merci de basculer la réservation sur la chambre 210. Pouvez-vous aussi garantir un accès sans marche depuis l'entrée de l'hôtel jusqu'à la chambre, et un lit à hauteur de transfert ?",
-      "caption": "L'IA verrouille accès sans marche + lit."
-    },
-    {
-      "id": 9,
-      "speaker": "callee",
-      "text": "Oui, l'accès se fait par ascenseur, sans aucune marche, et le lit est à hauteur standard de transfert. Je bascule Madame Moreau sur la chambre 210. La nouvelle référence est bravo-roméo neuf-neuf-zéro-un.",
-      "caption": "Accès garanti + nouvelle référence."
-    },
-    {
-      "id": 10,
-      "speaker": "agent",
-      "text": "Je confirme, référence BR-9901, chambre 210 avec douche à l'italienne. J'enregistre la confirmation au registre de Madame Moreau. Merci beaucoup, bonne journée.",
-      "caption": "L'IA inscrit la confirmation au registre."
+      "text": "Parfait, je confirme BR-9901 et je l'enregistre au registre de Madame Moreau. Merci beaucoup, bonne journée.",
+      "caption": "L'IA scelle la confirmation."
     }
   ],
   "outcome": {
     "status": "confirmed",
     "reference": "BR-9901",
-    "summary": "Chambre réattribuée à la 210 (douche à l'italienne de plain-pied, siège rabattable, accès sans marche, lit hauteur transfert) sans supplément. Réf. BR-9901.",
+    "summary": "Chambre 210 · douche à l'italienne · accès sans marche · sans supplément.",
     "notification": {
-      "title": "Douche à l'italienne confirmée ✅",
-      "body": "L'Hôtel le Mistral vous a surclassé·e en chambre 210 avec douche roll-in (réf. BR-9901). Aucun supplément."
+      "title": "Hôtel confirmé",
+      "body": "Chambre 210, douche de plain-pied (réf. BR-9901). Sans supplément."
     }
   }
 }

@@ -13,16 +13,16 @@ export function Outro() {
       id="outro"
       step="05"
       eyebrow="Tout est tracé"
-      heading="Chaque confirmation, scellée au registre de voyage."
+      heading="Chaque confirmation, scellée au registre."
     >
-      <div className="grid items-center gap-12 md:grid-cols-2">
+      <div className="grid items-center gap-10 md:grid-cols-2">
         <Reveal from="left">
-          <div className="rounded-3xl border border-slate-800 bg-slate-900/70 p-6 shadow-xl">
-            <div className="mb-4 flex items-center gap-2 text-sm text-slate-400">
+          <div className="rounded-3xl border border-slate-800 bg-slate-900/70 p-5 shadow-xl">
+            <div className="mb-3 flex items-center gap-2 text-sm text-slate-400">
               <BookCheck aria-hidden="true" className="h-4 w-4 text-emerald-400" />
               Registre de voyage - Camille Moreau
             </div>
-            <ul className="space-y-4">
+            <ul className="space-y-3">
               {entries.map((e) => (
                 <li
                   key={e.reference}
@@ -42,15 +42,14 @@ export function Outro() {
           <h3 className="text-2xl font-semibold text-slate-100">
             L’accessibilité, <span className="text-gradient-brand">garantie et traçable</span>.
           </h3>
-          <p className="mt-4 max-w-md text-slate-400">
-            TripAssist transforme un voyage semé d’incertitudes en une suite de confirmations. Le
-            travail est fait en amont - le voyageur n’a plus à le porter.
+          <p className="mt-3 max-w-md text-slate-400">
+            Le travail est fait en amont - le voyageur n’a plus à le porter.
           </p>
           <a
             href={REPO_URL}
             target="_blank"
             rel="noreferrer"
-            className="mt-8 inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-brand-teal to-brand-violet px-6 py-3 text-sm font-semibold text-slate-950 transition-transform hover:scale-105"
+            className="mt-6 inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-brand-deep to-brand-bright px-6 py-3 text-sm font-semibold text-slate-950 transition-transform hover:scale-105"
           >
             Découvrir le produit
             <ArrowUpRight aria-hidden="true" className="h-4 w-4" />

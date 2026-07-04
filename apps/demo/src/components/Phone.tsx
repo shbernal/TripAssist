@@ -16,7 +16,7 @@ interface PhoneProps {
  */
 export function Phone({ children, time = '9:41', date = 'jeudi 4 septembre' }: PhoneProps) {
   return (
-    <div className="relative mx-auto w-full max-w-[20rem]">
+    <div className="relative mx-auto w-full max-w-[18rem]">
       <div className="relative rounded-[2.75rem] border-[10px] border-slate-800 bg-slate-950 p-3 shadow-2xl">
         {/* notch */}
         <div
@@ -30,16 +30,21 @@ export function Phone({ children, time = '9:41', date = 'jeudi 4 septembre' }: P
             className="pointer-events-none absolute inset-0 opacity-70"
             style={{
               backgroundImage:
-                'radial-gradient(20rem 20rem at 50% 0%, rgba(45,212,191,0.25), transparent 60%), radial-gradient(18rem 18rem at 80% 40%, rgba(167,139,250,0.25), transparent 60%)',
+                'radial-gradient(20rem 20rem at 50% 0%, rgba(125,211,252,0.25), transparent 60%), radial-gradient(18rem 18rem at 80% 40%, rgba(29,78,216,0.35), transparent 60%)',
             }}
           />
-          <div className="relative min-h-[30rem] px-4 pb-6 pt-10">
-            <div aria-hidden="true" className="mb-8 text-center text-white">
-              <div className="mx-auto mb-3 flex h-6 w-6 items-center justify-center rounded-full bg-white/10">
+          <div className="relative min-h-[min(24rem,55dvh)] px-4 pb-4 pt-6">
+            {/* Decorative clock - dropped on very short viewports so the banners
+                (the real content) never push the scene into vertical scroll. */}
+            <div
+              aria-hidden="true"
+              className="mb-4 text-center text-white [@media(max-height:680px)]:hidden"
+            >
+              <div className="mx-auto mb-2 flex h-6 w-6 items-center justify-center rounded-full bg-white/10">
                 <Lock className="h-3.5 w-3.5" />
               </div>
               <p className="text-sm text-white/70">{date}</p>
-              <p className="text-6xl font-light tracking-tight">{time}</p>
+              <p className="text-4xl font-light tracking-tight sm:text-5xl">{time}</p>
             </div>
             <div className="space-y-3">{children}</div>
           </div>

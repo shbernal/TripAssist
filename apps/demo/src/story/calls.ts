@@ -29,8 +29,15 @@ export interface CallMeta {
     short: string
     face: string
   }
-  /** line id → full spoken sentence (French). */
+  /** line id → full spoken sentence (French). Fallback only: newer manifests
+      embed the spoken text per line. Keyed to the *committed* audio manifests -
+      after regenerating voices from the (now shorter) tooling scripts, drop or
+      re-key these. */
   transcript: Record<number, string>
+  /** line id → short fact that gets "stamped" on screen once that line has been
+      spoken. The impactful skeleton of the call, instead of a full transcript.
+      Also keyed to the committed manifests - re-key after a voice regen. */
+  milestones: Record<number, string>
   /** Mirror of the manifest outcome - lets the notification/outro scenes render
       without spinning up a player or a second fetch. */
   outcome: {
@@ -64,14 +71,20 @@ export const CALLS: Record<CallId, CallMeta> = {
       9: "C'est noté : prise en charge à la dépose-minute du Terminal 2F, quarante-cinq minutes avant l'embarquement. Tout est confirmé pour Madame Moreau.",
       10: "Parfait, je vous remercie. J'enregistre la confirmation au registre de voyage de Madame Moreau. Excellente journée.",
     },
+    milestones: {
+      4: 'Assistance WCHC demandée',
+      6: 'Batterie lithium déclarée',
+      7: 'Réf. WCH-9427',
+      9: 'Prise en charge T2F −45 min',
+    },
     outcome: {
       reference: 'WCH-9427',
       kind: 'airport',
       summary:
-        'Assistance WCHC confirmée à CDG : prise en charge T2F −45 min, embarquement assisté, fauteuil en soute restitué en passerelle à Nice.',
+        'Assistance WCHC à CDG · prise en charge T2F −45 min · fauteuil restitué en passerelle.',
       notification: {
-        title: 'Assistance aéroport confirmée ✅',
-        body: 'CDG a confirmé votre assistance embarquement (réf. WCH-9427). Prise en charge Terminal 2F, 45 min avant le vol.',
+        title: 'Aéroport confirmé',
+        body: 'Réf. WCH-9427 · prise en charge Terminal 2F, 45 min avant le vol.',
       },
     },
   },
@@ -97,14 +110,19 @@ export const CALLS: Record<CallId, CallMeta> = {
       9: 'Oui, l’accès se fait par ascenseur, sans aucune marche, et le lit est à hauteur standard de transfert. Je bascule Madame Moreau sur la chambre 210. La nouvelle référence est bravo-roméo neuf-neuf-zéro-un.',
       10: "Je confirme, référence BR-9901, chambre 210 avec douche à l'italienne. J'enregistre la confirmation au registre de Madame Moreau. Merci beaucoup, bonne journée.",
     },
+    milestones: {
+      5: 'Chambre 104 : baignoire ✗',
+      7: 'Chambre 210 : douche à l’italienne',
+      9: 'Accès sans marche',
+      10: 'Réf. BR-9901',
+    },
     outcome: {
       reference: 'BR-9901',
       kind: 'hotel',
-      summary:
-        'Chambre réattribuée à la 210 (douche à l’italienne de plain-pied, siège rabattable, accès sans marche, lit hauteur transfert) sans supplément. Réf. BR-9901.',
+      summary: 'Chambre 210 · douche à l’italienne · accès sans marche · sans supplément.',
       notification: {
-        title: 'Douche à l’italienne confirmée ✅',
-        body: 'L’Hôtel le Mistral vous a surclassé·e en chambre 210 avec douche roll-in (réf. BR-9901). Aucun supplément.',
+        title: 'Hôtel confirmé',
+        body: 'Chambre 210, douche de plain-pied (réf. BR-9901). Sans supplément.',
       },
     },
   },
