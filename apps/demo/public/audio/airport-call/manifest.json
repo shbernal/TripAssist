@@ -3,98 +3,72 @@
   "title": "TripAssist AI → Assistance PMR CDG",
   "locale": "fr-FR",
   "model": "eleven_multilingual_v2",
-  "generatedAt": "2026-07-04T13:59:32.271Z",
-  "totalDuration": 109.63995500000001,
+  "generatedAt": "2026-07-04T20:27:19.572Z",
+  "totalDuration": 33.954059,
   "track": "audio/airport-call/conversation.mp3",
   "lines": [
     {
       "id": 1,
       "speaker": "callee",
       "caption": "L'aéroport décroche.",
+      "text": "Assistance de Paris-Charles-de-Gaulle, bonjour.",
       "file": "audio/airport-call/01-callee.mp3",
       "start": 0,
-      "duration": 5.10839
+      "duration": 2.832834
     },
     {
       "id": 2,
       "speaker": "agent",
-      "caption": "L'IA se présente et donne le vol.",
+      "caption": "L'IA demande l'accompagnement.",
+      "text": "Bonjour, j'appelle pour Madame Camille Moreau, vol Air France pour Cannes le 12 septembre. Elle voyage en fauteuil roulant électrique et aura besoin d'aide pour monter à bord.",
       "file": "audio/airport-call/02-agent.mp3",
-      "start": 5.55839,
-      "duration": 14.117732
+      "start": 3.2828340000000003,
+      "duration": 9.891701
     },
     {
       "id": 3,
       "speaker": "callee",
-      "caption": "L'agent identifie le vol.",
+      "caption": "L'aéroport prend note.",
+      "text": "Très bien, c'est noté. Le fauteuil voyage avec elle ?",
       "file": "audio/airport-call/03-callee.mp3",
-      "start": 20.126122,
-      "duration": 6.873107
+      "start": 13.624534999999998,
+      "duration": 2.693515
     },
     {
       "id": 4,
       "speaker": "agent",
-      "caption": "Assistance WCHC de bout en bout.",
+      "caption": "Le fauteuil rendu à la sortie de l'avion.",
+      "text": "Oui. Et si possible, qu'on le lui rende dès la sortie de l'avion, pas aux bagages.",
       "file": "audio/airport-call/04-agent.mp3",
-      "start": 27.449229,
-      "duration": 16.486168
+      "start": 16.76805,
+      "duration": 4.597551
     },
     {
       "id": 5,
       "speaker": "callee",
-      "caption": "Question réglementaire batterie.",
+      "caption": "✅ Confirmé, référence donnée.",
+      "text": "Pas de souci. Une équipe l'attendra au Terminal 2F, quarante-cinq minutes avant l'embarquement. Référence WCH-9427.",
       "file": "audio/airport-call/05-callee.mp3",
-      "start": 44.385397,
-      "duration": 8.034104
+      "start": 21.815601,
+      "duration": 7.987664
     },
     {
       "id": 6,
       "speaker": "agent",
-      "caption": "Fauteuil détaillé, restitution passerelle.",
+      "caption": "L'IA scelle la confirmation.",
+      "text": "Parfait, c'est enregistré. Merci beaucoup, bonne journée.",
       "file": "audio/airport-call/06-agent.mp3",
-      "start": 52.869501,
-      "duration": 12.678095
-    },
-    {
-      "id": 7,
-      "speaker": "callee",
-      "caption": "Réservation + référence.",
-      "file": "audio/airport-call/07-callee.mp3",
-      "start": 65.997596,
-      "duration": 12.399456
-    },
-    {
-      "id": 8,
-      "speaker": "agent",
-      "caption": "L'IA confirme et précise l'horaire.",
-      "file": "audio/airport-call/08-agent.mp3",
-      "start": 78.847052,
-      "duration": 12.678095
-    },
-    {
-      "id": 9,
-      "speaker": "callee",
-      "caption": "Tout est confirmé.",
-      "file": "audio/airport-call/09-callee.mp3",
-      "start": 91.975147,
-      "duration": 9.891701
-    },
-    {
-      "id": 10,
-      "speaker": "agent",
-      "caption": "L'IA inscrit la confirmation au registre.",
-      "file": "audio/airport-call/10-agent.mp3",
-      "start": 102.31684800000001,
-      "duration": 6.873107
+      "start": 30.253265,
+      "duration": 3.250794
     }
   ],
   "outcome": {
     "status": "confirmed",
     "reference": "WCH-9427",
-    "summary": "Assistance WCHC confirmée à CDG : prise en charge T2F −45 min, embarquement assisté, fauteuil en soute restitué en passerelle à Nice.",
+    "summary": "Accompagnement à CDG · rendez-vous Terminal 2F 45 min avant · fauteuil rendu à la sortie de l'avion.",
     "notification": {
-      "title": "Assistance aéroport confirmée ✅",
-      "body": "CDG a confirmé votre assistance embarquement (réf. WCH-9427). Prise en charge Terminal 2F, 45 min avant le vol."
+      "title": "Aéroport confirmé",
+      "body": "Accompagnement réservé · Terminal 2F, 45 min avant le vol (réf. WCH-9427)."
     }
   }
 }
