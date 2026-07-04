@@ -3,26 +3,34 @@
   "version": "0.1.0",
   "private": true,
   "type": "module",
+  "packageManager": "pnpm@11.5.2",
   "description": "AccessTrip — AI trip-orchestration for disabled travelers (hackathon demo)",
-  "comment": "Scripts call `node <entrypoint>` directly instead of the .bin shim, because the parent folder name contains a ':' which corrupts PATH and breaks local binaries.",
+  "comment": "Scripts call `node <entrypoint>` directly instead of the .bin shim, because the parent folder name contains a ':' which corrupts PATH and breaks local binaries. All tooling (tsx, tsc, vite, eslint, prettier, lefthook) is invoked the same way.",
   "scripts": {
-    "dev": "node scripts/dev.js",
-    "server": "node server/index.js",
+    "dev": "node node_modules/tsx/dist/cli.mjs scripts/dev.ts",
+    "server": "node node_modules/tsx/dist/cli.mjs server/index.ts",
     "web": "node node_modules/vite/bin/vite.js",
     "build": "node node_modules/vite/bin/vite.js build",
-    "start": "node server/index.js",
-    "smoke": "node scripts/smoke.js",
+    "start": "node node_modules/tsx/dist/cli.mjs server/index.ts",
+    "smoke": "node node_modules/tsx/dist/cli.mjs scripts/smoke.ts",
+    "typecheck": "node node_modules/typescript/bin/tsc -p tsconfig.server.json --noEmit && node node_modules/typescript/bin/tsc -p tsconfig.web.json --noEmit",
     "pw:install": "node node_modules/playwright/cli.js install chromium"
   },
   "dependencies": {
     "express": "^4.19.2"
   },
   "devDependencies": {
+    "@types/express": "^5.0.6",
+    "@types/node": "^26.1.0",
+    "@types/react": "^18.3.31",
+    "@types/react-dom": "^18.3.7",
     "@vitejs/plugin-react": "^4.3.1",
     "playwright": "^1.61.1",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-router-dom": "^6.26.0",
+    "tsx": "^4.22.5",
+    "typescript": "^6.0.3",
     "vite": "^5.4.0"
   }
 }

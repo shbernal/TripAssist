@@ -36,10 +36,10 @@ The demo runs **fully offline** with no keys: the planner/extractor/vision agent
 
 ### Autofill (M5) — one-time setup
 
-Playwright is installed as a devDependency. If the browser binary is missing, install it (use this, not `npx` — the folder name's `:` breaks the PATH shim):
+Playwright is installed as a devDependency. If the browser binary is missing, install it (use this, not `npx`/`pnpm exec` — the folder name's `:` breaks the PATH shim; the script calls `node node_modules/...` directly):
 
 ```bash
-npm run pw:install
+pnpm pw:install
 ```
 
 Without the browser, the autofill button reports "Playwright non installé" and nothing else breaks.
@@ -47,22 +47,22 @@ Without the browser, the autofill button reports "Playwright non installé" and 
 ## Run
 
 ```bash
-npm install
-npm run dev        # Express (3000) + Vite (5173) with HMR
+pnpm install
+pnpm dev           # Express (3000) + Vite (5173) with HMR
 # open http://localhost:5173
 ```
 
 Single-process / production mode:
 
 ```bash
-npm run build      # emits web/dist
-npm start          # Express serves API + built frontend on :3000
+pnpm build         # emits web/dist
+pnpm start         # Express serves API + built frontend on :3000
 ```
 
 Smoke check (server must be running):
 
 ```bash
-npm run smoke
+pnpm smoke
 ```
 
 ## Views
