@@ -64,7 +64,7 @@ describe('Timeline', () => {
 
   it('surfaces the at-risk reason chip', () => {
     render(<Timeline steps={steps} ledger={ledger} />)
-    expect(screen.getByText('⚠ météo')).toBeInTheDocument()
+    expect(screen.getByText('météo')).toBeInTheDocument()
   })
 
   it('renders the receipt details for the confirmed step', () => {

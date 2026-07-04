@@ -1,5 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { Zap, Compass, Check, Phone, ReceiptText, Eye } from 'lucide-react'
+import type { LucideIcon } from 'lucide-react'
 import type { AppState } from '../../../shared/types'
 
 interface GuidedDemoProps {
@@ -12,6 +14,7 @@ interface GuidedDemoProps {
 export default function GuidedDemo({ reload }: GuidedDemoProps) {
   const [running, setRunning] = useState(false)
   const [caption, setCaption] = useState('')
+  const [CaptionIcon, setCaptionIcon] = useState<LucideIcon | null>(null)
   const [progress, setProgress] = useState(0)
   const abortRef = useRef(false)
   const navigate = useNavigate()
@@ -34,26 +37,31 @@ export default function GuidedDemo({ reload }: GuidedDemoProps) {
       await say('Voyage de Camille : tout est sécurisé. Lançons la surveillance.', 1800, 5)
 
       // Flow A — disruption + replan
-      await say("⚡ Une grève SNCF supprime le train. Les agents détectent l'impact…", 600, 15)
+      await say("Une grève SNCF supprime le train. Les agents détectent l'impact…", 600, 15, Zap)
       await post('/api/demo/chaos', { scenarioId: 'strike' })
       await waitForReplan()
-      await say("🧭 Plan de remédiation calculé, sans compromis d'accessibilité.", 1600, 35)
+      await say("Plan de remédiation calculé, sans compromis d'accessibilité.", 1600, 35, Compass)
       await post('/api/replan/apply')
       await reload?.()
-      await say('✓ Report sur le TGV suivant, tout repasse au vert.', 1600, 45)
+      await say('Report sur le TGV suivant, tout repasse au vert.', 1600, 45, Check)
 
       // Flow B — live call + recovery
-      await say("📞 Re-confirmation de l'hôtel par appel IA (voix en direct)…", 600, 55)
+      await say("Re-confirmation de l'hôtel par appel IA (voix en direct)…", 600, 55, Phone)
       await post('/api/call/start', { branch: 'B2' })
       await waitForCallEnd()
-      await say("🧾 L'extracteur détecte : chambre perdue. Récupération automatique…", 800, 72)
+      await say(
+        "L'extracteur détecte : chambre perdue. Récupération automatique…",
+        800,
+        72,
+        ReceiptText,
+      )
       await waitForReplan()
       await post('/api/replan/apply')
       await reload?.()
-      await say('✓ Hôtel Aston sécurisé, taxi re-routé. Zéro action pour Camille.', 1600, 85)
+      await say('Hôtel Aston sécurisé, taxi re-routé. Zéro action pour Camille.', 1600, 85, Check)
 
       // Flow C — vision
-      await say("👁️ Vérification visuelle de la conformité d'une salle de bain…", 600, 92)
+      await say("Vérification visuelle de la conformité d'une salle de bain…", 600, 92, Eye)
       await post('/api/vision/check', {})
       await say('Verdict rendu : ressaut détecté, non conforme, signalé.', 1800, 98)
 
@@ -69,13 +77,15 @@ export default function GuidedDemo({ reload }: GuidedDemoProps) {
     abortRef.current = true
     setRunning(false)
     setCaption('')
+    setCaptionIcon(null)
     setProgress(0)
   }
 
   // helpers -----------------------------------------------------------------
-  async function say(text: string, holdMs: number, pct?: number) {
+  async function say(text: string, holdMs: number, pct?: number, Icon?: LucideIcon) {
     if (abortRef.current) throw new Error('abort')
     setCaption(text)
+    setCaptionIcon(() => Icon ?? null)
     if (typeof pct === 'number') setProgress(pct)
     await delay(holdMs)
   }
@@ -113,7 +123,10 @@ export default function GuidedDemo({ reload }: GuidedDemoProps) {
       </div>
       <div className="guided-row">
         <span className="guided-badge">Démo guidée</span>
-        <span className="guided-caption">{caption}</span>
+        <span className="guided-caption">
+          {CaptionIcon && <CaptionIcon size={16} aria-hidden="true" />}
+          {caption}
+        </span>
         <button type="button" className="guided-stop" onClick={stop}>
           Arrêter
         </button>

@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { Image, FileText, Check, X } from 'lucide-react'
 import type { VisionVerdict } from '../../../shared/types'
 
 interface VisionCheckProps {
@@ -55,11 +56,11 @@ export default function VisionCheck({ verdict }: VisionCheckProps) {
 
       <div className="demo-actions" style={{ marginBottom: '0.6rem' }}>
         <label className="file-btn">
-          🖼️ Analyser une photo
+          <Image size={16} aria-hidden="true" /> Analyser une photo
           <input type="file" accept="image/*" onChange={onFile} disabled={busy} hidden />
         </label>
         <button type="button" onClick={runAutofill} disabled={busy}>
-          📝 Remplir le formulaire PMR
+          <FileText size={16} aria-hidden="true" /> Remplir le formulaire PMR
         </button>
       </div>
       <p
@@ -75,7 +76,15 @@ export default function VisionCheck({ verdict }: VisionCheckProps) {
         <div className="verdict" data-conforme={verdict.conforme} aria-live="polite">
           <div className="verdict-head">
             <span className="verdict-flag">
-              {verdict.conforme ? '✓ Conforme' : '✗ Non conforme'}
+              {verdict.conforme ? (
+                <>
+                  <Check size={16} aria-hidden="true" /> Conforme
+                </>
+              ) : (
+                <>
+                  <X size={16} aria-hidden="true" /> Non conforme
+                </>
+              )}
             </span>
             <span className="muted">confiance {Math.round((verdict.confiance || 0) * 100)}%</span>
           </div>

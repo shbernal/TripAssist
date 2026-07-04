@@ -1,4 +1,5 @@
 import React from 'react'
+import { AlertTriangle } from 'lucide-react'
 import type { Step, LedgerEntry } from '../../../shared/types'
 
 const STATUS_LABEL: Record<string, string> = {
@@ -71,7 +72,7 @@ export default function Timeline({ steps, ledger = [] }: TimelineProps) {
                     </span>
                     {step.reason && (
                       <span className="reason-chip" style={{ marginTop: '0.35rem' }}>
-                        ⚠ {step.reason}
+                        <AlertTriangle size={13} aria-hidden="true" /> {step.reason}
                       </span>
                     )}
                   </span>

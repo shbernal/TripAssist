@@ -1,4 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react'
+import { Shield, Wrench, Timer, Phone, Accessibility } from 'lucide-react'
+import type { LucideIcon } from 'lucide-react'
 import type { AppState } from '../../../shared/types'
 
 interface KpiBandProps {
@@ -12,33 +14,39 @@ export default function KpiBand({ state }: KpiBandProps) {
   const m = state.metrics
   const accessibleHeld = steps.filter((s) => s.status !== 'failed').length
 
-  const kpis = [
+  const kpis: {
+    key: string
+    label: string
+    value: number
+    Icon: LucideIcon
+    suffix?: string
+  }[] = [
     {
       key: 'incidents',
       label: 'Incidents interceptés',
       value: (state.disruptions || []).length,
-      icon: '🛡️',
+      Icon: Shield,
     },
     {
       key: 'interventions',
       label: 'Remédiations appliquées',
       value: m.interventions || 0,
-      icon: '⚙️',
+      Icon: Wrench,
     },
     {
       key: 'minutes',
       label: 'Minutes récupérées',
       value: m.minutesRecovered || 0,
-      icon: '⏱️',
+      Icon: Timer,
       suffix: ' min',
     },
-    { key: 'calls', label: 'Appels IA passés', value: m.callsMade || 0, icon: '📞' },
+    { key: 'calls', label: 'Appels IA passés', value: m.callsMade || 0, Icon: Phone },
     {
       key: 'access',
       label: 'Accessibilité tenue',
       value: accessibleHeld,
       suffix: `/${steps.length}`,
-      icon: '♿',
+      Icon: Accessibility,
     },
   ]
 
@@ -47,7 +55,7 @@ export default function KpiBand({ state }: KpiBandProps) {
       {kpis.map((k) => (
         <div className="kpi" key={k.key}>
           <span className="kpi-icon" aria-hidden="true">
-            {k.icon}
+            <k.Icon size={20} />
           </span>
           <Kpi value={k.value} suffix={k.suffix} />
           <span className="kpi-label">{k.label}</span>

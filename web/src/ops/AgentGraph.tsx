@@ -1,15 +1,16 @@
 import React, { useEffect, useRef } from 'react'
+import { Radar, Compass, Phone, ReceiptText, Eye } from 'lucide-react'
 import type { ReasoningEntry } from '../../../shared/types'
 
 // The agent orchestra (Sprint 2): makes the multi-agent reasoning visible.
 // Nodes light up and pulse when active; the latest thought shows under each node;
 // a live reasoning stream narrates the chain of thought across agents.
 const AGENTS = [
-  { id: 'watchdog', icon: '🛰️', name: 'Veille', role: 'Détecte les incidents' },
-  { id: 'planner', icon: '🧭', name: 'Planificateur', role: 'Recalcule sans compromis' },
-  { id: 'caller', icon: '📞', name: 'Appelant', role: 'Contacte les prestataires' },
-  { id: 'extractor', icon: '🧾', name: 'Extracteur', role: 'Structure les confirmations' },
-  { id: 'vision', icon: '👁️', name: 'Vision', role: 'Vérifie la conformité' },
+  { id: 'watchdog', Icon: Radar, name: 'Veille', role: 'Détecte les incidents' },
+  { id: 'planner', Icon: Compass, name: 'Planificateur', role: 'Recalcule sans compromis' },
+  { id: 'caller', Icon: Phone, name: 'Appelant', role: 'Contacte les prestataires' },
+  { id: 'extractor', Icon: ReceiptText, name: 'Extracteur', role: 'Structure les confirmations' },
+  { id: 'vision', Icon: Eye, name: 'Vision', role: 'Vérifie la conformité' },
 ]
 
 interface AgentGraphProps {
@@ -46,7 +47,7 @@ export default function AgentGraph({ agentStates = {}, reasoning = [] }: AgentGr
                 aria-label={`${a.name} : ${active ? 'actif' : 'en veille'}`}
               >
                 <span className="agent-node-icon" aria-hidden="true">
-                  {a.icon}
+                  <a.Icon size={22} />
                 </span>
                 <span className="agent-node-name">{a.name}</span>
                 <span className="agent-node-role">{a.role}</span>

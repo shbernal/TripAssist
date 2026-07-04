@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { Play, RotateCcw, Phone, Zap } from 'lucide-react'
 import type { AppState, Step } from '../../../shared/types'
 
 type PostBodyFn = (url: string, body: unknown, label: string) => Promise<void>
@@ -45,7 +46,9 @@ export default function DemoPanel({ state, reload }: DemoPanelProps) {
       </p>
 
       <section className="panel" aria-labelledby="guided-title" style={{ marginBottom: '1rem' }}>
-        <h2 id="guided-title">▶ Démo guidée</h2>
+        <h2 id="guided-title" className="h2-icon">
+          <Play size={18} aria-hidden="true" /> Démo guidée
+        </h2>
         <p className="muted" style={{ marginTop: '-0.3rem' }}>
           Déroulé automatique et narré des trois flux (perturbation, appel IA, vision). Idéal pour
           la scène.
@@ -55,7 +58,7 @@ export default function DemoPanel({ state, reload }: DemoPanelProps) {
           className="primary"
           onClick={() => window.dispatchEvent(new CustomEvent('guided-demo-start'))}
         >
-          ▶ Lancer la démo guidée
+          <Play size={16} aria-hidden="true" /> Lancer la démo guidée
         </button>
       </section>
 
@@ -68,7 +71,7 @@ export default function DemoPanel({ state, reload }: DemoPanelProps) {
             onClick={() => post('/api/demo/reset', 'Réinitialisation')}
             disabled={busy}
           >
-            ↺ Réinitialiser la démo
+            <RotateCcw size={16} aria-hidden="true" /> Réinitialiser la démo
           </button>
 
           <button
@@ -78,14 +81,14 @@ export default function DemoPanel({ state, reload }: DemoPanelProps) {
             }
             disabled={busy}
           >
-            📞 Lancer l'appel IA — scénario scène
+            <Phone size={16} aria-hidden="true" /> Lancer l'appel IA — scénario scène
           </button>
           <button
             type="button"
             onClick={() => postBody('/api/call/start', { branch: 'B1' }, 'Appel IA (confirmation)')}
             disabled={busy}
           >
-            📞 Appel IA — confirmation OK
+            <Phone size={16} aria-hidden="true" /> Appel IA — confirmation OK
           </button>
         </div>
 
@@ -100,7 +103,9 @@ export default function DemoPanel({ state, reload }: DemoPanelProps) {
       </section>
 
       <section className="panel" aria-labelledby="scenarios-title" style={{ marginTop: '1rem' }}>
-        <h2 id="scenarios-title">⚡ Perturbations</h2>
+        <h2 id="scenarios-title" className="h2-icon">
+          <Zap size={18} aria-hidden="true" /> Perturbations
+        </h2>
         <p className="muted" style={{ marginTop: '-0.3rem' }}>
           Injectez un incident — le watchdog détecte, le planificateur remédie, chaque type a sa
           cascade.

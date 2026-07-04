@@ -1,4 +1,5 @@
 import React from 'react'
+import { AlertTriangle } from 'lucide-react'
 import { StatusBadge } from '../traveler/Timeline'
 import type { Step } from '../../../shared/types'
 
@@ -35,7 +36,9 @@ export default function Watchlist({ steps }: WatchlistProps) {
               {s.reason && (
                 <>
                   <br />
-                  <span className="reason-chip">⚠ {s.reason}</span>
+                  <span className="reason-chip">
+                    <AlertTriangle size={13} aria-hidden="true" /> {s.reason}
+                  </span>
                 </>
               )}
             </span>

@@ -1,5 +1,7 @@
 import React, { useMemo, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { Users, Building2, Compass, AlertTriangle, Accessibility } from 'lucide-react'
+import type { LucideIcon } from 'lucide-react'
 import type { AppState, StepStatus } from '../../../shared/types'
 
 // A traveler card as rendered by the fleet grid — Camille (live) and the seeded
@@ -68,12 +70,12 @@ export default function FleetView({ state }: { state: AppState }) {
   const distinctClients = new Set(all.map((t) => t.client)).size
   const sla = totalSteps ? Math.round(((totalSteps - failed) / totalSteps) * 100) : 100
 
-  const kpis = [
-    { label: 'Voyageurs suivis', value: all.length, icon: '👥' },
-    { label: 'Clients (assureurs/agences)', value: distinctClients, icon: '🏢' },
-    { label: 'Voyages en cours', value: all.length - completed, icon: '🧭' },
-    { label: 'Incidents actifs', value: atRisk + failed, icon: '⚠️' },
-    { label: 'SLA accessibilité', value: `${sla}%`, icon: '♿' },
+  const kpis: { label: string; value: number | string; Icon: LucideIcon }[] = [
+    { label: 'Voyageurs suivis', value: all.length, Icon: Users },
+    { label: 'Clients (assureurs/agences)', value: distinctClients, Icon: Building2 },
+    { label: 'Voyages en cours', value: all.length - completed, Icon: Compass },
+    { label: 'Incidents actifs', value: atRisk + failed, Icon: AlertTriangle },
+    { label: 'SLA accessibilité', value: `${sla}%`, Icon: Accessibility },
   ]
 
   return (
@@ -96,7 +98,7 @@ export default function FleetView({ state }: { state: AppState }) {
         {kpis.map((k) => (
           <div className="kpi" key={k.label}>
             <span className="kpi-icon" aria-hidden="true">
-              {k.icon}
+              <k.Icon size={20} />
             </span>
             <span className="kpi-value">{k.value}</span>
             <span className="kpi-label">{k.label}</span>

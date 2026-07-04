@@ -25,7 +25,8 @@
     "pw:install": "node node_modules/playwright/cli.js install chromium"
   },
   "dependencies": {
-    "express": "^4.19.2"
+    "express": "^4.19.2",
+    "lucide-react": "^1.23.0"
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",

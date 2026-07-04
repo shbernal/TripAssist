@@ -70,6 +70,28 @@ button {
   color: var(--text);
   padding: 0.6rem 0.9rem;
   min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+}
+/* lucide icons: keep them from shrinking and align them to their labels */
+button svg,
+.reason-chip svg,
+.verdict-flag svg,
+.guided-caption svg,
+.h2-icon svg,
+.link-icon svg {
+  flex: none;
+}
+.h2-icon,
+.link-icon,
+.verdict-flag,
+.reason-chip,
+.guided-caption {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
 }
 button:hover {
   background: #24344c;
@@ -616,7 +638,9 @@ input[type='text'] {
 }
 
 .reason-chip {
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
   margin-top: 0.2rem;
   font-size: 0.78rem;
   font-weight: 600;
@@ -818,6 +842,9 @@ input[type='text'] {
   margin-bottom: 0.6rem;
 }
 .voice-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
   min-height: 36px;
   padding: 0.3rem 0.7rem;
   font-size: 0.85rem;
@@ -912,6 +939,7 @@ input[type='text'] {
 .file-btn {
   display: inline-flex;
   align-items: center;
+  gap: 0.4rem;
   font: inherit;
   cursor: pointer;
   border-radius: 8px;

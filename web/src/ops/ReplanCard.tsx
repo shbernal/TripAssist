@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { Check } from 'lucide-react'
 import type { ReplanPlan } from '../../../shared/types'
 
 interface ReplanCardProps {
@@ -62,7 +63,13 @@ export default function ReplanCard({ replan, onApplied }: ReplanCardProps) {
             ))}
           </ol>
           <button type="button" className="primary" onClick={apply} disabled={busy}>
-            {busy ? 'Application…' : '✓ Appliquer le plan'}
+            {busy ? (
+              'Application…'
+            ) : (
+              <>
+                <Check size={16} aria-hidden="true" /> Appliquer le plan
+              </>
+            )}
           </button>
           {error && (
             <p style={{ color: 'var(--st-failed)' }} role="alert">

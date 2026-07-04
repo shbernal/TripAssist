@@ -1,5 +1,6 @@
 import React from 'react'
 import { useParams, Link } from 'react-router-dom'
+import { ArrowLeft } from 'lucide-react'
 import TravelerView from './TravelerView'
 import { StatusBadge } from './Timeline'
 import type { AppState, FleetTraveler } from '../../../shared/types'
@@ -37,7 +38,9 @@ function FleetTravelerDetail({ traveler }: { traveler: FleetTraveler }) {
   return (
     <div className="page">
       <p className="muted" style={{ marginBottom: '0.3rem' }}>
-        <Link to="/">← Flotte</Link>
+        <Link to="/" className="link-icon">
+          <ArrowLeft size={14} aria-hidden="true" /> Flotte
+        </Link>
       </p>
       <div className="phone-wrap">
         <div className="phone">

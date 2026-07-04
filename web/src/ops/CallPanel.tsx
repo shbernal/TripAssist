@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react'
+import { Volume2, VolumeX } from 'lucide-react'
 import { speak, cancelSpeech, supportsSpeech } from '../lib/speech'
 import type { CallState, TranscriptChunk } from '../../../shared/types'
 
@@ -78,7 +79,15 @@ export default function CallPanel({ call = {}, transcript = [] }: CallPanelProps
             aria-pressed={voiceOn}
             title={voiceOn ? 'Couper la voix' : 'Activer la voix'}
           >
-            {voiceOn ? '🔊 Voix' : '🔇 Muet'}
+            {voiceOn ? (
+              <>
+                <Volume2 size={16} aria-hidden="true" /> Voix
+              </>
+            ) : (
+              <>
+                <VolumeX size={16} aria-hidden="true" /> Muet
+              </>
+            )}
           </button>
         )}
       </div>
