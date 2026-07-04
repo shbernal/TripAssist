@@ -62,7 +62,7 @@ export function Itinerary() {
           <div className="flex flex-col items-center text-center">
             <motion.img
               src={asset('faces/ai-agent.png')}
-              alt="Avatar de l’agent IA TripAssist, un orbe lumineux bleu."
+              alt="Avatar de l’agent IA TripAssist, une assistante humanoïde blanche et bleue au sourire bienveillant."
               className="h-20 w-20"
               animate={reduced ? undefined : { scale: [1, 1.08, 1] }}
               transition={{ duration: 2.4, repeat: Infinity, ease: 'easeInOut' }}

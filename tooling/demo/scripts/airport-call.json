@@ -9,7 +9,7 @@
       "shortName": "IA",
       "role": "caller",
       "voiceId": "${ELEVENLABS_VOICE_AGENT}",
-      "voiceFallback": "EXAVITQu4vr4xnSDxMaL",
+      "voiceFallback": "WeAAwKYcS06VmXw086yZ",
       "settings": { "stability": 0.45, "similarity_boost": 0.75, "style": 0.25 }
     },
     "callee": {

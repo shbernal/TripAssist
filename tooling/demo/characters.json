@@ -27,7 +27,7 @@
     {
       "id": "ai-agent",
       "file": "ai-agent.png",
-      "prompt": "Generate an image with a transparent background: the avatar of a friendly AI travel assistant - a single luminous glowing orb with a smooth gradient from deep blue (#1d4ed8) at the base to bright sky blue (#7dd3fc) at the top, a thin elegant orbital ring around it, a soft outer glow and a few tiny light particles. Minimal, modern, calm and trustworthy, matching a dark navy travel-app brand. No face, no text, no watermark, no circuit lines. Square 1:1, orb centered with generous padding - it is displayed small as a circular avatar."
+      "prompt": "Generate an image with a transparent background: the avatar of a friendly humanoid AI travel assistant - a stylized 3D character, head and shoulders, with softly feminine features: a smooth rounded face, gentle warm smile, large kind luminous eyes, sleek pearl-white surfaces with elegant accents in a gradient from deep blue (#1d4ed8) to bright sky blue (#7dd3fc), and a soft outer glow. Professional and trustworthy like a concierge, yet cute, warm and completely non-aggressive - rounded shapes only, no sharp angles, no visible machinery, no circuit lines. Minimal and modern, matching a dark navy travel-app brand. No text, no watermark. Square 1:1, character centered with generous padding - it is displayed small as a circular avatar."
     },
     {
       "id": "logo",
