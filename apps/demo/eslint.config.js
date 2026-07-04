@@ -1,7 +1,6 @@
-// Flat ESLint config for the demo (an isolated workspace member). The root config
-// deliberately `ignores: ['apps']` — its type-aware project map only covers the
-// MVP's tsconfig.server/web — so the demo carries its own lint here, mirroring the
-// root's frontend rules but pointed at the demo's own tsconfig.
+// Flat ESLint config for the demo (an isolated workspace member). There is no
+// root ESLint config on this branch — each app carries its own lint, type-aware
+// against its own tsconfig; `pnpm -r lint` fans out across them.
 import js from '@eslint/js'
 import tseslint from 'typescript-eslint'
 import react from 'eslint-plugin-react'

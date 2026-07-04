@@ -1,12 +1,16 @@
 name: Deploy demo → GitHub Pages
 
-# Builds apps/demo with base=/TripAssist/ and publishes dist/ to GitHub Pages.
-# No external account needed. The MVP (root package) is never built here.
+# Builds both static apps and publishes a COMBINED site to GitHub Pages:
+#   - the story landing page (apps/demo)      at /TripAssist/
+#   - the operator dashboard (apps/dashboard) at /TripAssist/dashboard/
+# Each app's Vite `base` is set to match its path. No external account needed;
+# no backend is built here (the functional MVP lives on the `mvp` branch).
 on:
   push:
     branches: [main]
     paths:
       - 'apps/demo/**'
+      - 'apps/dashboard/**'
       - 'pnpm-workspace.yaml'
       - 'pnpm-lock.yaml'
       - '.github/workflows/deploy-demo.yml'
@@ -35,9 +39,17 @@ jobs:
           cache: pnpm
       - run: pnpm install --frozen-lockfile
       - run: pnpm --filter @tripassist/demo build
+      - run: pnpm --filter @tripassist/dashboard build
+      # Assemble the combined artifact: landing page at the root, dashboard nested
+      # under /dashboard (its base=/TripAssist/dashboard/ already points there).
+      - name: Assemble combined site
+        run: |
+          rm -rf _site
+          cp -r apps/demo/dist _site
+          cp -r apps/dashboard/dist _site/dashboard
       - uses: actions/upload-pages-artifact@v3
         with:
-          path: apps/demo/dist
+          path: _site
 
   deploy:
     needs: build

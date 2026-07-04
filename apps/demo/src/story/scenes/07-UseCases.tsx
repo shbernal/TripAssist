@@ -1,8 +1,16 @@
+import { ArrowUpRight } from 'lucide-react'
 import { Scene } from '../../components/Scene'
 import { Reveal } from '../../components/Reveal'
 
-// A slice of the traveler portfolio from the MVP's fleet dashboard (server/seed.ts):
-// varied disability profiles to show the same agent orchestrating every kind of need.
+// The operator dashboard is the sibling app, published under /TripAssist/dashboard/.
+// In local dev (demo on :5173, dashboard not served here) fall back to the live URL.
+const DASHBOARD_URL = import.meta.env.DEV
+  ? 'https://shbernal.github.io/TripAssist/dashboard/'
+  : '/TripAssist/dashboard/'
+
+// A slice of the traveler portfolio: varied disability profiles to show the same
+// agent orchestrating every kind of need. The operator dashboard (apps/dashboard)
+// expands this into a full ~20-traveler group.
 const PROFILES = [
   {
     name: 'Marc Dubois',
@@ -63,6 +71,13 @@ export function UseCases() {
             orchestre déjà <strong className="text-slate-200">tous les profils</strong> - les mêmes
             appels, les mêmes confirmations tracées, pour chaque voyageur.
           </p>
+          <a
+            href={DASHBOARD_URL}
+            className="mt-5 inline-flex items-center gap-1.5 rounded-lg border border-brand-bright/40 px-3 py-2 text-sm font-medium text-brand-bright hover:bg-brand-bright/10"
+          >
+            Voir le tableau de bord opérateur
+            <ArrowUpRight className="h-4 w-4" aria-hidden={true} />
+          </a>
         </Reveal>
 
         <Reveal from="right" delay={0.15}>
