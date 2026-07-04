@@ -4,6 +4,9 @@
 // token is available. Every agent that calls this MUST have a hardcoded fallback:
 // the demo never breaks.
 import { execFile } from 'node:child_process'
+import { mkdtempSync, writeFileSync, rmSync } from 'node:fs'
+import { tmpdir } from 'node:os'
+import { join } from 'node:path'
 
 const MODEL = process.env.ANTHROPIC_MODEL || 'claude-opus-4-8'
 
@@ -40,10 +43,16 @@ export function baseUrl(): string {
   return (process.env.ANTHROPIC_BASE_URL || 'https://api.anthropic.com').replace(/\/$/, '')
 }
 
+export interface ClaudeImage {
+  base64: string
+  mediaType?: string
+}
+
 export interface ClaudeJSONArgs {
   system: string
   user: string
   schema: object
+  image?: ClaudeImage
   maxTokens?: number
   timeoutMs?: number
 }
@@ -79,31 +88,54 @@ function extractJSON(text: string): any {
   }
 }
 
+const IMAGE_EXT: Record<string, string> = {
+  'image/jpeg': 'jpg',
+  'image/png': 'png',
+  'image/webp': 'webp',
+  'image/gif': 'gif',
+}
+
 // Real Claude via the local `claude` CLI in print mode (`-p ... --output-format
 // json`). Returns parsed JSON matching `schema`. Throws on any failure so callers
 // fall back deterministically. Slower than HTTP (fresh process), so it carries a
 // longer default timeout and is only reached when hasClaude() is false.
+// An `image` is passed by writing it to a temp file the CLI reads itself
+// (`--add-dir` grants access) - print mode has no other image channel.
 export function claudeCLIJSON({
   system,
   user,
   schema,
+  image,
   timeoutMs = 45000,
 }: ClaudeJSONArgs): Promise<any> {
+  let imageDir: string | null = null
+  let imageNote = ''
+  if (image?.base64) {
+    imageDir = mkdtempSync(join(tmpdir(), 'tripassist-img-'))
+    const file = join(imageDir, `photo.${IMAGE_EXT[image.mediaType || ''] || 'jpg'}`)
+    writeFileSync(file, Buffer.from(image.base64, 'base64'))
+    imageNote = `Commence par lire l'image située à ${file} (outil Read), puis réponds.\n`
+  }
+
   const prompt = [
     system,
     '',
-    user,
+    imageNote + user,
     '',
     'Réponds UNIQUEMENT avec un objet JSON valide conforme à ce JSON Schema, sans texte ni balises autour :',
     JSON.stringify(schema),
   ].join('\n')
 
+  const args = ['-p', prompt, '--output-format', 'json']
+  if (imageDir) args.push('--add-dir', imageDir)
+
   return new Promise((resolve, reject) => {
     execFile(
       'claude',
-      ['-p', prompt, '--output-format', 'json'],
+      args,
       { timeout: timeoutMs, maxBuffer: 8 * 1024 * 1024 },
       (err, stdout, stderr) => {
+        if (imageDir) rmSync(imageDir, { recursive: true, force: true })
         if (err) {
           return reject(new Error(`claude CLI: ${err.message} ${String(stderr).slice(0, 200)}`))
         }
@@ -126,7 +158,7 @@ export function claudeCLIJSON({
 // Routes to HTTP when a token is set, else to the CLI bridge when enabled.
 // Throws on any failure so callers can fall back deterministically.
 export async function claudeJSON(args: ClaudeJSONArgs): Promise<any> {
-  const { system, user, schema, maxTokens = 1500, timeoutMs = 12000 } = args
+  const { system, user, schema, image, maxTokens = 1500, timeoutMs = 12000 } = args
 
   if (!hasClaude()) {
     if (hasClaudeCLI()) return claudeCLIJSON(args)
@@ -137,13 +169,26 @@ export async function claudeJSON(args: ClaudeJSONArgs): Promise<any> {
   const timer = setTimeout(() => controller.abort(), timeoutMs)
 
   try {
+    const content = image?.base64
+      ? [
+          {
+            type: 'image',
+            source: {
+              type: 'base64',
+              media_type: image.mediaType || 'image/jpeg',
+              data: image.base64,
+            },
+          },
+          { type: 'text', text: user },
+        ]
+      : user
     const body: ClaudeRequestBody = {
       model: MODEL,
       max_tokens: maxTokens,
       thinking: { type: 'adaptive' },
       output_config: { format: { type: 'json_schema', schema } },
       system,
-      messages: [{ role: 'user', content: user }],
+      messages: [{ role: 'user', content }],
     }
     const res = await fetch(`${baseUrl()}/v1/messages`, {
       method: 'POST',

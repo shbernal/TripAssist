@@ -12,7 +12,15 @@ export default defineConfig({
           name: 'server',
           environment: 'node',
           // Persist to an ephemeral in-memory SQLite DB - no disk, no cross-test bleed.
-          env: { TRIPASSIST_DB: ':memory:' },
+          // Claude gates cleared: tests exercise the deterministic fallbacks even if
+          // the developer's shell exports real credentials (§5.2 - fallbacks are a
+          // tests/CI path, never the live path).
+          env: {
+            TRIPASSIST_DB: ':memory:',
+            ANTHROPIC_API_KEY: '',
+            ANTHROPIC_AUTH_TOKEN: '',
+            ANTHROPIC_VIA_CLI: '',
+          },
           include: ['server/**/*.test.ts', 'scripts/**/*.test.ts'],
         },
       },

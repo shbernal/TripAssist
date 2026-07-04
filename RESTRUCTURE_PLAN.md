@@ -284,9 +284,11 @@ app so work continues cleanly.
       dialing is gated** — do not place a real outbound call until explicitly given the
       go-ahead; the offline sim remains the default/test path. Public-URL + webhook runbook:
       [`docs/guides/vapi-setup.md`](docs/guides/vapi-setup.md).
-- [ ] **§5.2 Real reasoning** — planner/extractor/vision on `ANTHROPIC_API_KEY`; deterministic
-      fallbacks kept for tests/CI only. _(Claude reachable via local CLI bridge
-      `ANTHROPIC_VIA_CLI`; full end-to-end promotion still open.)_
+- [x] **§5.2 Real reasoning** — planner/extractor/vision/ingest all route through the shared
+      Claude client (`server/agents/claude.ts`) over HTTP token **or** the `ANTHROPIC_VIA_CLI`
+      CLI bridge; vision now supports images on both paths (HTTP content blocks; temp file +
+      `--add-dir` on the CLI). Deterministic fallbacks are a tests/CI path only — the server
+      Vitest project force-clears the Claude gates so suites never touch the network.
 - [x] **§5.3 Real data — booking ingestion** — `server/ingest.ts` + `POST /api/ingest`:
       pasted itinerary → structured steps via Claude with deterministic offline fallback.
       _(Live open-data plugins — SNCF/Open-Meteo/Navitia/acceslibre/ORS — still open.)_

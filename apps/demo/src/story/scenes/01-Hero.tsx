@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion'
-import { ChevronDown, ChevronRight, ShieldCheck } from 'lucide-react'
+import { ChevronDown, ChevronRight } from 'lucide-react'
 import { asset } from '../../lib/asset'
 import { useReducedMotion } from '../../lib/useReducedMotion'
 
@@ -16,7 +16,7 @@ export function Hero() {
       <div className="m-auto grid w-full max-w-5xl items-center gap-6 md:grid-cols-2 md:gap-12">
         <div>
           <span className="inline-flex items-center gap-2 rounded-full border border-slate-700 bg-slate-900/70 px-4 py-1.5 text-sm text-slate-300">
-            <ShieldCheck aria-hidden="true" className="h-4 w-4 text-emerald-400" />
+            <img src={asset('logo.svg')} alt="" aria-hidden="true" className="h-5 w-5" />
             <span className="font-semibold text-slate-100">TripAssist</span>
           </span>
           <h1
