@@ -35,8 +35,12 @@ function Avatar({ src, name, role, speaking, reduced }: AvatarProps) {
           className="relative h-16 w-16 rounded-full object-cover sm:h-20 sm:w-20"
         />
       </motion.div>
-      <p className="text-sm font-semibold text-slate-100">{name}</p>
-      <p className="text-[10px] uppercase tracking-wider text-slate-500">{role}</p>
+      {/* On phones the full name wraps and dwarfs the orb; the role alone identifies
+          the speaker (the img alt keeps the name for screen readers). */}
+      <p className="hidden text-sm font-semibold text-slate-100 sm:block">{name}</p>
+      <p className="text-[10px] uppercase tracking-wider text-slate-400 sm:text-slate-500">
+        {role}
+      </p>
     </div>
   )
 }
