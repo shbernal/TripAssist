@@ -1,12 +1,9 @@
 node_modules
-web/dist
 apps/demo/dist
+apps/dashboard/dist
 apps/demo/lighthouse-a11y.report.*
-coverage
-data/state.json
-data/*.db
-data/*.db-wal
-data/*.db-shm
+# combined Pages artifact assembled locally to mirror the deploy (CI builds it fresh)
+_site/
 .env
 .DS_Store
 *.log

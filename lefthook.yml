@@ -1,6 +1,8 @@
 # All tools are invoked via `node node_modules/...` because the repo path can
 # contain a ':' that corrupts PATH and breaks node_modules/.bin shims — the same
 # constraint the package.json scripts follow. This applies inside git hooks too.
+# (`pnpm` itself is the corepack-managed package manager, not a .bin shim, so it
+# is safe to call directly.)
 pre-commit:
   parallel: false
   jobs:
@@ -11,32 +13,26 @@ pre-commit:
       exclude: 'CLAUDE.md'
       run: node node_modules/prettier/bin/prettier.cjs --write {staged_files}
       stage_fixed: true
-    - name: lint
+    # apps/* are isolated workspace members with their own flat ESLint config +
+    # node_modules/eslint. `root:` scopes each job to staged files under that app
+    # and runs from there, so the app's own config applies.
+    - name: lint-demo
+      root: 'apps/demo/'
       glob: '*.{ts,tsx,js,jsx}'
-      # apps/* are isolated workspace members the root ESLint ignores; the demo is
-      # linted by its own job below. `exclude` is glob-based (like the CLAUDE.md
-      # entry above), so drop everything under apps/ from this job's file list.
-      exclude: 'apps/**/*'
       run: node node_modules/eslint/bin/eslint.js --fix {staged_files}
       stage_fixed: true
-    - name: lint-demo
-      # `root` scopes this to staged files under apps/demo and runs from there, so
-      # the demo's own flat config + node_modules/eslint apply.
-      root: 'apps/demo/'
+    - name: lint-dashboard
+      root: 'apps/dashboard/'
       glob: '*.{ts,tsx,js,jsx}'
       run: node node_modules/eslint/bin/eslint.js --fix {staged_files}
       stage_fixed: true
 
+# No server/tests live on this branch anymore — the pre-push gate is the apps'
+# own typecheck + lint, fanned out across every workspace member.
 pre-push:
   parallel: false
   jobs:
     - name: typecheck
-      run: node node_modules/typescript/bin/tsc -p tsconfig.server.json --noEmit && node node_modules/typescript/bin/tsc -p tsconfig.web.json --noEmit
-    - name: test
-      run: node node_modules/vitest/vitest.mjs run
-    - name: demo-typecheck
-      root: 'apps/demo/'
-      run: node node_modules/typescript/bin/tsc -p tsconfig.json --noEmit && node node_modules/typescript/bin/tsc -p tsconfig.node.json --noEmit
-    - name: demo-lint
-      root: 'apps/demo/'
-      run: node node_modules/eslint/bin/eslint.js .
+      run: pnpm -r typecheck
+    - name: lint
+      run: pnpm -r lint

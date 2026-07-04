@@ -1,17 +1,12 @@
-# The MVP stays the root package (server/ + web/ + shared/, unmoved). Only apps/*
-# are declared as workspace members so apps/demo gets its own isolated dependency
-# closure (gsap, lenis, framer-motion, howler, wavesurfer) without touching the MVP.
+# This root package is a pnpm workspace MANAGER only. The shipped apps live in
+# apps/* and each carries its own isolated dependency closure (framer-motion,
+# howler, tailwind 4…) so they never entangle.
 packages:
   - apps/*
 
-# pnpm 11 reads the build-script allowlist here (no longer from package.json's "pnpm" field).
-# esbuild's install step fetches the platform binary that Vite/Vitest rely on.
+# pnpm 11 reads the build-script allowlist here. esbuild's install step fetches
+# the platform binary that Vite relies on; lefthook ships its binary via the
+# platform optional-dependency (lefthook-linux-x64), so skip its own postinstall.
 allowBuilds:
   esbuild: true
-  # lefthook ships its binary via the platform optional-dependency
-  # (lefthook-linux-x64), so its own postinstall download is redundant.
   lefthook: false
-  # @vapi-ai/mcp-docs-server (Vapi docs MCP) pulls these in; sharp needs its
-  # native binary or the server crashes on start, protobufjs builds its runtime.
-  protobufjs: true
-  sharp: true
