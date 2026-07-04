@@ -2,7 +2,7 @@ import { defineConfig } from 'vitest/config'
 import react from '@vitejs/plugin-react'
 
 // Two projects in one run so the Node backend and the jsdom frontend share a
-// single Vitest invocation. Reuses Vite's ESM/TS transpile pipeline — no ts-jest.
+// single Vitest invocation. Reuses Vite's ESM/TS transpile pipeline - no ts-jest.
 export default defineConfig({
   test: {
     projects: [
@@ -11,7 +11,7 @@ export default defineConfig({
         test: {
           name: 'server',
           environment: 'node',
-          // Persist to an ephemeral in-memory SQLite DB — no disk, no cross-test bleed.
+          // Persist to an ephemeral in-memory SQLite DB - no disk, no cross-test bleed.
           env: { ACCESSTRIP_DB: ':memory:' },
           include: ['server/**/*.test.ts', 'scripts/**/*.test.ts'],
         },

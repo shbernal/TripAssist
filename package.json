@@ -4,7 +4,7 @@
   "private": true,
   "type": "module",
   "packageManager": "pnpm@11.5.2",
-  "description": "AccessTrip — AI trip-orchestration for disabled travelers (hackathon demo)",
+  "description": "AccessTrip - AI trip-orchestration for disabled travelers (hackathon demo)",
   "comment": "Scripts call `node <entrypoint>` directly instead of the .bin shim, because the parent folder name contains a ':' which corrupts PATH and breaks local binaries. All tooling (tsx, tsc, vite, eslint, prettier, lefthook) is invoked the same way.",
   "scripts": {
     "dev": "node node_modules/tsx/dist/cli.mjs scripts/dev.ts",

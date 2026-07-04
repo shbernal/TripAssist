@@ -1,7 +1,7 @@
 import { describe, it, expect, afterEach, vi } from 'vitest'
 import { hasClaude, hasClaudeCLI, claudeEnabled, authHeaders, baseUrl } from './claude'
 
-// hasClaude/authHeaders/baseUrl read env at call time, so stubEnv is enough — no
+// hasClaude/authHeaders/baseUrl read env at call time, so stubEnv is enough - no
 // module reload needed. Clear all stubbed vars after each test.
 afterEach(() => {
   vi.unstubAllEnvs()

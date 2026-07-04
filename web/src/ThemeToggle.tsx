@@ -10,7 +10,7 @@ function initialTheme(): Theme {
     if (saved === 'light' || saved === 'dark') return saved
     if (window.matchMedia('(prefers-color-scheme: dark)').matches) return 'dark'
   } catch {
-    /* localStorage / matchMedia unavailable — fall through */
+    /* localStorage / matchMedia unavailable - fall through */
   }
   return 'light'
 }
@@ -38,7 +38,7 @@ export default function ThemeToggle() {
       className="theme-toggle"
       onClick={() => setTheme(next)}
       aria-label={`Basculer en thème ${next === 'dark' ? 'sombre' : 'clair'}`}
-      title={`Thème ${theme === 'dark' ? 'sombre' : 'clair'} — cliquer pour ${next === 'dark' ? 'sombre' : 'clair'}`}
+      title={`Thème ${theme === 'dark' ? 'sombre' : 'clair'} - cliquer pour ${next === 'dark' ? 'sombre' : 'clair'}`}
     >
       {theme === 'dark' ? (
         <Moon size={16} aria-hidden="true" />

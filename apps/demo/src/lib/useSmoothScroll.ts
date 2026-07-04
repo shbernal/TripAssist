@@ -1,39 +1,112 @@
-import { useEffect } from 'react'
+import { useCallback, useEffect, useRef } from 'react'
+import type { RefObject } from 'react'
 import Lenis from 'lenis'
-import { gsap } from 'gsap'
-import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
-gsap.registerPlugin(ScrollTrigger)
+interface HorizontalScroll {
+  /** Scroll the track to an absolute horizontal offset (px). */
+  scrollToLeft: (left: number) => void
+}
 
 /**
- * Buttery inertia scroll (Lenis) wired into GSAP's ticker so ScrollTrigger stays
- * in sync with it. Disabled entirely when the user prefers reduced motion — then
- * the page is plain native scroll with no inertia.
+ * Turns a horizontally-overflowing container into the story's single scroller:
+ * a vertical wheel gesture moves the scenes sideways. Lenis provides the buttery
+ * inertia (orientation horizontal, gesture read from the vertical wheel). Under
+ * reduced motion Lenis is skipped and a tiny native handler maps the wheel to an
+ * instant horizontal scroll, so the page is still navigable with no animation.
  *
- * @param enabled pass `!reducedMotion` from the caller.
+ * It also intercepts in-page hash links (e.g. the hero CTA) so they scroll the
+ * track sideways instead of doing a vertical jump the layout cannot honor.
+ *
+ * @param containerRef the horizontal scroller element.
+ * @param smooth pass `!reducedMotion` from the caller.
  */
-export function useSmoothScroll(enabled: boolean): void {
+export function useSmoothScroll(
+  containerRef: RefObject<HTMLElement | null>,
+  smooth: boolean,
+): HorizontalScroll {
+  const lenisRef = useRef<Lenis | null>(null)
+
+  const scrollToLeft = useCallback(
+    (left: number): void => {
+      const wrapper = containerRef.current
+      if (!wrapper) return
+      if (lenisRef.current) {
+        lenisRef.current.scrollTo(left)
+      } else {
+        wrapper.scrollTo({ left, behavior: smooth ? 'smooth' : 'auto' })
+      }
+    },
+    [containerRef, smooth],
+  )
+
   useEffect(() => {
-    if (!enabled) return
+    const wrapper = containerRef.current
+    if (!wrapper) return
+
+    if (!smooth) {
+      // Reduced motion: no inertia, just map the vertical wheel to the axis that
+      // actually scrolls so navigation still works.
+      const onWheel = (e: WheelEvent): void => {
+        if (Math.abs(e.deltaY) <= Math.abs(e.deltaX)) return
+        wrapper.scrollLeft += e.deltaY
+        e.preventDefault()
+      }
+      wrapper.addEventListener('wheel', onWheel, { passive: false })
+      return () => wrapper.removeEventListener('wheel', onWheel)
+    }
+
+    const content = wrapper.firstElementChild as HTMLElement | null
+    if (!content) return
 
     const lenis = new Lenis({
-      duration: 1.1,
+      wrapper,
+      content,
+      orientation: 'horizontal',
+      gestureOrientation: 'vertical',
       smoothWheel: true,
+      duration: 1.1,
     })
+    lenisRef.current = lenis
 
-    // Keep ScrollTrigger's cached positions in step with Lenis' virtual scroll.
-    lenis.on('scroll', ScrollTrigger.update)
-
-    const onTick = (time: number): void => {
-      // gsap.ticker time is seconds; Lenis expects milliseconds.
-      lenis.raf(time * 1000)
+    let raf = 0
+    const loop = (time: number): void => {
+      lenis.raf(time)
+      raf = requestAnimationFrame(loop)
     }
-    gsap.ticker.add(onTick)
-    gsap.ticker.lagSmoothing(0)
+    raf = requestAnimationFrame(loop)
 
     return () => {
-      gsap.ticker.remove(onTick)
+      cancelAnimationFrame(raf)
       lenis.destroy()
+      lenisRef.current = null
     }
-  }, [enabled])
+  }, [containerRef, smooth])
+
+  // Route in-page anchors (hero CTA, etc.) through the horizontal scroller.
+  useEffect(() => {
+    const wrapper = containerRef.current
+    if (!wrapper) return
+
+    const onClick = (e: MouseEvent): void => {
+      const anchor = (e.target as Element | null)?.closest('a[href^="#"]')
+      if (!anchor) return
+      const id = anchor.getAttribute('href')?.slice(1)
+      if (!id) return
+      const target = document.getElementById(id)
+      // Skip the container itself (e.g. the skip link) so focus can move natively.
+      if (!target || target === wrapper || !wrapper.contains(target)) return
+      e.preventDefault()
+      const left =
+        wrapper.scrollLeft +
+        target.getBoundingClientRect().left -
+        wrapper.getBoundingClientRect().left
+      scrollToLeft(left)
+      target.focus({ preventScroll: true })
+    }
+
+    document.addEventListener('click', onClick)
+    return () => document.removeEventListener('click', onClick)
+  }, [containerRef, scrollToLeft])
+
+  return { scrollToLeft }
 }

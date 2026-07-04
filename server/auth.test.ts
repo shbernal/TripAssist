@@ -8,7 +8,7 @@ import {
   DEFAULT_OPERATOR_ID,
 } from './auth'
 
-describe('auth — passwords', () => {
+describe('auth - passwords', () => {
   it('accepts a correct email + password and returns the operator', () => {
     const op = verifyPassword('ops@axa-assistance.fr', 'axa2026')
     expect(op).not.toBeNull()
@@ -29,7 +29,7 @@ describe('auth — passwords', () => {
   })
 })
 
-describe('auth — sessions', () => {
+describe('auth - sessions', () => {
   it('round-trips a signed session token to its operator id', () => {
     const token = signSession('axa')
     expect(verifySession(token)).toBe('axa')
@@ -63,7 +63,7 @@ describe('auth — sessions', () => {
   })
 })
 
-describe('auth — operators', () => {
+describe('auth - operators', () => {
   it('seeds a demo operator as the default tenant', () => {
     expect(getOperator(DEFAULT_OPERATOR_ID)).toBeDefined()
     expect(listOperators().some((o) => o.id === DEFAULT_OPERATOR_ID)).toBe(true)

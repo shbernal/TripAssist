@@ -1,4 +1,4 @@
-// Seed data — matches SPEC §3 exactly. seed() returns a fresh deep copy every call
+// Seed data - matches SPEC §3 exactly. seed() returns a fresh deep copy every call
 // so reset() never shares references with live state.
 import type { AppState, FleetTraveler, Traveler, Trip, LedgerEntry } from '../shared/types.js'
 
@@ -23,7 +23,7 @@ function baseSeed(): { traveler: Traveler; trip: Trip; ledger_seed: LedgerEntry[
       },
       caregiver: { name: 'Julien Moreau', relation: 'conjoint', access: 'read-only' },
       // Numéro partiellement masqué (minimisation RGPD sur données personnelles).
-      emergency_contact: 'Julien Moreau — +33 6 24 55 •• ••',
+      emergency_contact: 'Julien Moreau - +33 6 24 55 •• ••',
     },
     trip: {
       label: 'Paris → Nice, 12–15 septembre',
@@ -66,7 +66,7 @@ function baseSeed(): { traveler: Traveler; trip: Trip; ledger_seed: LedgerEntry[
         },
         {
           id: 's5',
-          title: 'Hôtel Beau Rivage — ch. 104 accessible, douche italienne',
+          title: 'Hôtel Beau Rivage - ch. 104 accessible, douche italienne',
           provider: 'Hôtel Beau Rivage',
           when: '12/09 15:45',
           depends_on: ['s4'],
@@ -76,7 +76,7 @@ function baseSeed(): { traveler: Traveler; trip: Trip; ledger_seed: LedgerEntry[
         },
         {
           id: 's6',
-          title: 'Restaurant Le Galet — accès de plain-pied',
+          title: 'Restaurant Le Galet - accès de plain-pied',
           provider: 'Le Galet',
           when: '12/09 20:00',
           depends_on: ['s5'],
@@ -125,7 +125,7 @@ export function seed(): AppState {
       {
         agent: 'system',
         level: 'info',
-        message: 'État initial chargé — voyage Paris → Nice prêt.',
+        message: 'État initial chargé - voyage Paris → Nice prêt.',
       },
     ],
     transcript: [],
@@ -141,7 +141,7 @@ export function seed(): AppState {
 }
 
 // A portfolio of travelers with varied disability profiles, trip types, B2B
-// clients (insurers / travel agencies) and live states — to show AccessTrip
+// clients (insurers / travel agencies) and live states - to show AccessTrip
 // orchestrating at scale rather than a single journey.
 function fleetSeed(): FleetTraveler[] {
   return [

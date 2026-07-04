@@ -64,7 +64,7 @@ export const SCENARIOS: Record<string, Scenario> = {
     id: 'strike',
     label: 'Grève SNCF (train supprimé)',
     source: 'SNCF',
-    details: 'Grève — TGV 6173 supprimé',
+    details: 'Grève - TGV 6173 supprimé',
     minutesSaved: 120,
     affected: [
       { stepId: 's2', status: 'failed', reason: 'TGV 6173 supprimé (grève)' },
@@ -116,7 +116,7 @@ export const SCENARIOS: Record<string, Scenario> = {
         stepId: 's3',
         action: 'Sortie assistée alternative + rampe mobile (itinéraire sans marche validé)',
         new_time: '12/09 15:05',
-        rationale: 'Ascenseur HS — chemin de plain-pied garanti par un autre accès',
+        rationale: 'Ascenseur HS - chemin de plain-pied garanti par un autre accès',
       },
     ],
     message_voyageur:
@@ -130,7 +130,7 @@ export const SCENARIOS: Record<string, Scenario> = {
     details: 'Alerte orange orage sur Nice',
     minutesSaved: 25,
     affected: [
-      { stepId: 's4', status: 'at_risk', reason: 'Conditions météo — trajet taxi ralenti' },
+      { stepId: 's4', status: 'at_risk', reason: 'Conditions météo - trajet taxi ralenti' },
     ],
     plan: [
       {
@@ -151,7 +151,7 @@ export const SCENARIOS: Record<string, Scenario> = {
     details: 'Taxi adapté annulé (véhicule en panne)',
     minutesSaved: 30,
     affected: [
-      { stepId: 's4', status: 'failed', reason: 'Véhicule UFR en panne — course annulée' },
+      { stepId: 's4', status: 'failed', reason: 'Véhicule UFR en panne - course annulée' },
     ],
     plan: [
       {

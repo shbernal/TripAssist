@@ -13,19 +13,21 @@ interface SceneProps {
 }
 
 /**
- * A full-height storytelling section. Every scene is a landmark `<section>` with
- * a real (optionally visually-hidden) heading so the page has a coherent outline
- * for screen readers and keyboard users.
+ * A full-viewport storytelling panel on the horizontal track. Every scene is a
+ * landmark `<section>` with a real (optionally visually-hidden) heading so the
+ * page has a coherent outline for screen readers and keyboard users. `tabIndex`
+ * lets the scene receive focus when navigated to via an in-page anchor.
  */
 export function Scene({ id, step, eyebrow, heading, hideHeading, children }: SceneProps) {
   const headingId = `${id}-heading`
   return (
     <section
       id={id}
+      tabIndex={-1}
       aria-labelledby={headingId}
-      className="relative flex min-h-screen flex-col justify-center px-6 py-24 sm:px-10"
+      className="relative flex h-dvh w-screen shrink-0 snap-start overflow-y-auto px-6 py-16 outline-none sm:px-10"
     >
-      <div className="mx-auto w-full max-w-5xl">
+      <div className="m-auto w-full max-w-5xl">
         {(step || eyebrow) && (
           <div className="mb-4 flex items-center gap-3 text-sm">
             {step ? (

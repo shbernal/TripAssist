@@ -1,7 +1,7 @@
-// Real SNCF open data (data.sncf.com — Opendatasoft Explore API v2.1).
+// Real SNCF open data (data.sncf.com - Opendatasoft Explore API v2.1).
 // Grounds the watchdog in genuine figures: real punctuality for the Sud-Est axis
 // (Paris → Nice), plus live SIRI disruptions when any are active. All calls have a
-// timeout + cache + graceful fallback — the demo never blocks on the network.
+// timeout + cache + graceful fallback - the demo never blocks on the network.
 import type { SncfRegularity, RealtimeDisruptions, StationAssistance } from '../../shared/types.js'
 
 const BASE = 'https://data.sncf.com/api/explore/v2.1/catalog/datasets'
@@ -10,7 +10,7 @@ const AXE = 'Sud-Est' // Paris ↔ Nice runs on the TGV Sud-Est axis
 let cache: { regularity: SncfRegularity | null; at: number } = { regularity: null, at: 0 }
 const TTL = 10 * 60 * 1000 // 10 min
 
-// The raw Opendatasoft payload is the vendor's shape, not ours — kept loose and
+// The raw Opendatasoft payload is the vendor's shape, not ours - kept loose and
 // cast at the boundary. We only read the few fields below.
 type OdsJson = { results?: Array<Record<string, unknown>>; total_count?: number }
 

@@ -20,7 +20,7 @@ export function Outro() {
           <div className="rounded-3xl border border-slate-800 bg-slate-900/70 p-6 shadow-xl">
             <div className="mb-4 flex items-center gap-2 text-sm text-slate-400">
               <BookCheck aria-hidden="true" className="h-4 w-4 text-emerald-400" />
-              Registre de voyage — Camille Moreau
+              Registre de voyage - Camille Moreau
             </div>
             <ul className="space-y-4">
               {entries.map((e) => (
@@ -44,7 +44,7 @@ export function Outro() {
           </h3>
           <p className="mt-4 max-w-md text-slate-400">
             AccessTrip transforme un voyage semé d’incertitudes en une suite de confirmations. Le
-            travail est fait en amont — le voyageur n’a plus à le porter.
+            travail est fait en amont - le voyageur n’a plus à le porter.
           </p>
           <a
             href={REPO_URL}

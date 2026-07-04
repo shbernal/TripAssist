@@ -21,7 +21,7 @@ app.use(express.json({ limit: '10mb' }))
 
 // --- resolve the tenant for every request (additive multi-tenant) ---
 // Reads the signed session cookie → operator id; anonymous traffic falls back to the
-// demo tenant so the public demo needs no login. Never rejects — it only resolves.
+// demo tenant so the public demo needs no login. Never rejects - it only resolves.
 app.use((req: Request, _res: Response, next: NextFunction) => {
   const cookie = req.headers.cookie || ''
   const match = cookie.match(new RegExp(`(?:^|;\\s*)${SESSION_COOKIE}=([^;]+)`))
@@ -90,7 +90,7 @@ app.listen(PORT, () => {
   console.log('')
 })
 
-// Minimal .env parser — avoids adding dotenv as a dependency. Reads AccessTrip/.env
+// Minimal .env parser - avoids adding dotenv as a dependency. Reads AccessTrip/.env
 // first, then the parent workspace .env as a fallback (so an existing Claude
 // gateway config is reused without duplicating the token into a new file).
 function loadDotEnv(): void {

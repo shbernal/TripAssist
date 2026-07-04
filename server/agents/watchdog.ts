@@ -26,12 +26,12 @@ export async function handleChaos(scenarioId = 'tgv-delay'): Promise<ReplanPlan>
   const state = getState()
   const affectedIds = scenario.affected.map((a) => a.stepId).join(', ')
 
-  // 1. Record + announce the disruption — the watchdog reasons out loud
+  // 1. Record + announce the disruption - the watchdog reasons out loud
   updateState((s) => {
     s.disruptions.push(disruption)
   })
   pushEvent('disruption', disruption)
-  log('watchdog', 'warn', `Perturbation détectée — ${disruption.source} : ${disruption.details}.`)
+  log('watchdog', 'warn', `Perturbation détectée - ${disruption.source} : ${disruption.details}.`)
 
   // Ground the reasoning in real open data (SNCF punctuality / Nice weather).
   const realThoughts = [`Signal reçu de ${scenario.source}.`, `Incident : ${scenario.details}.`]
@@ -105,8 +105,8 @@ export async function handleChaos(scenarioId = 'tgv-delay'): Promise<ReplanPlan>
   think(
     'planner',
     source === 'claude'
-      ? "Plan validé par Claude — aucun compromis d'accessibilité."
-      : "Plan validé — aucun compromis d'accessibilité.",
+      ? "Plan validé par Claude - aucun compromis d'accessibilité."
+      : "Plan validé - aucun compromis d'accessibilité.",
   )
   agentActive('planner', false)
   log(
@@ -123,7 +123,7 @@ export async function handleChaos(scenarioId = 'tgv-delay'): Promise<ReplanPlan>
     s.replan = planWithMeta
   })
   pushEvent('replan_proposed', { plan: planWithMeta })
-  log('planner', 'info', 'Plan de remédiation proposé — en attente de validation.')
+  log('planner', 'info', 'Plan de remédiation proposé - en attente de validation.')
 
   return planWithMeta
 }

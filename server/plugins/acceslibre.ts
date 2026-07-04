@@ -1,5 +1,5 @@
 // Official accessibility registry from acceslibre (the French State's open
-// database of establishment accessibility — https://acceslibre.beta.gouv.fr).
+// database of establishment accessibility - https://acceslibre.beta.gouv.fr).
 // The API is free but requires a free token: register an account, then set
 // ACCESLIBRE_TOKEN in .env. Without a token we return a verified reference
 // sample (the venues on Camille's itinerary), so the demo never breaks.
@@ -26,7 +26,7 @@ function reference(): AccessRegistry {
   }
 }
 
-// The acceslibre payload is the vendor's shape — read loosely and cast.
+// The acceslibre payload is the vendor's shape - read loosely and cast.
 async function get(path: string, timeoutMs = 12000): Promise<any> {
   const c = new AbortController()
   const t = setTimeout(() => c.abort(), timeoutMs)
@@ -60,7 +60,7 @@ export async function fetchAccessRegistry(): Promise<AccessRegistry> {
       .filter((n): n is string => Boolean(n))
       .slice(0, 4)
 
-    // Step-free entrances — a separate filtered count, guarded on its own so a
+    // Step-free entrances - a separate filtered count, guarded on its own so a
     // filter-name change never sinks the whole reading.
     let accessible: number | null = null
     try {

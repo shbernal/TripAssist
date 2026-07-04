@@ -1,11 +1,11 @@
 // Navitia real-time rail data (journeys + disruptions). Same auth scheme as the
 // SNCF API (api.sncf.com is a Navitia instance): Authorization: <token>.
-// Needs a real free token (navitia.io or api.sncf.com) in NAVITIA_TOKEN — the
+// Needs a real free token (navitia.io or api.sncf.com) in NAVITIA_TOKEN - the
 // public "sandbox" placeholder returns 401. Fully graceful: no token / any
 // failure → { live: false } and the demo is unaffected.
 //
 // Env: NAVITIA_TOKEN, NAVITIA_BASE_URL (default api.navitia.io),
-//      NAVITIA_COVERAGE (default 'sncf' — national rail; use 'fr-idf' etc. per plan)
+//      NAVITIA_COVERAGE (default 'sncf' - national rail; use 'fr-idf' etc. per plan)
 import type { LiveJourney } from '../../shared/types.js'
 
 const PARIS_GDL = '2.373481;48.844924' // Paris Gare de Lyon (lon;lat)
@@ -22,7 +22,7 @@ function coverage(): string {
   return process.env.NAVITIA_COVERAGE || 'sncf'
 }
 
-// The raw Navitia payload is the vendor's shape — read loosely and cast.
+// The raw Navitia payload is the vendor's shape - read loosely and cast.
 async function nav(path: string, timeoutMs = 8000): Promise<any> {
   const c = new AbortController()
   const t = setTimeout(() => c.abort(), timeoutMs)

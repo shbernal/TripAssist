@@ -1,4 +1,4 @@
-// Real weather for Nice (Open-Meteo — free, no key). Used to ground the météo
+// Real weather for Nice (Open-Meteo - free, no key). Used to ground the météo
 // disruption scenario and show a real-conditions indicator. Timeout + fallback.
 import type { NiceWeather } from '../../shared/types.js'
 

@@ -71,7 +71,7 @@ function fallbackExtract(transcript: TranscriptChunk[]): Extracted {
       bed_height_ok: null,
       reference: null,
       commitments: ['Un conseiller rappellera'],
-      red_flags: ['Chambre 104 réattribuée — aucune chambre accessible disponible'],
+      red_flags: ['Chambre 104 réattribuée - aucune chambre accessible disponible'],
     }
   }
   if (evasive) {
@@ -84,7 +84,7 @@ function fallbackExtract(transcript: TranscriptChunk[]): Extracted {
       bed_height_ok: null,
       reference: null,
       commitments: [],
-      red_flags: ['Interlocuteur évasif — vérification reportée à demain'],
+      red_flags: ['Interlocuteur évasif - vérification reportée à demain'],
     }
   }
   return {
@@ -123,9 +123,9 @@ function recoveryPlan(): ReplanPlan {
     plan: [
       {
         stepId: 's5',
-        action: 'Hôtel Aston — chambre accessible équivalente, douche italienne',
+        action: 'Hôtel Aston - chambre accessible équivalente, douche italienne',
         new_time: '12/09 16:15',
-        rationale: 'Chambre 104 indisponible — alternative accessible sécurisée',
+        rationale: 'Chambre 104 indisponible - alternative accessible sécurisée',
       },
       {
         stepId: 's4',
@@ -139,8 +139,8 @@ function recoveryPlan(): ReplanPlan {
   }
 }
 
-// Run extraction on call end, store the full call in the ledger, and — if the
-// room is not available — flip s5 to failed and propose the recovery plan.
+// Run extraction on call end, store the full call in the ledger, and - if the
+// room is not available - flip s5 to failed and propose the recovery plan.
 export async function runExtractionAndRecover(transcript: TranscriptChunk[]): Promise<Extracted> {
   await reason(
     'extractor',
@@ -154,9 +154,9 @@ export async function runExtractionAndRecover(transcript: TranscriptChunk[]): Pr
   think(
     'extractor',
     data.room_available === false
-      ? 'Chambre NON disponible — signal rouge.'
+      ? 'Chambre NON disponible - signal rouge.'
       : data.room_available === null
-        ? 'Réponse évasive — à re-confirmer.'
+        ? 'Réponse évasive - à re-confirmer.'
         : 'Chambre confirmée.',
   )
   agentActive('extractor', false)
@@ -175,7 +175,7 @@ export async function runExtractionAndRecover(transcript: TranscriptChunk[]): Pr
     channel: 'appel IA',
     at: "aujourd'hui",
     ref: data.reference || 'BR-104-ACC',
-    notes: `Appel re-confirmation — ${data.red_flags.length ? data.red_flags.join(' ; ') : 'chambre confirmée'}`,
+    notes: `Appel re-confirmation - ${data.red_flags.length ? data.red_flags.join(' ; ') : 'chambre confirmée'}`,
     call: { transcript, extracted: data, audio: null },
   })
   pushEvent('ledger_entry', { entry })
@@ -183,12 +183,12 @@ export async function runExtractionAndRecover(transcript: TranscriptChunk[]): Pr
   if (data.room_available === false) {
     setStepStatus('s5', 'failed', { reason: 'Chambre 104 réattribuée' })
     pushEvent('step_updated', { stepId: 's5', status: 'failed', reason: 'Chambre 104 réattribuée' })
-    log('extractor', 'error', 'Chambre 104 indisponible — escalade déclenchée.')
+    log('extractor', 'error', 'Chambre 104 indisponible - escalade déclenchée.')
 
     await reason('planner', [
-      "Chambre 104 perdue — recherche d'une alternative accessible équivalente.",
+      "Chambre 104 perdue - recherche d'une alternative accessible équivalente.",
       "Critère : douche à l'italienne obligatoire.",
-      'Hôtel Aston identifié — chambre accessible conforme. Taxi re-routé.',
+      'Hôtel Aston identifié - chambre accessible conforme. Taxi re-routé.',
     ])
     const plan = recoveryPlan()
     setStepStatus('s5', 'failed', {})
@@ -200,15 +200,15 @@ export async function runExtractionAndRecover(transcript: TranscriptChunk[]): Pr
     const state = getState()
     state.replan = plan
     pushEvent('replan_proposed', { plan })
-    log('planner', 'info', 'Plan de récupération proposé — Hôtel Aston. En attente de validation.')
+    log('planner', 'info', 'Plan de récupération proposé - Hôtel Aston. En attente de validation.')
   } else if (data.room_available === null) {
-    setStepStatus('s5', 'at_risk', { reason: 'Réponse évasive — re-confirmation requise' })
+    setStepStatus('s5', 'at_risk', { reason: 'Réponse évasive - re-confirmation requise' })
     pushEvent('step_updated', {
       stepId: 's5',
       status: 'at_risk',
-      reason: 'Réponse évasive — re-confirmation requise',
+      reason: 'Réponse évasive - re-confirmation requise',
     })
-    log('extractor', 'warn', 'Interlocuteur évasif — signalé, re-confirmation à programmer.')
+    log('extractor', 'warn', 'Interlocuteur évasif - signalé, re-confirmation à programmer.')
   } else {
     setStepStatus('s5', 'reconfirmed', { reason: null })
     pushEvent('step_updated', { stepId: 's5', status: 'reconfirmed', reason: null })

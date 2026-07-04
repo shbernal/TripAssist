@@ -13,7 +13,7 @@
       "settings": { "stability": 0.45, "similarity_boost": 0.75, "style": 0.25 }
     },
     "callee": {
-      "name": "Assistance PMR — Paris-CDG",
+      "name": "Assistance PMR - Paris-CDG",
       "shortName": "CDG",
       "role": "receptionist",
       "voiceId": "${ELEVENLABS_VOICE_AIRPORT}",
@@ -24,7 +24,7 @@
   "context": {
     "traveler": "Camille Moreau",
     "need": "Assistance embarquement et débarquement, fauteuil roulant électrique Permobil M3 (140 kg, batterie Lithium-ion conforme IATA)",
-    "flight": "AF 7612 — Paris-CDG → Nice, 12 septembre, départ 10h05",
+    "flight": "AF 7612 - Paris-CDG → Nice, 12 septembre, départ 10h05",
     "goal": "Confirmer l'assistance WCHC de bout en bout et l'acheminement du fauteuil en soute avec restitution passerelle"
   },
   "lines": [

@@ -16,7 +16,7 @@ function getSnapshot(): boolean {
 
 /**
  * `true` when the user asked the OS to reduce motion. Scene components use this to
- * swap scroll-pinned / auto-playing motion for instant, fully-readable states —
+ * swap scroll-pinned / auto-playing motion for instant, fully-readable states -
  * the demo is an accessibility product, so it must itself be accessible.
  */
 export function useReducedMotion(): boolean {

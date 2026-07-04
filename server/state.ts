@@ -19,7 +19,7 @@ import type {
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
 // The single trip the running MVP drives. Multi-trip scoping is the auth workstream.
 const ACTIVE_TRIP_ID = 'camille'
-// Legacy single-file store — imported once if present, then superseded by SQLite.
+// Legacy single-file store - imported once if present, then superseded by SQLite.
 const LEGACY_STATE_FILE = path.join(__dirname, '..', 'data', 'state.json')
 
 let state: AppState = load()

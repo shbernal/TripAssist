@@ -56,7 +56,7 @@ export function Itinerary() {
               transition={{ duration: 2.4, repeat: Infinity, ease: 'easeInOut' }}
             />
             <p className="mt-4 max-w-sm text-slate-400">
-              L’agent lit l’itinéraire et en déduit les besoins d’accessibilité de Camille — puis
+              L’agent lit l’itinéraire et en déduit les besoins d’accessibilité de Camille - puis
               décide qui appeler.
             </p>
             <ul className="mt-5 flex flex-wrap justify-center gap-2">

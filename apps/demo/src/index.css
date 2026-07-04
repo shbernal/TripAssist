@@ -1,6 +1,6 @@
 @import 'tailwindcss';
 
-/* Design tokens — a small bespoke layer over Tailwind's palette. AccessTrip's
+/* Design tokens - a small bespoke layer over Tailwind's palette. AccessTrip's
    brand runs teal → violet (the AI agent's gradient), on a deep slate canvas. */
 @theme {
   --color-brand-teal: #2dd4bf;
@@ -10,9 +10,11 @@
 }
 
 @layer base {
-  html {
-    /* Lenis drives smooth scroll in JS; keep native scroll snappy as a fallback. */
-    scroll-behavior: smooth;
+  html,
+  body {
+    height: 100%;
+    /* The story scrolls sideways inside #main, so the page itself never scrolls. */
+    overflow: hidden;
   }
 
   body {
@@ -24,7 +26,7 @@
     background-attachment: fixed;
   }
 
-  /* Visible focus everywhere — WCAG AA, keyboard-first. */
+  /* Visible focus everywhere - WCAG AA, keyboard-first. */
   :focus-visible {
     @apply outline-none ring-2 ring-brand-teal ring-offset-2 ring-offset-slate-950;
     border-radius: 0.35rem;

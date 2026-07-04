@@ -2,7 +2,7 @@ import React from 'react'
 import { APP_NAME_PARTS } from './config'
 
 // Brand mark: a flowing route with nodes (a journey orchestrated step by step),
-// ending in a checkmark node. Pure SVG, theme-aware — colors come from the CSS
+// ending in a checkmark node. Pure SVG, theme-aware - colors come from the CSS
 // accent variables so the mark follows whichever stylesheet is active.
 export function LogoMark({ size = 28 }: { size?: number }) {
   return (

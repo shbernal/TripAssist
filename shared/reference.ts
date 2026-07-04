@@ -1,4 +1,4 @@
-// Reference master data — the "referentiel" behind AccessTrip. Every value here is
+// Reference master data - the "referentiel" behind AccessTrip. Every value here is
 // real and verifiable (SNCF UIC station codes, IATA PRM/SSR codes, EU/FR regulations),
 // so the data holds up under scrutiny. Shared by the server (seed + validation) and
 // the web (passport rendering) so there is a single source of truth.
@@ -46,9 +46,9 @@ export interface SsrCode {
 }
 
 export const SSR_CODES: Record<string, SsrCode> = {
-  WCHR: { code: 'WCHR', label: 'Fauteuil — peut marcher sur de courtes distances (rampe)' },
-  WCHS: { code: 'WCHS', label: "Fauteuil — ne peut pas monter/descendre d'escaliers" },
-  WCHC: { code: 'WCHC', label: 'Fauteuil — immobile, assistance complète requise' },
+  WCHR: { code: 'WCHR', label: 'Fauteuil - peut marcher sur de courtes distances (rampe)' },
+  WCHS: { code: 'WCHS', label: "Fauteuil - ne peut pas monter/descendre d'escaliers" },
+  WCHC: { code: 'WCHC', label: 'Fauteuil - immobile, assistance complète requise' },
   WCBW: { code: 'WCBW', label: 'Fauteuil à batterie liquide (wet cell)' },
   WCLB: { code: 'WCLB', label: 'Fauteuil à batterie lithium' },
   WCMP: { code: 'WCMP', label: 'Fauteuil manuel personnel' },

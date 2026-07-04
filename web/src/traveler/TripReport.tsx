@@ -6,7 +6,7 @@ import type { AppState } from '../../../shared/types'
 
 // Printable, audit-grade trip report (exportable for insurers / travel agencies).
 // On screen it renders as a document "sheet"; on print (window.print / Save as PDF)
-// the app chrome drops away and it paginates cleanly — see @media print in styles.css.
+// the app chrome drops away and it paginates cleanly - see @media print in styles.css.
 export default function TripReport({ state }: { state: AppState }) {
   const t = state.traveler
   const { steps, label } = state.trip
@@ -34,7 +34,7 @@ export default function TripReport({ state }: { state: AppState }) {
         <div>
           <h1>Rapport de voyage</h1>
           <p className="muted" style={{ margin: '0.2rem 0 0' }}>
-            Document d'audit accessibilité — exportable pour l'assureur ou l'agence.
+            Document d'audit accessibilité - exportable pour l'assureur ou l'agence.
           </p>
         </div>
         <button type="button" className="primary" onClick={() => window.print()}>
@@ -77,7 +77,7 @@ export default function TripReport({ state }: { state: AppState }) {
             <div>
               <dt>Équipement</dt>
               <dd>
-                {eq.type} — {eq.model}
+                {eq.type} - {eq.model}
               </dd>
             </div>
             <div>
@@ -223,14 +223,14 @@ export default function TripReport({ state }: { state: AppState }) {
           <div className="report-standards">
             {STANDARDS.map((s) => (
               <div key={s.ref}>
-                <strong>{s.ref}</strong> — {s.title}
+                <strong>{s.ref}</strong> - {s.title}
               </div>
             ))}
           </div>
         </section>
 
         <footer className="report-foot">
-          <span>AccessTrip — orchestration de voyage accessible</span>
+          <span>AccessTrip - orchestration de voyage accessible</span>
           <span>
             {reportRef} · généré le {generated}
           </span>

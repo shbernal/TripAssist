@@ -15,7 +15,7 @@ async function main(): Promise<void> {
   }
   assert(reset.ok === true, 'reset did not return ok')
 
-  console.log('SMOKE OK — 7 steps, seed intact, reset works.')
+  console.log('SMOKE OK - 7 steps, seed intact, reset works.')
 }
 
 function assert(cond: unknown, msg: string): void {

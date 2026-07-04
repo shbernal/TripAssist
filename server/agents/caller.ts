@@ -1,5 +1,5 @@
 // Caller agent (M3): triggers the re-confirmation phone call for step s5.
-// Two paths — a real Vapi call when keys are set, or an offline simulation that
+// Two paths - a real Vapi call when keys are set, or an offline simulation that
 // pushes scripted transcript chunks through the same SSE pipeline so Flow B is
 // demoable without a phone. Either way the CallPanel renders identical bubbles.
 import { getState, updateState, appendAgentLog } from '../state.js'
@@ -83,7 +83,7 @@ export async function startCall({
   agentActive('caller', true)
   think('caller', `Composition du numéro du prestataire (${t.provider}).`)
   think('caller', `Objectif : confirmer ${t.ask}.`)
-  log('caller', 'info', `Appel lancé — ${t.provider} · ${t.details}`)
+  log('caller', 'info', `Appel lancé - ${t.provider} · ${t.details}`)
 
   if (hasVapi()) return startVapiCall(t)
   return simulateCall(branch)
@@ -169,7 +169,7 @@ const SCRIPTS: Record<string, Array<[TranscriptChunk['speaker'], string]>> = {
 async function simulateCall(branch: string) {
   const script = SCRIPTS[branch] || SCRIPTS.B2
   setCall({ status: 'in_progress', id: `sim-${branch}` })
-  log('caller', 'info', 'Appel simulé (mode hors ligne) — bulles en direct.')
+  log('caller', 'info', 'Appel simulé (mode hors ligne) - bulles en direct.')
 
   // stream chunks with realistic gaps
   for (const [speaker, text] of script) {
@@ -179,7 +179,7 @@ async function simulateCall(branch: string) {
   await delay(900)
   setCall({ status: 'ended' })
   agentActive('caller', false)
-  log('caller', 'info', 'Appel terminé — extraction de la confirmation…')
+  log('caller', 'info', 'Appel terminé - extraction de la confirmation…')
 
   // hand off to the extractor + recovery (M4)
   const transcript = getState().transcript

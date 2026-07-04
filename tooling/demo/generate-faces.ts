@@ -1,16 +1,16 @@
 /**
- * generate-faces.ts — Demo asset tooling (image generation)
+ * generate-faces.ts - Demo asset tooling (image generation)
  *
  * Generates the storytelling portraits (Camille, Julien, airport & hotel staff)
  * and the AI-agent avatar for the stylized landing page, by talking directly to
  * the Codex CLI's built-in image tool. This rides the ChatGPT subscription via
- * Codex's stored OAuth login — no OpenAI API key, no per-image billing.
+ * Codex's stored OAuth login - no OpenAI API key, no per-image billing.
  *
  * See the `codex-image-generation` skill for the full mechanism and traps. The key
  * ones handled here: Codex is spawned with the terminal's TTY inherited (given only
  * piped stdio it silently no-ops its image tool, exiting 0 with no file); if its own
  * copy step is cut off we recover the image from Codex's store; and any miss exits
- * non-zero instead of masquerading as success. Run it in a foreground terminal — a
+ * non-zero instead of masquerading as success. Run it in a foreground terminal - a
  * detached/backgrounded run has no TTY, so Codex will produce nothing.
  *
  * Run (folder name contains ':' which breaks the .bin PATH shim, so call tsx directly):
@@ -81,7 +81,7 @@ function newestStoreImageSince(sinceMs: number): string | null {
 
 /**
  * Run one `codex exec` turn for a single image. Stdio is INHERITED so Codex gets the
- * terminal's TTY — with only piped stdio it silently no-ops the image tool. Resolves on
+ * terminal's TTY - with only piped stdio it silently no-ops the image tool. Resolves on
  * exit regardless of code; the caller judges success by whether a file was produced.
  */
 function runCodex(outDir: string, prompt: string): Promise<void> {
@@ -129,7 +129,7 @@ async function generateOne(
   } catch (err) {
     // Couldn't even launch Codex (not on PATH, etc.). A timeout kill lands on 'close',
     // not here, so fall through to recovery in that case.
-    console.error(`  ❌ ${char.id}: failed to run codex —`, (err as Error).message)
+    console.error(`  ❌ ${char.id}: failed to run codex -`, (err as Error).message)
     return false
   }
 
@@ -138,7 +138,7 @@ async function generateOne(
     return true
   }
 
-  // Codex generated the image but its own copy step didn't land the file — recover the
+  // Codex generated the image but its own copy step didn't land the file - recover the
   // PNG it wrote to the store during this call. (A pre-existing stale file at outPath is
   // deliberately ignored above, so recovery still runs.)
   const recovered = newestStoreImageSince(startMs)
@@ -149,9 +149,9 @@ async function generateOne(
   }
 
   console.error(
-    `  ❌ ${char.id}: no image produced — nothing new at ${outPath} or in Codex's store. ` +
+    `  ❌ ${char.id}: no image produced - nothing new at ${outPath} or in Codex's store. ` +
       `See Codex's output above: if auth expired run \`codex login\`; if it ran without a ` +
-      `terminal (detached/backgrounded) it no-ops — run this in a foreground shell.`,
+      `terminal (detached/backgrounded) it no-ops - run this in a foreground shell.`,
   )
   return false
 }
@@ -179,7 +179,7 @@ async function main() {
   }
 
   if (failures > 0) {
-    console.error(`\n${failures}/${todo.length} image(s) failed — see messages above.`)
+    console.error(`\n${failures}/${todo.length} image(s) failed - see messages above.`)
     process.exit(1)
   }
   console.log('\nDone.')

@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "type": "module",
-  "description": "AccessTrip — stylized scrollytelling landing page (static, → GitHub Pages)",
+  "description": "AccessTrip - stylized scrollytelling landing page (static, → GitHub Pages)",
   "comment": "Scripts call `node node_modules/<pkg>/...` directly, never npx/pnpm-exec, matching the root package: the repo path can contain a ':' that corrupts the .bin PATH shim.",
   "scripts": {
     "dev": "node node_modules/vite/bin/vite.js",

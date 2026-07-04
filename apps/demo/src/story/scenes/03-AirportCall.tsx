@@ -7,7 +7,7 @@ export function AirportCall() {
     <Scene
       id="airport-call"
       step="02"
-      eyebrow="Appel n°1 — l’aéroport"
+      eyebrow="Appel n°1 - l’aéroport"
       heading="L’agent appelle Paris-CDG pour l’assistance embarquement."
     >
       <Reveal>

@@ -1,5 +1,5 @@
 // Auth + multi-tenant portfolio routes, mounted under /api.
-// Additive: these add login on top of the open demo — they never gate existing routes.
+// Additive: these add login on top of the open demo - they never gate existing routes.
 // `req.operatorId` is populated by the resolveOperator middleware (server/index.ts) and
 // always set (demo when anonymous), so /trips works with or without a session.
 import express from 'express'

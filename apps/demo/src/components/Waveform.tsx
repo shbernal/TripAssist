@@ -10,7 +10,7 @@ interface WaveformProps {
 }
 
 /**
- * A lightweight, decorative call waveform (aria-hidden — the captions carry the
+ * A lightweight, decorative call waveform (aria-hidden - the captions carry the
  * real information). Pure CSS bars keep it reliable and cheap; it pulses while
  * playing and freezes to a static silhouette when paused or under reduced motion.
  */

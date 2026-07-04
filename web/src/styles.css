@@ -1,10 +1,10 @@
 @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap');
 
-/* AccessTrip — design system v2.
-   "Enterprise theme — light. Warm cream surfaces + indigo accent ramp,
+/* AccessTrip - design system v2.
+   "Enterprise theme - light. Warm cream surfaces + indigo accent ramp,
    real typefaces (Space Grotesk / IBM Plex Sans / IBM Plex Mono).
    Accessibility-first: AA contrast, visible focus, 44px targets, reduced-motion aware.
-   Class names + CSS variables are STABLE (referenced from JSX) — values changed, names kept. */
+   Class names + CSS variables are STABLE (referenced from JSX) - values changed, names kept. */
 
 :root {
   /* type */
@@ -25,7 +25,7 @@
   --text-dim: #6a6454;
   --text-faint: #948d7c;
 
-  /* brand — indigo ramp */
+  /* brand - indigo ramp */
   --brand: #5b54e6;
   --brand-strong: #4842c9;
   --brand-ink: #f5f4ff;
@@ -37,7 +37,7 @@
   --indigo-500: #6d68f0;
   --indigo-700: #4a45cf;
 
-  /* status — emerald success ramp + amber/red, in_progress = brand indigo */
+  /* status - emerald success ramp + amber/red, in_progress = brand indigo */
   --st-identified: #6b7189;
   --st-contacted: #33a37c;
   --st-confirmed: #1fa079;
@@ -162,7 +162,7 @@ button svg,
   align-items: center;
   gap: 0.4rem;
 }
-/* lucide icon system — consistent stroke, alignment, palette color */
+/* lucide icon system - consistent stroke, alignment, palette color */
 .lucide {
   stroke-width: 1.85;
   vertical-align: middle;
@@ -976,7 +976,7 @@ input[type='text']::placeholder {
   border-style: dashed;
 }
 
-/* agent log — terminal feel */
+/* agent log - terminal feel */
 .agent-log {
   font-family: var(--font-mono);
   font-size: 0.84rem;
@@ -1624,7 +1624,7 @@ html {
 }
 
 /* ============================================================
-   DARK THEME — activated by data-theme="dark" on <html>.
+   DARK THEME - activated by data-theme="dark" on <html>.
    Default (no attribute) = cream / light. Toggled at runtime by
    ThemeToggle.tsx and pre-applied by the inline script in index.html.
    ============================================================ */

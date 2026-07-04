@@ -5,7 +5,7 @@
  * tooling/demo/generate-voices.ts) carry per-line *timing* + short captions +
  * the outcome, but NOT the full spoken dialogue. The full transcript lives only
  * in the tooling scripts, so we mirror it here (keyed by line id) and merge it
- * with the fetched manifest at play time — see useCallPlayer. That gives us a
+ * with the fetched manifest at play time - see useCallPlayer. That gives us a
  * real, DOM-rendered transcript (an a11y requirement) without shipping the whole
  * generator script to the client.
  */
@@ -14,7 +14,7 @@ export type Speaker = 'agent' | 'callee'
 
 export interface CallMeta {
   id: CallId
-  /** Short scene label, e.g. "Appel — aéroport". */
+  /** Short scene label, e.g. "Appel - aéroport". */
   label: string
   /** Human title for the transcript heading. */
   title: string
@@ -31,7 +31,7 @@ export interface CallMeta {
   }
   /** line id → full spoken sentence (French). */
   transcript: Record<number, string>
-  /** Mirror of the manifest outcome — lets the notification/outro scenes render
+  /** Mirror of the manifest outcome - lets the notification/outro scenes render
       without spinning up a player or a second fetch. */
   outcome: {
     reference: string
@@ -44,11 +44,11 @@ export interface CallMeta {
 export const CALLS: Record<CallId, CallMeta> = {
   'airport-call': {
     id: 'airport-call',
-    label: 'Appel — aéroport',
+    label: 'Appel - aéroport',
     title: 'AccessTrip IA → Assistance PMR, Paris-CDG',
     agent: { name: 'Assistant AccessTrip', short: 'IA', face: 'faces/ai-agent.png' },
     callee: {
-      name: 'Assistance PMR — Paris-CDG',
+      name: 'Assistance PMR - Paris-CDG',
       short: 'CDG',
       face: 'faces/airport-agent.png',
     },
@@ -77,11 +77,11 @@ export const CALLS: Record<CallId, CallMeta> = {
   },
   'hotel-call': {
     id: 'hotel-call',
-    label: 'Appel — hôtel',
+    label: 'Appel - hôtel',
     title: 'AccessTrip IA → Réception, Hôtel Beau Rivage (Nice)',
     agent: { name: 'Assistant AccessTrip', short: 'IA', face: 'faces/ai-agent.png' },
     callee: {
-      name: 'Réception — Hôtel Beau Rivage',
+      name: 'Réception - Hôtel Beau Rivage',
       short: 'Hôtel',
       face: 'faces/hotel-receptionist.png',
     },
@@ -89,7 +89,7 @@ export const CALLS: Record<CallId, CallMeta> = {
       1: 'Hôtel Beau Rivage, bonjour, que puis-je faire pour vous ?',
       2: "Bonjour, ici l'assistant AccessTrip, j'appelle pour la réservation de Madame Camille Moreau, du 12 au 15 septembre, chambre 104. Je souhaite confirmer un point d'accessibilité essentiel avant son arrivée.",
       3: 'Bien sûr, je vois la réservation de Madame Moreau, trois nuits en chambre 104. De quel point s’agit-il ?',
-      4: "Madame Moreau se déplace en fauteuil roulant. Elle a besoin d'une douche à l'italienne, de plain-pied, sans rebord ni marche — surtout pas d'une baignoire. Pouvez-vous me confirmer que la chambre 104 en dispose bien ?",
+      4: "Madame Moreau se déplace en fauteuil roulant. Elle a besoin d'une douche à l'italienne, de plain-pied, sans rebord ni marche - surtout pas d'une baignoire. Pouvez-vous me confirmer que la chambre 104 en dispose bien ?",
       5: 'Alors, laissez-moi vérifier… La chambre 104 est notre chambre PMR, mais je vois qu’elle est équipée d’une baignoire à porte, pas d’une douche de plain-pied.',
       6: "Ce ne sera pas adapté : Madame Moreau ne peut pas franchir de rebord. Disposez-vous d'une autre chambre accessible avec une véritable douche à l'italienne et un siège de douche rabattable ?",
       7: 'Laissez-moi regarder… Oui, la chambre 210 est une chambre accessible avec douche à l’italienne de plain-pied, barres d’appui et siège de douche rabattable. Je peux la réattribuer à Madame Moreau sans supplément.',

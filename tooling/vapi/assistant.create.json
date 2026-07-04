@@ -1,5 +1,5 @@
 {
-  "name": "AccessTrip — Accessibilité",
+  "name": "AccessTrip - Accessibilité",
   "firstMessage": "Bonjour, je suis l'assistant virtuel de Camille Moreau. Je vous appelle au sujet d'une demande d'accessibilité pour son prochain voyage. Auriez-vous un instant ?",
   "model": {
     "provider": "anthropic",

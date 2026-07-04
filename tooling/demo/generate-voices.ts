@@ -1,5 +1,5 @@
 /**
- * generate-voices.ts — Demo asset tooling (voice generation, ElevenLabs)
+ * generate-voices.ts - Demo asset tooling (voice generation, ElevenLabs)
  *
  * Turns the phone-call scripts (tooling/demo/scripts/*.json) into narrated audio
  * for the stylized landing page:
@@ -172,7 +172,7 @@ async function stitch(clips: string[], outFile: string, workDir: string) {
 async function processScript(script: Script, apiKey: string, doStitch: boolean) {
   const outDir = join(OUT_ROOT, script.id)
   mkdirSync(outDir, { recursive: true })
-  console.log(`\n▶ ${script.id} — ${script.title} (${script.lines.length} lines)`)
+  console.log(`\n▶ ${script.id} - ${script.title} (${script.lines.length} lines)`)
 
   const clips: string[] = []
   const timeline: Array<{
@@ -191,9 +191,8 @@ async function processScript(script: Script, apiKey: string, doStitch: boolean) 
     const voiceId = resolveVoiceId(sp)
     const clip = join(outDir, `${String(line.id).padStart(2, '0')}-${line.speaker}.mp3`)
 
-     
     await synthLine(apiKey, voiceId, line.text, sp.settings, clip)
-     
+
     const duration = await ffprobeDuration(clip)
     console.log(`  ✅ line ${line.id} [${sp.shortName ?? line.speaker}] ${duration.toFixed(2)}s`)
 
@@ -260,7 +259,6 @@ async function main() {
 
   mkdirSync(OUT_ROOT, { recursive: true })
   for (const script of scripts) {
-     
     await processScript(script, apiKey, doStitch)
   }
   console.log('\nDone.')

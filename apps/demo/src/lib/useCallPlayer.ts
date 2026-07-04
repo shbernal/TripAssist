@@ -59,7 +59,7 @@ function activeIndexAt(lines: ManifestLine[], t: number): number {
 /**
  * Loads a call's timing manifest and drives its stitched `conversation.mp3` with
  * Howler. All caption/waveform sync is derived from `currentTime` against the
- * manifest — no hand-authored timing. Audio is opt-in: nothing plays until the
+ * manifest - no hand-authored timing. Audio is opt-in: nothing plays until the
  * caller invokes `play()` (from a visible control or an in-view trigger).
  */
 export function useCallPlayer(callId: CallId): CallPlayer {

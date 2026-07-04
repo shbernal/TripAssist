@@ -22,8 +22,8 @@ export function Notifications() {
             <strong className="text-slate-200">déjà réglé</strong>.
           </p>
           <ul className="mt-6 space-y-2 text-sm text-slate-400">
-            <li>✅ Assistance aéroport confirmée — réf. {airport.reference}</li>
-            <li>✅ Douche à l’italienne confirmée — réf. {hotel.reference}</li>
+            <li>✅ Assistance aéroport confirmée - réf. {airport.reference}</li>
+            <li>✅ Douche à l’italienne confirmée - réf. {hotel.reference}</li>
           </ul>
         </Reveal>
 

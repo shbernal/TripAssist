@@ -34,7 +34,7 @@ export default function Passport({ traveler }: { traveler: Traveler }) {
             Équipement
           </dt>
           <dd style={{ margin: 0 }}>
-            {eq.type} — {eq.model}
+            {eq.type} - {eq.model}
           </dd>
         </div>
         <div style={{ display: 'flex', gap: '0.5rem' }}>

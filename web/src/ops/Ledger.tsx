@@ -19,7 +19,7 @@ function ledgerToCsv(ledger: LedgerEntry[]): string {
   return '\uFEFF' + [header, ...rows].map((r) => r.map(esc).join(';')).join('\r\n')
 }
 
-// The confirmation ledger — the audit trail of who confirmed what, through which
+// The confirmation ledger - the audit trail of who confirmed what, through which
 // channel. Exportable to CSV (client-side, no backend) for insurers / agencies.
 export default function Ledger({ ledger }: LedgerProps) {
   function exportCsv() {

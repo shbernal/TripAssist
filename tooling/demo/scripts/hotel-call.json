@@ -13,7 +13,7 @@
       "settings": { "stability": 0.45, "similarity_boost": 0.75, "style": 0.25 }
     },
     "callee": {
-      "name": "Réception — Hôtel Beau Rivage",
+      "name": "Réception - Hôtel Beau Rivage",
       "shortName": "Hôtel",
       "role": "receptionist",
       "voiceId": "${ELEVENLABS_VOICE_HOTEL}",
@@ -24,7 +24,7 @@
   "context": {
     "traveler": "Camille Moreau",
     "need": "Chambre PMR avec douche à l'italienne (roll-in shower), accès sans marche, lit à hauteur transfert",
-    "stay": "Hôtel Beau Rivage, Nice — 12 au 15 septembre, chambre 104",
+    "stay": "Hôtel Beau Rivage, Nice - 12 au 15 septembre, chambre 104",
     "goal": "Confirmer une vraie douche à l'italienne (pas une baignoire), l'accès de plain-pied et un siège de douche"
   },
   "lines": [
@@ -49,7 +49,7 @@
     {
       "id": 4,
       "speaker": "agent",
-      "text": "Madame Moreau se déplace en fauteuil roulant. Elle a besoin d'une douche à l'italienne, de plain-pied, sans rebord ni marche — surtout pas d'une baignoire. Pouvez-vous me confirmer que la chambre 104 en dispose bien ?",
+      "text": "Madame Moreau se déplace en fauteuil roulant. Elle a besoin d'une douche à l'italienne, de plain-pied, sans rebord ni marche - surtout pas d'une baignoire. Pouvez-vous me confirmer que la chambre 104 en dispose bien ?",
       "caption": "Exigence : vraie douche à l'italienne."
     },
     {

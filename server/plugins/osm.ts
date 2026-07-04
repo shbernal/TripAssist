@@ -1,4 +1,4 @@
-// Real accessibility data from OpenStreetMap (Overpass API — free, no key).
+// Real accessibility data from OpenStreetMap (Overpass API - free, no key).
 // Counts wheelchair-accessible hotels/restaurants near Nice, and cross-checks a
 // specific venue (e.g. Camille's hotel) against its real `wheelchair` tag.
 import type { AccessibleVenues } from '../../shared/types.js'
@@ -10,7 +10,7 @@ const BBOX = '43.66,7.20,43.73,7.32'
 let cache: { data: AccessibleVenues | null; at: number } = { data: null, at: 0 }
 const TTL = 30 * 60 * 1000
 
-// The raw Overpass payload is the vendor's shape — read loosely and cast.
+// The raw Overpass payload is the vendor's shape - read loosely and cast.
 async function overpass(query: string, timeoutMs = 12000): Promise<any> {
   const c = new AbortController()
   const t = setTimeout(() => c.abort(), timeoutMs)

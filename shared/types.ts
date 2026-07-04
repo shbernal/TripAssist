@@ -1,5 +1,5 @@
 // Shared state/event contract used by BOTH the Node server and the React frontend.
-// Types only — erased at compile time, so this file is safe to import from either
+// Types only - erased at compile time, so this file is safe to import from either
 // side (tsx on the server, Vite on the web). The server's seed/state and the web's
 // SSE reducer must agree with these shapes; keeping them here enforces that.
 
@@ -264,7 +264,7 @@ export interface LiveJourney {
   error?: string
 }
 
-// Official accessibility registry for establishments (acceslibre — data.gouv.fr).
+// Official accessibility registry for establishments (acceslibre - data.gouv.fr).
 // `count`/`accessible` are populated when an ACCESLIBRE_TOKEN is configured;
 // otherwise a verified reference sample is returned so the demo still lands.
 export interface AccessRegistry {

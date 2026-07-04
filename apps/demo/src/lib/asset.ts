@@ -3,7 +3,7 @@
  *
  * The demo ships to GitHub Pages under `/AccessTrip/` (see vite.config.ts), so a
  * bare `/faces/camille.png` would 404 there. Everything that references a public
- * asset — faces, audio tracks, manifests — must go through here.
+ * asset - faces, audio tracks, manifests - must go through here.
  */
 export function asset(path: string): string {
   return `${import.meta.env.BASE_URL}${path.replace(/^\/+/, '')}`

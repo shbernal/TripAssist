@@ -1,11 +1,11 @@
 // Booking ingestion (§5.3): turn a pasted itinerary / booking confirmation into a
-// structured trip — the MVP entry point. Mirrors the extractor agent's shape: a JSON
+// structured trip - the MVP entry point. Mirrors the extractor agent's shape: a JSON
 // schema + French system prompt driven through the shared Claude bridge (HTTP token or
 // local CLI), with a deterministic fallback so it never hard-fails offline / in CI.
 import { claudeJSON, claudeEnabled } from './agents/claude.js'
 import type { AppState, Step, StepStatus, Traveler } from '../shared/types.js'
 
-// The slice of the trip we ask the model to extract. A subset of shared/types.ts —
+// The slice of the trip we ask the model to extract. A subset of shared/types.ts -
 // enough to seed a Trip + the traveler's accessibility needs.
 export interface ParsedItinerary {
   traveler: {
@@ -88,7 +88,7 @@ function fullTraveler(parsed: ParsedItinerary['traveler']): Traveler {
 }
 
 // Wrap parsed steps into full Step objects (ids, linear dependency chain, initial
-// status). Newly ingested steps start `identified` — nothing has been contacted yet.
+// status). Newly ingested steps start `identified` - nothing has been contacted yet.
 function buildSteps(parsed: ParsedItinerary['trip']['steps']): Step[] {
   return parsed.map((s, i) => {
     const id = `s${i + 1}`
@@ -105,7 +105,7 @@ function buildSteps(parsed: ParsedItinerary['trip']['steps']): Step[] {
   })
 }
 
-// Assemble a valid AppState from a parsed itinerary — same shape seed() produces, but
+// Assemble a valid AppState from a parsed itinerary - same shape seed() produces, but
 // empty ledger/logs and zeroed metrics: a fresh trip nothing has acted on yet.
 function toAppState(parsed: ParsedItinerary): AppState {
   return {
@@ -113,7 +113,7 @@ function toAppState(parsed: ParsedItinerary): AppState {
     trip: { label: parsed.trip.label || 'Voyage', steps: buildSteps(parsed.trip.steps) },
     ledger: [],
     agentLog: [
-      { agent: 'system', level: 'info', message: 'Itinéraire importé — étapes identifiées.' },
+      { agent: 'system', level: 'info', message: 'Itinéraire importé - étapes identifiées.' },
     ],
     transcript: [],
     disruptions: [],
@@ -130,7 +130,7 @@ function toAppState(parsed: ParsedItinerary): AppState {
 // yields a usable, well-formed trip.
 
 const NEED_HINTS: Array<[RegExp, string]> = [
-  [/fauteuil|wheelchair|pmr|roulant/i, 'fauteuil roulant — assistance mobilité'],
+  [/fauteuil|wheelchair|pmr|roulant/i, 'fauteuil roulant - assistance mobilité'],
   [/douche|shower|italienne|roll-?in/i, "douche à l'italienne (roll-in)"],
   [/embarqu|débarqu|boarding|assistance gare/i, 'assistance embarquement/débarquement'],
   [/sans marche|plain-?pied|step-?free|escalier/i, 'itinéraire sans marche'],

@@ -5,14 +5,14 @@ import { getState, appendAgentLog } from './state.js'
 import { pushEvent } from './events.js'
 import type { LogLevel } from '../shared/types.js'
 
-const STEP_DELAY = 600 // ms between fields — tuned for stage visibility
+const STEP_DELAY = 600 // ms between fields - tuned for stage visibility
 
 function log(level: LogLevel, message: string): void {
   const entry = appendAgentLog({ agent: 'autofill', level, message })
   pushEvent('agent_log', entry)
 }
 
-// Returns { ok, error? }. Never throws — a missing Playwright install degrades
+// Returns { ok, error? }. Never throws - a missing Playwright install degrades
 // gracefully with an agent-log message rather than breaking the demo.
 export async function runAutofill({
   port = process.env.PORT || 3000,
@@ -25,7 +25,7 @@ export async function runAutofill({
   } catch {
     log(
       'error',
-      'Playwright non installé — exécutez `pnpm pw:install` (installe le navigateur Chromium).',
+      'Playwright non installé - exécutez `pnpm pw:install` (installe le navigateur Chromium).',
     )
     return { ok: false, error: 'playwright_not_installed' }
   }
@@ -36,7 +36,7 @@ export async function runAutofill({
 
   let browser
   try {
-    log('info', 'Ouverture du formulaire PMR — remplissage automatique depuis le passeport…')
+    log('info', 'Ouverture du formulaire PMR - remplissage automatique depuis le passeport…')
     browser = await chromium.launch({ headless: false, slowMo: 120 })
     const page = await browser.newPage()
     await page.goto(url, { waitUntil: 'domcontentloaded' })
@@ -70,7 +70,7 @@ export async function runAutofill({
     await page.click('.submit')
     await page.waitForTimeout(1200)
 
-    log('info', 'Formulaire PMR rempli et soumis — référence AEG-PRM-2209.')
+    log('info', 'Formulaire PMR rempli et soumis - référence AEG-PRM-2209.')
     // leave the window open a moment for the audience, then close
     await page.waitForTimeout(1500)
     await browser.close()

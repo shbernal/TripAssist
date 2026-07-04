@@ -1,4 +1,4 @@
-// POST /webhooks/vapi — receives Vapi call events (status + transcript chunks)
+// POST /webhooks/vapi - receives Vapi call events (status + transcript chunks)
 // and drives the same SSE pipeline the simulation uses. On end-of-call it runs
 // the extractor + recovery (M4).
 import express from 'express'
@@ -39,7 +39,7 @@ router.post('/vapi', async (req, res) => {
         s.call = { ...s.call, status: 'ended' }
       })
       pushEvent('call_status', { status: 'ended' })
-      log('caller', 'info', 'Appel terminé — extraction de la confirmation…')
+      log('caller', 'info', 'Appel terminé - extraction de la confirmation…')
       const transcript = getState().transcript
       // attach recording if present
       if (msg.recordingUrl) {

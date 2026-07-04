@@ -1,8 +1,8 @@
-// Minimal auth + multi-tenant identity — dependency-free (node:crypto only).
+// Minimal auth + multi-tenant identity - dependency-free (node:crypto only).
 // Additive by design: unauthenticated requests resolve to the `demo` operator (which
 // owns the `camille` seed trip), so the existing demo + tests keep working. Logging in
 // unlocks a real per-operator portfolio on top. This is hackathon-grade: operators are
-// an in-code seed and passwords are hashed at module load — no operator CRUD, no DB
+// an in-code seed and passwords are hashed at module load - no operator CRUD, no DB
 // user table yet (that's the post-hackathon step).
 import { scryptSync, randomBytes, createHmac, timingSafeEqual } from 'node:crypto'
 

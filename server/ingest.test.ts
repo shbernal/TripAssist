@@ -21,13 +21,13 @@ afterEach(() => {
 })
 
 const SAMPLE = `Réservation AccessTrip
-TGV 6173 Paris → Nice, place PMR voiture 3 — 12/09 09:03
-Assistance gare Paris Gare de Lyon — 12/09 08:15
-Taxi adapté gare → hôtel — 12/09 15:15
-Hôtel Beau Rivage, chambre accessible douche à l'italienne — 12/09 15:45
+TGV 6173 Paris → Nice, place PMR voiture 3 - 12/09 09:03
+Assistance gare Paris Gare de Lyon - 12/09 08:15
+Taxi adapté gare → hôtel - 12/09 15:15
+Hôtel Beau Rivage, chambre accessible douche à l'italienne - 12/09 15:45
 Voyageuse en fauteuil roulant électrique, besoin d'assistance embarquement.`
 
-describe('ingest — fallback parse', () => {
+describe('ingest - fallback parse', () => {
   it('yields a well-formed AppState from pasted booking text', async () => {
     const { state, source } = await ingestItinerary(SAMPLE)
     expect(source).toBe('fallback')

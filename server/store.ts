@@ -1,7 +1,7 @@
 // Durable store backed by Node's built-in `node:sqlite` (no native dependency).
 // A document store: one row per trip holding the full AppState as JSON. This keeps
 // the in-memory AppState the working set (callers mutate arbitrary nested fields)
-// while giving real durability — atomic writes, WAL, no half-written JSON file — and
+// while giving real durability - atomic writes, WAL, no half-written JSON file - and
 // a multi-trip foundation the auth/multi-tenant workstream can scope over later.
 import { DatabaseSync } from 'node:sqlite'
 import fs from 'node:fs'
@@ -64,8 +64,8 @@ export function loadTrip(id: string): AppState | null {
 
 // Upsert a trip's AppState. `label` is denormalized from the state for cheap listing;
 // `owner` scopes the trip to a tenant. Omit `owner` to preserve the existing tenant on
-// re-save (new trips then default to demo), so callers that don't care about ownership —
-// e.g. the single-trip demo writer — never accidentally reassign a trip.
+// re-save (new trips then default to demo), so callers that don't care about ownership -
+// e.g. the single-trip demo writer - never accidentally reassign a trip.
 export function saveTrip(id: string, state: AppState, owner?: string): void {
   let finalOwner = owner
   if (finalOwner === undefined) {

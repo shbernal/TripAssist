@@ -21,7 +21,7 @@ import type { Step } from '../../shared/types.js'
 
 const router = express.Router()
 
-// Full current state — the frontend hydrates from this on load.
+// Full current state - the frontend hydrates from this on load.
 router.get('/state', (req, res) => {
   res.json(getState())
 })
@@ -146,7 +146,7 @@ router.post('/replan/apply', (req, res) => {
   const applied = appendAgentLog({
     agent: 'planner',
     level: 'info',
-    message: 'Plan appliqué — toutes les étapes re-confirmées.',
+    message: 'Plan appliqué - toutes les étapes re-confirmées.',
   })
   pushEvent('agent_log', applied)
 
@@ -162,7 +162,7 @@ router.post('/replan/apply', (req, res) => {
 })
 
 // Vision check (M5). Accepts { base64, mediaType } JSON (frontend reads the file
-// as a data URL) — simpler and dep-free vs multipart. Falls back to a canned
+// as a data URL) - simpler and dep-free vs multipart. Falls back to a canned
 // verdict when no image / no Claude key so the demo always shows a result.
 router.post('/vision/check', async (req, res) => {
   try {
@@ -195,7 +195,7 @@ router.post('/demo/force-step', (req, res) => {
   res.json({ ok: true, step })
 })
 
-// Generic manual event emitter — push any SSE event (agent_log, transcript_chunk,
+// Generic manual event emitter - push any SSE event (agent_log, transcript_chunk,
 // disruption, …) so the presenter can fake it live if the real one fails.
 router.post('/demo/emit', (req, res) => {
   const { type, payload = {} } = req.body || {}

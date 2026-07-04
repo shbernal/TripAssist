@@ -48,7 +48,7 @@ export default function ReplanCard({ replan, onApplied }: ReplanCardProps) {
           <ol style={{ margin: '0 0 0.8rem', paddingLeft: '1.2rem' }}>
             {replan.plan.map((item, i) => (
               <li key={i} style={{ marginBottom: '0.5rem' }}>
-                <strong>{item.stepId}</strong> — {item.action}
+                <strong>{item.stepId}</strong> - {item.action}
                 {item.new_time && (
                   <>
                     {' '}

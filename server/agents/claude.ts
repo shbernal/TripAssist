@@ -1,4 +1,4 @@
-// Thin Claude Messages API client (raw fetch — no SDK dependency).
+// Thin Claude Messages API client (raw fetch - no SDK dependency).
 // Supports a custom base URL (e.g. an enterprise gateway) via ANTHROPIC_BASE_URL.
 // Also supports a CLI bridge to real Claude (the local `claude` CLI) when no HTTP
 // token is available. Every agent that calls this MUST have a hardcoded fallback:
@@ -18,7 +18,7 @@ export function hasClaudeCLI(): boolean {
   return /^(1|true|yes|on)$/i.test(process.env.ANTHROPIC_VIA_CLI || '')
 }
 
-// True when the agents can reach a real Claude — via HTTP token OR the CLI bridge.
+// True when the agents can reach a real Claude - via HTTP token OR the CLI bridge.
 // Agents gate on this (not hasClaude) so the CLI path is actually exercised.
 export function claudeEnabled(): boolean {
   return hasClaude() || hasClaudeCLI()

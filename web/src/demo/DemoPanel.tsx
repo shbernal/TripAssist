@@ -81,14 +81,14 @@ export default function DemoPanel({ state, reload }: DemoPanelProps) {
             }
             disabled={busy}
           >
-            <Phone size={16} aria-hidden="true" /> Lancer l'appel IA — scénario scène
+            <Phone size={16} aria-hidden="true" /> Lancer l'appel IA - scénario scène
           </button>
           <button
             type="button"
             onClick={() => postBody('/api/call/start', { branch: 'B1' }, 'Appel IA (confirmation)')}
             disabled={busy}
           >
-            <Phone size={16} aria-hidden="true" /> Appel IA — confirmation OK
+            <Phone size={16} aria-hidden="true" /> Appel IA - confirmation OK
           </button>
         </div>
 
@@ -107,7 +107,7 @@ export default function DemoPanel({ state, reload }: DemoPanelProps) {
           <Zap size={18} aria-hidden="true" /> Perturbations
         </h2>
         <p className="muted" style={{ marginTop: '-0.3rem' }}>
-          Injectez un incident — le watchdog détecte, le planificateur remédie, chaque type a sa
+          Injectez un incident - le watchdog détecte, le planificateur remédie, chaque type a sa
           cascade.
         </p>
         <div className="demo-actions">
@@ -172,7 +172,7 @@ function ForceControls({
     >
       <h2 id="force-title">Contrôles de secours</h2>
       <p className="muted" style={{ marginTop: '-0.3rem' }}>
-        Forçage manuel d'une étape — assurance invisible si un événement échoue en direct.
+        Forçage manuel d'une étape - assurance invisible si un événement échoue en direct.
       </p>
       <div className="demo-actions" style={{ alignItems: 'flex-end' }}>
         <label>
@@ -181,7 +181,7 @@ function ForceControls({
           <select value={stepId} onChange={(e) => setStepId(e.target.value)} disabled={busy}>
             {steps.map((s) => (
               <option key={s.id} value={s.id}>
-                {s.id} — {s.title.slice(0, 28)}
+                {s.id} - {s.title.slice(0, 28)}
               </option>
             ))}
           </select>

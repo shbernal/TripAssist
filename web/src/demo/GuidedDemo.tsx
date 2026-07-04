@@ -36,7 +36,7 @@ export default function GuidedDemo({ reload }: GuidedDemoProps) {
       navigate('/ops')
       await say('Voyage de Camille : tout est sécurisé. Lançons la surveillance.', 1800, 5)
 
-      // Flow A — disruption + replan
+      // Flow A - disruption + replan
       await say("Une grève SNCF supprime le train. Les agents détectent l'impact…", 600, 15, Zap)
       await post('/api/demo/chaos', { scenarioId: 'strike' })
       await waitForReplan()
@@ -45,7 +45,7 @@ export default function GuidedDemo({ reload }: GuidedDemoProps) {
       await reload?.()
       await say('Report sur le TGV suivant, tout repasse au vert.', 1600, 45, Check)
 
-      // Flow B — live call + recovery
+      // Flow B - live call + recovery
       await say("Re-confirmation de l'hôtel par appel IA (voix en direct)…", 600, 55, Phone)
       await post('/api/call/start', { branch: 'B2' })
       await waitForCallEnd()
@@ -60,7 +60,7 @@ export default function GuidedDemo({ reload }: GuidedDemoProps) {
       await reload?.()
       await say('Hôtel Aston sécurisé, taxi re-routé. Zéro action pour Camille.', 1600, 85, Check)
 
-      // Flow C — vision
+      // Flow C - vision
       await say("Vérification visuelle de la conformité d'une salle de bain…", 600, 92, Eye)
       await post('/api/vision/check', {})
       await say('Verdict rendu : ressaut détecté, non conforme, signalé.', 1800, 98)

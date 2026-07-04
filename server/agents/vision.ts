@@ -27,13 +27,13 @@ const VERDICT_SCHEMA = {
 
 const SYSTEM = `Tu es l'agent de vérification visuelle d'AccessTrip. Compare la photo au besoin d'accessibilité du voyageur (notamment: douche à l'italienne / roll-in, sans ressaut, accès de plain-pied). Réponds en JSON strict: {conforme: bool, confiance: number (0-1), critere: string, preuve: string (citation de ce que tu observes), recommandation: string}. Sois factuel et prudent.`
 
-// Pre-seeded fallback verdict — the spec's shower-lip example.
+// Pre-seeded fallback verdict - the spec's shower-lip example.
 function fallbackVerdict(): VisionVerdict {
   return {
     conforme: false,
     confiance: 0.82,
     critere: "Douche à l'italienne (roll-in)",
-    preuve: 'Ressaut de douche estimé à ~15 cm — un rebord est visible au seuil du bac.',
+    preuve: 'Ressaut de douche estimé à ~15 cm - un rebord est visible au seuil du bac.',
     recommandation:
       "Non conforme à une douche à l'italienne. Signalé à l'hôtel : exiger un accès de plain-pied ou une rampe amovible validée.",
   }
@@ -76,7 +76,7 @@ export async function checkPhoto(image: ImageInput | null): Promise<VisionVerdic
   pushEvent('agent_log', {
     agent: 'vision',
     level: verdict.conforme ? 'info' : 'warn',
-    message: `Vérification visuelle : ${verdict.conforme ? 'conforme' : 'NON conforme'} — ${verdict.critere}.`,
+    message: `Vérification visuelle : ${verdict.conforme ? 'conforme' : 'NON conforme'} - ${verdict.critere}.`,
   })
   return { ...verdict, source }
 }

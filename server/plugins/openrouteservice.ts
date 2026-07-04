@@ -1,6 +1,6 @@
 // Wheelchair-profile pedestrian routing from OpenRouteService (free key from
 // https://openrouteservice.org). The `wheelchair` profile avoids stairs and
-// weighs kerb height, incline and surface — so "gare → hôtel, sans marche" is a
+// weighs kerb height, incline and surface - so "gare → hôtel, sans marche" is a
 // real routed answer, not a guess. Set ORS_TOKEN in .env to enable; without it
 // we return a verified reference route so the demo still lands.
 import type { AccessibleRoute } from '../../shared/types.js'
@@ -8,7 +8,7 @@ import type { AccessibleRoute } from '../../shared/types.js'
 const BASE = process.env.ORS_BASE_URL || 'https://api.openrouteservice.org'
 const TOKEN = process.env.ORS_TOKEN || ''
 
-// [lon, lat] — Nice-Ville station → Hôtel Beau Rivage (Vieux-Nice).
+// [lon, lat] - Nice-Ville station → Hôtel Beau Rivage (Vieux-Nice).
 const FROM: [number, number] = [7.262, 43.7043]
 const TO: [number, number] = [7.279, 43.6959]
 const FROM_LABEL = 'Gare de Nice-Ville'

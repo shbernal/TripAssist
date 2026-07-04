@@ -4,7 +4,7 @@ import { Users, Building2, Compass, AlertTriangle, Accessibility } from 'lucide-
 import type { LucideIcon } from 'lucide-react'
 import type { AppState, StepStatus } from '../../../shared/types'
 
-// A traveler card as rendered by the fleet grid — Camille (live) and the seeded
+// A traveler card as rendered by the fleet grid - Camille (live) and the seeded
 // fleet both structurally satisfy this shape.
 interface FleetDisplay {
   id: string
@@ -23,7 +23,7 @@ interface FleetDisplay {
 // Fleet dashboard (Sprint 3 + scale): the operator view of a traveler portfolio.
 // Camille is the live/interactive case; the others illustrate that the same
 // orchestration scales across many travelers, clients (insurers / agencies) and
-// disability profiles — the B2B pitch.
+// disability profiles - the B2B pitch.
 export default function FleetView({ state }: { state: AppState }) {
   const navigate = useNavigate()
   const [q, setQ] = useState('')
@@ -84,7 +84,7 @@ export default function FleetView({ state }: { state: AppState }) {
         <div>
           <h1 style={{ margin: 0, fontSize: '1.5rem' }}>Portefeuille voyageurs</h1>
           <p className="muted" style={{ margin: '0.2rem 0 0' }}>
-            Vue opérateur — pensée pour les assureurs et agences de voyage.
+            Vue opérateur - pensée pour les assureurs et agences de voyage.
             <span className="scale-note">
               {' '}
               Échantillon de {all.length} voyageurs ; la plateforme orchestre des milliers de

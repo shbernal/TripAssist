@@ -80,7 +80,7 @@ export default function OperatorPanel() {
       const d = await r.json()
       if (d.ok) {
         setIngestMsg(
-          `Importé : « ${d.label} » — ${d.stepCount} étape(s) · analyse ${
+          `Importé : « ${d.label} » - ${d.stepCount} étape(s) · analyse ${
             d.source === 'claude' ? 'Claude' : 'hors ligne'
           }`,
         )
@@ -100,7 +100,7 @@ export default function OperatorPanel() {
     <section className="op-panel" aria-label="Opérateur et import d'itinéraire">
       <div className="op-head">
         <Building2 size={16} aria-hidden="true" />
-        <strong>{operator ? operator.name : '—'}</strong>
+        <strong>{operator ? operator.name : '-'}</strong>
         <span className="rc-badge live">{authenticated ? 'connecté' : 'démo (anonyme)'}</span>
         {authenticated && (
           <button type="button" className="btn-mini" onClick={logout}>
