@@ -1,0 +1,100 @@
+{
+  "id": "hotel-call",
+  "title": "AccessTrip AI → Hôtel Beau Rivage (Nice)",
+  "locale": "fr-FR",
+  "model": "eleven_multilingual_v2",
+  "generatedAt": "2026-07-04T13:59:50.552Z",
+  "totalDuration": 108.33963700000001,
+  "track": "audio/hotel-call/conversation.mp3",
+  "lines": [
+    {
+      "id": 1,
+      "speaker": "callee",
+      "caption": "La réception décroche.",
+      "file": "audio/hotel-call/01-callee.mp3",
+      "start": 0,
+      "duration": 3.390113
+    },
+    {
+      "id": 2,
+      "speaker": "agent",
+      "caption": "L'IA se présente et donne la réservation.",
+      "file": "audio/hotel-call/02-agent.mp3",
+      "start": 3.840113,
+      "duration": 12.724535
+    },
+    {
+      "id": 3,
+      "speaker": "callee",
+      "caption": "La réception retrouve le dossier.",
+      "file": "audio/hotel-call/03-callee.mp3",
+      "start": 17.014647999999998,
+      "duration": 6.826667
+    },
+    {
+      "id": 4,
+      "speaker": "agent",
+      "caption": "Exigence : vraie douche à l'italienne.",
+      "file": "audio/hotel-call/04-agent.mp3",
+      "start": 24.291314999999997,
+      "duration": 12.213696
+    },
+    {
+      "id": 5,
+      "speaker": "callee",
+      "caption": "⚠️ La 104 a une baignoire, pas une douche.",
+      "file": "audio/hotel-call/05-callee.mp3",
+      "start": 36.955011,
+      "duration": 9.566621
+    },
+    {
+      "id": 6,
+      "speaker": "agent",
+      "caption": "L'IA refuse le compromis et propose une alternative.",
+      "file": "audio/hotel-call/06-agent.mp3",
+      "start": 46.971632,
+      "duration": 10.49542
+    },
+    {
+      "id": 7,
+      "speaker": "callee",
+      "caption": "✅ La 210 correspond, sans supplément.",
+      "file": "audio/hotel-call/07-callee.mp3",
+      "start": 57.917052,
+      "duration": 12.724535
+    },
+    {
+      "id": 8,
+      "speaker": "agent",
+      "caption": "L'IA verrouille accès sans marche + lit.",
+      "file": "audio/hotel-call/08-agent.mp3",
+      "start": 71.091587,
+      "duration": 11.842177
+    },
+    {
+      "id": 9,
+      "speaker": "callee",
+      "caption": "Accès garanti + nouvelle référence.",
+      "file": "audio/hotel-call/09-callee.mp3",
+      "start": 83.383764,
+      "duration": 12.724535
+    },
+    {
+      "id": 10,
+      "speaker": "agent",
+      "caption": "L'IA inscrit la confirmation au registre.",
+      "file": "audio/hotel-call/10-agent.mp3",
+      "start": 96.558299,
+      "duration": 11.331338
+    }
+  ],
+  "outcome": {
+    "status": "confirmed",
+    "reference": "BR-9901",
+    "summary": "Chambre réattribuée à la 210 (douche à l'italienne de plain-pied, siège rabattable, accès sans marche, lit hauteur transfert) sans supplément. Réf. BR-9901.",
+    "notification": {
+      "title": "Douche à l'italienne confirmée ✅",
+      "body": "L'Hôtel Beau Rivage vous a surclassé·e en chambre 210 avec douche roll-in (réf. BR-9901). Aucun supplément."
+    }
+  }
+}

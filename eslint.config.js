@@ -8,7 +8,9 @@ import globals from 'globals'
 
 export default tseslint.config(
   {
-    ignores: ['web/dist', 'node_modules', 'data', 'coverage'],
+    // apps/* are isolated workspace members with their own toolchains; the root
+    // lint (and its type-aware project map) doesn't reach into them.
+    ignores: ['web/dist', 'node_modules', 'data', 'coverage', 'apps'],
   },
 
   // Base JS + TS recommended
@@ -46,9 +48,9 @@ export default tseslint.config(
     },
   },
 
-  // Backend + scripts: Node globals
+  // Backend + scripts + demo asset tooling: Node globals
   {
-    files: ['server/**/*.{ts,js}', 'scripts/**/*.{ts,js}'],
+    files: ['server/**/*.{ts,js}', 'scripts/**/*.{ts,js}', 'tooling/**/*.{ts,js}'],
     languageOptions: {
       globals: { ...globals.node },
     },

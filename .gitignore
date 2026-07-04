@@ -1,5 +1,6 @@
 node_modules
 web/dist
+apps/demo/dist
 coverage
 data/state.json
 .env

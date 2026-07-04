@@ -1,0 +1,33 @@
+{
+  "outputDir": "apps/demo/public/faces",
+  "style": "Photorealistic portrait, soft natural studio lighting, shallow depth of field, warm and hopeful mood, centered head-and-shoulders, plain softly-blurred neutral background, high detail, editorial travel-brand quality, no text, no watermark.",
+  "characters": [
+    {
+      "id": "camille",
+      "file": "camille.png",
+      "prompt": "A 34-year-old French woman, Camille, seated in a sleek modern electric wheelchair, warm confident smile, short wavy brown hair, light makeup, wearing a stylish teal travel coat, holding a smartphone, looking hopeful and independent."
+    },
+    {
+      "id": "julien",
+      "file": "julien.png",
+      "prompt": "A 36-year-old French man, Julien, Camille's partner, kind reassuring expression, short dark hair, light stubble, casual navy sweater, looking gently toward camera."
+    },
+    {
+      "id": "airport-agent",
+      "file": "airport-agent.png",
+      "prompt": "A friendly airport special-assistance staff member in her 40s, professional airline uniform with a lanyard and headset, welcoming smile, standing in a bright modern airport terminal."
+    },
+    {
+      "id": "hotel-receptionist",
+      "file": "hotel-receptionist.png",
+      "prompt": "An elegant hotel receptionist in his 30s, tailored dark blazer with a name badge, polite professional smile, standing behind a warm-lit boutique hotel reception desk on the French Riviera."
+    }
+  ],
+  "avatars": [
+    {
+      "id": "ai-agent",
+      "file": "ai-agent.png",
+      "prompt": "A minimalist flat-vector avatar of a friendly AI travel assistant, glowing teal-to-violet gradient orb with a subtle circuit motif and a soft ring, centered on transparent background, modern app icon style, no face, no text."
+    }
+  ]
+}

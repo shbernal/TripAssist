@@ -245,10 +245,11 @@ app so work continues cleanly.
 
 **Phase 1 — Workspace skeleton (no MVP move)**
 
-- [ ] Add `packages: ["apps/*"]` to `pnpm-workspace.yaml`; **leave `server`/`web`/`shared` at
-      the root** (MVP stays the root package). Verify `pnpm test` still green.
-- [ ] Scaffold `apps/demo` (Vite + React + TS + Tailwind) with its own `package.json` holding
+- [x] Add `packages: ["apps/*"]` to `pnpm-workspace.yaml`; **leave `server`/`web`/`shared` at
+      the root** (MVP stays the root package). Verify `pnpm test` still green. _(60/60 pass.)_
+- [x] Scaffold `apps/demo` (Vite + React + TS + Tailwind) with its own `package.json` holding
       the animation deps; hello-world deploy to **GitHub Pages** (`--base=/AccessTrip/`).
+      _(`.github/workflows/deploy-demo.yml` builds + publishes `apps/demo/dist`.)_
 
 **Phase 2 — Generate assets**
 

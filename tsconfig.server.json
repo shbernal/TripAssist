@@ -4,5 +4,5 @@
     "lib": ["ES2022"],
     "types": ["node"]
   },
-  "include": ["server/**/*", "scripts/**/*", "shared/**/*"]
+  "include": ["server/**/*", "scripts/**/*", "shared/**/*", "tooling/**/*"]
 }
