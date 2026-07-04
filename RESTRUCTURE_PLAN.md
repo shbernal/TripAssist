@@ -209,10 +209,11 @@ promote each simulated fallback to a real integration behind the same interface:
    as an automated-test path, not the demo path.
 2. **Real reasoning** — require `ANTHROPIC_API_KEY` for planner/extractor/vision; keep
    deterministic fallbacks for tests/CI only.
-3. **Real data** — SNCF / Open-Meteo / Navitia / acceslibre / OpenRouteService plugins pull
-   live data. **[done]** Booking-source ingestion added (`server/ingest.ts` + `POST /api/ingest`):
-   pasted itinerary → structured steps via Claude (extractor-style schema/prompt) with a
-   deterministic offline fallback — the MVP entry point.
+3. **Real data** — **[done]** SNCF / Open-Meteo / OSM plugins pull live data keyless;
+   Navitia / acceslibre / OpenRouteService go live with free tokens (documented in
+   `.env.example`), reference fallback otherwise. Booking-source ingestion added
+   (`server/ingest.ts` + `POST /api/ingest`): pasted itinerary → structured steps via Claude
+   (extractor-style schema/prompt) with a deterministic offline fallback — the MVP entry point.
 4. **Persistence** — **[done]** `data/state.json` replaced by a durable SQLite store
    (`server/store.ts`, `node:sqlite`), now with per-tenant `owner` scoping.
 5. **Auth & multi-tenant** — **[done]** Minimal login (`server/auth.ts`: scrypt + HMAC session
@@ -291,7 +292,14 @@ app so work continues cleanly.
       Vitest project force-clears the Claude gates so suites never touch the network.
 - [x] **§5.3 Real data — booking ingestion** — `server/ingest.ts` + `POST /api/ingest`:
       pasted itinerary → structured steps via Claude with deterministic offline fallback.
-      _(Live open-data plugins — SNCF/Open-Meteo/Navitia/acceslibre/ORS — still open.)_
+- [x] **§5.3 Real data — live open-data plugins** — all six live (verified 2026-07-04):
+      SNCF regularity/assistance/disruptions (`plugins/sncf.ts`), Open-Meteo
+      (`plugins/weather.ts`), and OSM Overpass (`plugins/osm.ts`) hit their APIs keyless and
+      return `live: true` today; Navitia (`plugins/navitia.ts`), acceslibre
+      (`plugins/acceslibre.ts`), and OpenRouteService (`plugins/openrouteservice.ts`) go live
+      with free tokens (`NAVITIA_TOKEN` / `ACCESLIBRE_TOKEN` / `ORS_TOKEN`, all in
+      `.env.example`) and fall back to clearly-flagged reference data without them. Every
+      plugin has timeout + cache + graceful fallback, so the app never blocks on the network.
 - [x] **§5.4 Persistence** — durable SQLite store (`server/store.ts`, `node:sqlite`) with
       per-tenant `owner` scoping; replaces `data/state.json`.
 - [x] **§5.5 Auth & multi-tenant** — additive login (`server/auth.ts`: scrypt + HMAC session
@@ -334,5 +342,6 @@ app so work continues cleanly.
 6. **`.env.example` → includes ElevenLabs** (`ELEVENLABS_API_KEY` + optional voice IDs).
 
 **Status:** decisions above resolved 2026-07-04. Phases 0–3 and 5 **shipped** (demo live on
-GitHub Pages, docs reconciled). Phase 4: §5.1–§5.5 done; remaining open items are the live
-open-data plugins (§5.3 second half) and the MVP's Node-host deploy (§5.6).
+GitHub Pages, docs reconciled). Phase 4: §5.1–§5.5 done (live open-data plugins verified
+2026-07-04); the only remaining open item is the MVP's Node-host deploy (§5.6) — needs a
+hosting choice + account (Render/Fly/Railway).
