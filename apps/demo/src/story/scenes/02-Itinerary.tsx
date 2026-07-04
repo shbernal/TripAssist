@@ -7,9 +7,9 @@ import { Reveal } from '../../components/Reveal'
 
 const STEPS = [
   { icon: MapPin, label: 'Paris', sub: 'Départ' },
-  { icon: Plane, label: 'Paris-CDG → Nice', sub: 'Vol AF 7612 · 12 sept. 10h05' },
+  { icon: Plane, label: 'Paris-CDG → Cannes-Mandelieu', sub: 'Vol AF 7612 · 12 sept. 10h05' },
   { icon: Building2, label: 'Cannes · Hôtel le Mistral', sub: '12–15 sept. · chambre 104' },
-  { icon: Undo2, label: 'Retour', sub: 'Nice → Paris · 15 sept.' },
+  { icon: Undo2, label: 'Retour', sub: 'Cannes-Mandelieu → Paris · 15 sept.' },
 ]
 
 const NEEDS = [

@@ -24,7 +24,7 @@
   "context": {
     "traveler": "Camille Moreau",
     "need": "Assistance embarquement et débarquement, fauteuil roulant électrique Permobil M3 (140 kg, batterie Lithium-ion conforme IATA)",
-    "flight": "AF 7612 - Paris-CDG → Nice, 12 septembre, départ 10h05",
+    "flight": "AF 7612 - Paris-CDG → Cannes-Mandelieu, 12 septembre, départ 10h05",
     "goal": "Confirmer l'assistance WCHC de bout en bout et l'acheminement du fauteuil en soute avec restitution passerelle"
   },
   "lines": [
@@ -37,7 +37,7 @@
     {
       "id": 2,
       "speaker": "agent",
-      "text": "Bonjour, assistant TripAssist, pour Madame Camille Moreau, vol Air France 7612 vers Nice le 12 septembre. Elle voyage en fauteuil roulant électrique : nous demandons une assistance WCHC complète.",
+      "text": "Bonjour, assistant TripAssist, pour Madame Camille Moreau, vol Air France 7612 vers Cannes-Mandelieu le 12 septembre. Elle voyage en fauteuil roulant électrique : nous demandons une assistance WCHC complète.",
       "caption": "L'IA demande l'assistance WCHC."
     },
     {
@@ -49,7 +49,7 @@
     {
       "id": 4,
       "speaker": "agent",
-      "text": "Un Permobil M3, batterie lithium-ion conforme IATA. Merci de le restituer en passerelle à Nice, pas au tapis bagages.",
+      "text": "Un Permobil M3, batterie lithium-ion conforme IATA. Merci de le restituer en passerelle à Cannes-Mandelieu, pas au tapis bagages.",
       "caption": "Fauteuil déclaré, restitution passerelle."
     },
     {
