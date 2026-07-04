@@ -174,7 +174,10 @@ export interface FleetTraveler {
   id: string
   name: string
   age: number
+  category: string
   profileShort: string
+  client: string
+  tripType: string
   needs: string[]
   route: string
   dates: string
@@ -228,10 +231,46 @@ export interface RealtimeDisruptions {
   live: boolean
 }
 
+// Real PMR/disabled assistance for a station (SNCF assistance-psh-pmr dataset).
+export interface StationAssistance {
+  gare: string
+  priseEnCharge: string
+  gratuit: boolean
+  rdv: string
+  source: string
+  live: boolean
+}
+
+// Wheelchair-accessible venues near Nice (OpenStreetMap / Overpass).
+export interface AccessibleVenues {
+  count: number
+  sample: string[]
+  beauRivage: boolean
+  source: string
+  live: boolean
+}
+
+// A real Paris→Nice journey with realtime freshness (Navitia). When no token is
+// configured only `{ live, configured }` is populated; on error `error` is set.
+export interface LiveJourney {
+  live: boolean
+  configured: boolean
+  durationMin?: number
+  departure?: string | null
+  arrival?: string | null
+  status?: string
+  disruptions?: number
+  source?: string
+  error?: string
+}
+
 export interface ContextResponse {
   ok: boolean
   sncf?: SncfRegularity
   weather?: NiceWeather
+  assistance?: StationAssistance
+  osm?: AccessibleVenues
+  navitia?: LiveJourney
   realtime?: RealtimeDisruptions
   error?: string
 }

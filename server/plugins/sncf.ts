@@ -2,7 +2,7 @@
 // Grounds the watchdog in genuine figures: real punctuality for the Sud-Est axis
 // (Paris → Nice), plus live SIRI disruptions when any are active. All calls have a
 // timeout + cache + graceful fallback — the demo never blocks on the network.
-import type { SncfRegularity, RealtimeDisruptions } from '../../shared/types.js'
+import type { SncfRegularity, RealtimeDisruptions, StationAssistance } from '../../shared/types.js'
 
 const BASE = 'https://data.sncf.com/api/explore/v2.1/catalog/datasets'
 const AXE = 'Sud-Est' // Paris ↔ Nice runs on the TGV Sud-Est axis
@@ -51,6 +51,39 @@ export async function fetchAxisRegularity(): Promise<SncfRegularity> {
       month: null,
       regularite: 89.1,
       ponctualite: 88.6,
+      source: 'SNCF (référence)',
+      live: false,
+    }
+  }
+}
+
+// Real PMR/disabled assistance for a station (data.sncf.com assistance-psh-pmr).
+let assistCache: { data: StationAssistance | null; at: number } = { data: null, at: 0 }
+export async function fetchStationAssistance(search = 'Nice'): Promise<StationAssistance> {
+  if (assistCache.data && Date.now() - assistCache.at < TTL) return assistCache.data
+  try {
+    const url = `${BASE}/assistance-psh-pmr/records?limit=5&where=${encodeURIComponent(`search("${search}")`)}`
+    const data = await getJSON(url)
+    const results = (data.results || []) as Array<Record<string, any>>
+    // prefer the main station (name exactly "Nice" = Nice-Ville), else first
+    const r = results.find((x) => /^nice$/i.test(String(x.nom || '').trim())) || results[0]
+    if (!r) throw new Error('no record')
+    const out: StationAssistance = {
+      gare: r.nom,
+      priseEnCharge: r.typepriseencharge,
+      gratuit: /gratuit/i.test(r.typetarification || ''),
+      rdv: r.lieurendezvousgare,
+      source: 'SNCF Open Data',
+      live: true,
+    }
+    assistCache = { data: out, at: Date.now() }
+    return out
+  } catch {
+    return {
+      gare: 'Nice-Ville',
+      priseEnCharge: 'Réservée et spontanée',
+      gratuit: true,
+      rdv: "Guichet Assist'enGare",
       source: 'SNCF (référence)',
       live: false,
     }

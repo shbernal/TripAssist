@@ -27,7 +27,25 @@ describe('seed', () => {
     expect(s.metrics).toEqual({ minutesRecovered: 0, interventions: 0, callsMade: 0 })
     expect(s.replan).toBeNull()
     expect(s.visionVerdict).toBeNull()
-    expect(s.fleet.map((f) => f.id)).toEqual(['marc', 'fatima', 'thomas'])
+    expect(s.fleet.map((f) => f.id)).toEqual([
+      'marc',
+      'fatima',
+      'thomas',
+      'elise',
+      'ahmed',
+      'sophie',
+      'jeanpierre',
+      'lea',
+      'karim',
+      'nathalie',
+      'yasmine',
+    ])
+    // every fleet traveler carries the B2B fields the operator view filters on
+    for (const f of s.fleet) {
+      expect(f.category).toBeTruthy()
+      expect(f.client).toBeTruthy()
+      expect(f.tripType).toBeTruthy()
+    }
   })
 
   it('every step has a unique id and valid dependencies', () => {

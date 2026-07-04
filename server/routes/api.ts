@@ -8,8 +8,10 @@ import { scenarioList } from '../scenarios.js'
 import { startCall, hasVapi } from '../agents/caller.js'
 import { checkPhoto } from '../agents/vision.js'
 import { runAutofill } from '../autofill.js'
-import { fetchAxisRegularity, fetchRealtimeDisruptions } from '../plugins/sncf.js'
+import { fetchAxisRegularity, fetchStationAssistance } from '../plugins/sncf.js'
 import { fetchNiceWeather } from '../plugins/weather.js'
+import { fetchAccessibleVenues } from '../plugins/osm.js'
+import { fetchLiveJourney } from '../plugins/navitia.js'
 import type { Step } from '../../shared/types.js'
 
 const router = express.Router()
@@ -37,12 +39,14 @@ router.get('/scenarios', (req, res) => res.json({ scenarios: scenarioList() }))
 // Real-world context: live SNCF punctuality (Sud-Est axis) + Nice weather.
 router.get('/context', async (req, res) => {
   try {
-    const [sncf, weather, realtime] = await Promise.all([
+    const [sncf, weather, assistance, osm, navitia] = await Promise.all([
       fetchAxisRegularity(),
       fetchNiceWeather(),
-      fetchRealtimeDisruptions(),
+      fetchStationAssistance('Nice'),
+      fetchAccessibleVenues(),
+      fetchLiveJourney(),
     ])
-    res.json({ ok: true, sncf, weather, realtime })
+    res.json({ ok: true, sncf, weather, assistance, osm, navitia })
   } catch (err) {
     res.status(200).json({ ok: false, error: (err as Error).message })
   }
