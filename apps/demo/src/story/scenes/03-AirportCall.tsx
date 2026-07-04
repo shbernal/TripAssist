@@ -2,7 +2,7 @@ import { Scene } from '../../components/Scene'
 import { Reveal } from '../../components/Reveal'
 import { CallStage } from '../../components/CallStage'
 
-export function AirportCall() {
+export function AirportCall({ active }: { active: boolean }) {
   return (
     <Scene
       id="airport-call"
@@ -11,7 +11,7 @@ export function AirportCall() {
       heading="Assistance embarquement, réglée."
     >
       <Reveal>
-        <CallStage callId="airport-call" />
+        <CallStage callId="airport-call" active={active} />
       </Reveal>
     </Scene>
   )

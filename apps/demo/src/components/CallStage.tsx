@@ -48,35 +48,37 @@ function Avatar({ src, name, role, speaking, reduced }: AvatarProps) {
  * scrolling transcript (the verbatim dialogue stays in the DOM for screen
  * readers). When the call ends the outcome stamps in and the story advances on
  * its own.
+ *
+ * `active` is true only while this scene is the one on screen. It gates the whole
+ * audio lifecycle: the call autoplays when it becomes active and, crucially,
+ * pauses the moment the deck moves to another scene - so a call never keeps
+ * talking over the next slide.
  */
-export function CallStage({ callId }: { callId: CallId }) {
+export function CallStage({ callId, active }: { callId: CallId; active: boolean }) {
   const meta = CALLS[callId]
   const player = useCallPlayer(callId)
   const reduced = useReducedMotion()
   const flow = useStoryFlow()
-  const rootRef = useRef<HTMLDivElement>(null)
   const autoplayedRef = useRef(false)
   const advancedRef = useRef(false)
 
-  // Autoplay once when the stage scrolls into view. Not under reduced motion, and
-  // if the browser blocks it (no gesture yet) the visible controls take over.
+  // Playback follows the active scene: autoplay (or resume) on arrival, pause on
+  // departure. If the browser blocks the initial autoplay (no gesture yet) the
+  // visible controls take over.
+  const { status: callStatus, play: playCall, pause: pauseCall } = player
   useEffect(() => {
-    const el = rootRef.current
-    if (!el || reduced) return
-    const obs = new IntersectionObserver(
-      (entries) => {
-        for (const e of entries) {
-          if (e.isIntersecting && !autoplayedRef.current && player.status === 'ready') {
-            autoplayedRef.current = true
-            player.play()
-          }
-        }
-      },
-      { threshold: 0.6 },
-    )
-    obs.observe(el)
-    return () => obs.disconnect()
-  }, [player, reduced])
+    if (active) {
+      if (reduced) return
+      if (callStatus === 'ready' && !autoplayedRef.current) {
+        autoplayedRef.current = true
+        playCall()
+      } else if (callStatus === 'paused') {
+        playCall()
+      }
+    } else if (callStatus === 'playing') {
+      pauseCall()
+    }
+  }, [active, reduced, callStatus, playCall, pauseCall])
 
   const ended = player.status === 'ended'
 
@@ -98,10 +100,7 @@ export function CallStage({ callId }: { callId: CallId }) {
     .filter((m) => (ended ? true : m.id <= passedId))
 
   return (
-    <div
-      ref={rootRef}
-      className="mx-auto w-full max-w-3xl rounded-3xl border border-slate-800 bg-slate-900/60 p-4 shadow-2xl backdrop-blur sm:p-6"
-    >
+    <div className="mx-auto w-full max-w-3xl rounded-3xl border border-slate-800 bg-slate-900/60 p-4 shadow-2xl backdrop-blur sm:p-6">
       <div className="mb-4 flex items-center justify-between gap-3">
         <div className="flex min-w-0 items-center gap-2 text-sm text-slate-400">
           <PhoneCall aria-hidden="true" className="h-4 w-4 shrink-0 text-brand-bright" />

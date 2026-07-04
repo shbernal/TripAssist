@@ -14,7 +14,7 @@
   html,
   body {
     height: 100%;
-    /* The story scrolls sideways inside #main, so the page itself never scrolls. */
+    /* The story is a translated slide deck inside #main; the page never scrolls. */
     overflow: hidden;
   }
 
@@ -27,9 +27,9 @@
     background-attachment: fixed;
   }
 
-  /* The horizontal story scrolls sideways inside #main. Hide the native scrollbar
-     (the "overflow bar" at the bottom) - progress is shown by the top gradient bar
-     and driven by SceneNav / wheel, so the scrollbar is redundant chrome. */
+  /* #main clips its overflow (overflow-clip) and translates an inner track, so
+     there is no native scrollbar to hide; these rules are a defensive no-op for
+     any UA that still exposes one. Progress lives in the top gradient bar. */
   #main {
     scrollbar-width: none; /* Firefox */
     -ms-overflow-style: none; /* legacy Edge */

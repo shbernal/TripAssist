@@ -1,19 +1,26 @@
-import { ChevronLeft, ChevronRight } from 'lucide-react'
+import { ChevronDown, ChevronLeft, ChevronRight, ChevronUp } from 'lucide-react'
+import type { Orientation } from '../lib/useStoryDeck'
 
 interface SceneNavProps {
   count: number
   current: number
+  orientation: Orientation
   onPrev: () => void
   onNext: () => void
   onSelect: (index: number) => void
 }
 
 /**
- * Fixed prev/next controls plus one dot per scene. Keyboard-focusable buttons
- * with clear labels, so the scenes are reachable without a wheel or trackpad -
- * the horizontal layout must not strand keyboard users.
+ * Fixed prev/next controls plus one dot per scene. The arrows point the way the
+ * deck actually travels - left/right on wide screens, up/down when the story is
+ * stacked vertically on mobile - so the direction of movement reads at a glance.
+ * Keyboard-focusable buttons with clear labels keep every scene reachable without
+ * a wheel or trackpad.
  */
-export function SceneNav({ count, current, onPrev, onNext, onSelect }: SceneNavProps) {
+export function SceneNav({ count, current, orientation, onPrev, onNext, onSelect }: SceneNavProps) {
+  const horizontal = orientation === 'horizontal'
+  const Prev = horizontal ? ChevronLeft : ChevronUp
+  const Next = horizontal ? ChevronRight : ChevronDown
   const arrow =
     'pointer-events-auto flex h-9 w-9 items-center justify-center rounded-full border border-slate-700/70 bg-slate-900/70 text-slate-300 shadow-lg backdrop-blur transition hover:border-brand-bright hover:text-brand-bright disabled:opacity-30 disabled:hover:border-slate-700/70 disabled:hover:text-slate-300'
   return (
@@ -25,7 +32,7 @@ export function SceneNav({ count, current, onPrev, onNext, onSelect }: SceneNavP
         className={arrow}
         aria-label="Scène précédente"
       >
-        <ChevronLeft aria-hidden="true" className="h-4 w-4" />
+        <Prev aria-hidden="true" className="h-4 w-4" />
       </button>
       <div className="pointer-events-auto flex items-center gap-2 rounded-full border border-slate-800/70 bg-slate-900/70 px-3 py-2 backdrop-blur">
         {Array.from({ length: count }, (_, i) => (
@@ -50,7 +57,7 @@ export function SceneNav({ count, current, onPrev, onNext, onSelect }: SceneNavP
         className={arrow}
         aria-label="Scène suivante"
       >
-        <ChevronRight aria-hidden="true" className="h-4 w-4" />
+        <Next aria-hidden="true" className="h-4 w-4" />
       </button>
     </div>
   )

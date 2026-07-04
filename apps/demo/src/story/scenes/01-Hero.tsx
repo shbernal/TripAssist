@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion'
-import { ChevronRight, ShieldCheck } from 'lucide-react'
+import { ChevronDown, ChevronRight, ShieldCheck } from 'lucide-react'
 import { asset } from '../../lib/asset'
 import { useReducedMotion } from '../../lib/useReducedMotion'
 
@@ -56,11 +56,14 @@ export function Hero() {
         </motion.div>
       </div>
 
+      {/* Movement hint: points the way the deck travels - down when stacked on
+          mobile, sideways once the scenes sit side by side (md+). */}
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute right-8 top-1/2 -translate-y-1/2 text-slate-500"
+        className="pointer-events-none absolute bottom-20 left-1/2 -translate-x-1/2 text-slate-500 md:bottom-auto md:left-auto md:right-8 md:top-1/2 md:-translate-x-0 md:-translate-y-1/2"
       >
-        <ChevronRight className="h-6 w-6 animate-pulse" />
+        <ChevronDown className="h-6 w-6 animate-pulse md:hidden" />
+        <ChevronRight className="hidden h-6 w-6 animate-pulse md:block" />
       </div>
     </section>
   )

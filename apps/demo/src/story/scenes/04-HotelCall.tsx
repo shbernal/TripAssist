@@ -2,7 +2,7 @@ import { Scene } from '../../components/Scene'
 import { Reveal } from '../../components/Reveal'
 import { CallStage } from '../../components/CallStage'
 
-export function HotelCall() {
+export function HotelCall({ active }: { active: boolean }) {
   return (
     <Scene
       id="hotel-call"
@@ -11,7 +11,7 @@ export function HotelCall() {
       heading="La chambre a une baignoire. L’agent ne lâche rien."
     >
       <Reveal>
-        <CallStage callId="hotel-call" />
+        <CallStage callId="hotel-call" active={active} />
       </Reveal>
     </Scene>
   )
