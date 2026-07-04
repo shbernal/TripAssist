@@ -27,7 +27,7 @@
     {
       "id": "ai-agent",
       "file": "ai-agent.png",
-      "prompt": "Generate an image with a transparent background: the avatar of a friendly humanoid AI travel assistant - a stylized 3D character, head and shoulders, with softly feminine features: a smooth rounded face, gentle warm smile, large kind luminous eyes, sleek pearl-white surfaces with elegant accents in a gradient from deep blue (#1d4ed8) to bright sky blue (#7dd3fc), and a soft outer glow. Professional and trustworthy like a concierge, yet cute, warm and completely non-aggressive - rounded shapes only, no sharp angles, no visible machinery, no circuit lines. Minimal and modern, matching a dark navy travel-app brand. No text, no watermark. Square 1:1, character centered with generous padding - it is displayed small as a circular avatar."
+      "prompt": "Generate an image with a transparent background: the avatar of a small cute robot AI travel assistant - a stylized 3D character, head and upper body, clearly a robot (not a human): a rounded glossy white robot head with a smooth dark screen face showing two large friendly glowing sky-blue eyes and a subtle smile, a compact rounded white body with elegant accents in a gradient from deep blue (#1d4ed8) to bright sky blue (#7dd3fc), and a soft outer glow. Professional and trustworthy yet adorable and completely non-aggressive - rounded shapes only, no sharp angles, no human skin or hair, no circuit lines. Minimal and modern, matching a dark navy travel-app brand. No text, no watermark. Square 1:1, character centered with generous padding - it is displayed small as a circular avatar."
     },
     {
       "id": "logo",
