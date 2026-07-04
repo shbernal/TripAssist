@@ -17,7 +17,6 @@ the pivot — their technical content holds, their narrative is superseded.
 - [Architecture](architecture/ARCHITECTURE.md) — **the current technical map** (FR): diagram, agents, plugins, real-vs-demo table, how to verify.
 - [Data Model](architecture/data-model.md) — data dictionary: entities, reference master data (real UIC/IATA codes), integrity invariants, data sources.
 - [Spec](architecture/spec.md) — ⚠️ original build spec (milestones M1–M6, disruption-centric).
-- [Migration](architecture/migration.md) — historical: the executed npm → pnpm / strict-TS migration plan.
 
 ## Guides
 
