@@ -2,96 +2,101 @@
 
 # TripAssist
 
-### Accessible travel that is **guaranteed and traceable**, not something the traveler has to chase.
+### Un voyage accessible **garanti et traçable**, et non quelque chose que le voyageur doit courir après.
 
-TripAssist is an AI agent that secures accessibility end-to-end **before departure**. The
-moment a trip is booked, it reads the itinerary and **calls the providers itself**: the
-airport for wheelchair assistance, the hotel for a roll-in shower. It gets structured
-confirmations and logs every one. The traveler just gets the good news.
+TripAssist est un agent IA qui sécurise l'accessibilité de bout en bout **avant le départ**. Dès
+qu'un voyage est réservé, il lit l'itinéraire et **appelle lui-même les prestataires** :
+l'aéroport pour l'assistance en fauteuil roulant, l'hôtel pour une douche accessible de
+plain-pied. Il obtient des confirmations structurées et les enregistre toutes. Le voyageur n'a
+plus qu'à recevoir la bonne nouvelle.
 
-**[▶ See Camille's story](https://shbernal.github.io/TripAssist/)** &nbsp;·&nbsp; **[▶ Open the operator dashboard](https://shbernal.github.io/TripAssist/dashboard/)**
+**[▶ Voir l'histoire de Camille](https://shbernal.github.io/TripAssist/)** &nbsp;·&nbsp; **[▶ Ouvrir le tableau de bord opérateur](https://shbernal.github.io/TripAssist/dashboard/)**
 
 </div>
 
 ---
 
-### The agent makes the calls. Camille just gets confirmations.
+### L'agent passe les appels. Camille reçoit simplement les confirmations.
 
-[![The story: the agent calls the airport, then Camille receives two phone confirmations](./public/media/story.gif)](https://shbernal.github.io/TripAssist/)
+[![L'histoire : l'agent appelle l'aéroport, puis Camille reçoit deux confirmations sur son téléphone](./public/media/story.gif)](https://shbernal.github.io/TripAssist/)
 
-_An animated story: the agent receives Camille's Paris → Nice itinerary, **calls the
-airport** for boarding assistance, **calls the hotel** for a roll-in shower, and she gets
-**two phone confirmations**. Nothing to arrange, nothing to explain._
+_Une histoire animée : l'agent reçoit l'itinéraire Paris → Nice de Camille, **appelle
+l'aéroport** pour l'assistance à l'embarquement, **appelle l'hôtel** pour une douche accessible
+de plain-pied, et elle reçoit **deux confirmations sur son téléphone**. Rien à organiser, rien à
+expliquer._
 
-### One operator, twenty travelers, every guarantee tracked.
+### Un opérateur, vingt voyageurs, chaque garantie suivie.
 
-[![The operator dashboard: a guided tour across the group overview, proactive confirmations, per-traveler tracking, and the audit registry](./public/media/dashboard.gif)](https://shbernal.github.io/TripAssist/dashboard/)
+[![Le tableau de bord opérateur : une visite guidée du panorama du groupe, des confirmations proactives, du suivi par voyageur et du registre d'audit](./public/media/dashboard.gif)](https://shbernal.github.io/TripAssist/dashboard/)
 
-_A tour operator managing ~20 seniors and travelers with disabilities on the same trip. A
-guided tour walks the group at a glance, the proactive provider confirmations, per-traveler
-guarantee tracking, and a **traceable audit registry**. Camille is traveler #1, tying the
-two views together._
-
----
-
-## Why it matters
-
-Today, accessible travel runs on the traveler's own labor: a chain of phone calls to
-airlines, airports, and hotels, each repeated, none of it guaranteed, and no proof at the
-other end. A single dropped confirmation can strand someone at a gate or in a room they
-cannot use.
-
-TripAssist flips that around:
-
-- **Proactive.** The agent secures accessibility from the moment of booking, before
-  departure, without waiting to be asked.
-- **Guaranteed.** Every need is tracked to a confirmed outcome, not left as a hopeful
-  request.
-- **Traceable.** Each confirmation is logged with provider, reference, and timestamp.
-  Accessibility becomes provable, not just promised.
-
-Persona: **Camille Moreau**, 34, electric wheelchair. Trip: **Paris → Nice**. UI and voice
-in **French**.
-
-## Accessibility is the product
-
-Not a finishing touch: the demos are themselves accessible. **WCAG AA**, full keyboard
-navigation, visible focus, `prefers-reduced-motion` honored, `aria-live` on live regions,
-semantic landmarks. The story page scores **Lighthouse a11y 100/100**; the dashboard tour
-is keyboard-operable with a focus trap and announced step changes.
-
-## The two demos
-
-| Demo                                     | What it is                                                                   | Live                                                   |
-| ---------------------------------------- | ---------------------------------------------------------------------------- | ------------------------------------------------------ |
-| **Story landing page** (`src/story`)     | An animated, seven-scene story of a single trip from the traveler's side.    | **<https://shbernal.github.io/TripAssist/>**           |
-| **Operator dashboard** (`src/dashboard`) | A tour operator's fixture-backed control room with a guided onboarding tour. | **<https://shbernal.github.io/TripAssist/dashboard/>** |
-
-Both are **static, zero-key, and deterministic**: all AI-generated media (faces, call
-audio) is committed, so they build and deploy with no secrets. The two cross-link so you
-can move between the individual story and the operator view.
+_Un voyagiste qui gère environ 20 seniors et voyageurs en situation de handicap sur le même
+voyage. Une visite guidée parcourt le panorama du groupe, les confirmations proactives des
+prestataires, le suivi des garanties par voyageur, et un **registre d'audit traçable**. Camille
+est la voyageuse n°1, ce qui relie les deux vues._
 
 ---
 
-## Concept and Demo branches
+## Pourquoi c'est important
 
-The project lives on two branches, each with a clear, separate job.
+Aujourd'hui, le voyage accessible repose sur le travail du voyageur lui-même : une série
+d'appels aux compagnies aériennes, aux aéroports et aux hôtels, chacun répété, rien de garanti,
+et aucune preuve au bout du compte. Une seule confirmation perdue peut laisser quelqu'un bloqué
+à une porte d'embarquement ou dans une chambre qu'il ne peut pas utiliser.
 
-- **`concept`** — the **concept branch** (this branch, the default). Two polished,
-  static demos that show what TripAssist does and why it matters: the story landing
-  page and the operator dashboard, deployed to GitHub Pages. No backend, no keys,
-  nothing to install: it just runs in a browser. This is what evaluators read.
+TripAssist inverse la logique :
 
-- **`mvp`** — the **demo branch**. The same product built to actually work: Express +
-  React with Claude agents that place the real provider calls (Vapi), open-data
-  plugins, and a SQLite registry for the confirmations. It needs API keys and a
-  running server. This is where the functional software lives, and where all future
-  functional work happens.
+- **Proactif.** L'agent sécurise l'accessibilité dès la réservation, avant le départ, sans
+  attendre qu'on le lui demande.
+- **Garanti.** Chaque besoin est suivi jusqu'à un résultat confirmé, et non laissé à l'état de
+  simple demande pleine d'espoir.
+- **Traçable.** Chaque confirmation est enregistrée avec le prestataire, la référence et
+  l'horodatage. L'accessibilité devient prouvable, pas seulement promise.
 
-In short: **`concept` shows the vision, `mvp` runs it.** Keeping them apart lets the
-showcase stay a clean, self-contained static site while the working system evolves
-independently.
+Persona : **Camille Moreau**, 34 ans, fauteuil roulant électrique. Voyage : **Paris → Nice**.
+Interface et voix en **français**.
 
-Canonical narrative, repo map, and conventions: [`AGENTS.md`](AGENTS.md). Per-entry
-docs: [`src/story/README.md`](src/story/README.md) ·
+## L'accessibilité est le produit
+
+Pas une touche finale : les démos sont elles-mêmes accessibles. **WCAG AA**, navigation complète
+au clavier, focus visible, `prefers-reduced-motion` respecté, `aria-live` sur les régions
+dynamiques, points de repère sémantiques. La page d'histoire obtient un score **Lighthouse
+accessibilité 100/100** ; la visite guidée du tableau de bord est pilotable au clavier avec un
+piège de focus et des changements d'étape annoncés.
+
+## Les deux démos
+
+| Démo                                            | Ce que c'est                                                                                           | En ligne                                               |
+| ----------------------------------------------- | ------------------------------------------------------------------------------------------------------ | ------------------------------------------------------ |
+| **Page d'histoire** (`src/story`)               | Une histoire animée en sept scènes d'un seul voyage, du point de vue du voyageur.                      | **<https://shbernal.github.io/TripAssist/>**           |
+| **Tableau de bord opérateur** (`src/dashboard`) | La salle de contrôle d'un voyagiste, adossée à des données fictives, avec une visite guidée d'accueil. | **<https://shbernal.github.io/TripAssist/dashboard/>** |
+
+Les deux sont **statiques, sans clé et déterministes** : tous les médias générés par IA
+(visages, audio des appels) sont commités, si bien qu'ils se construisent et se déploient sans
+aucun secret. Les deux se renvoient l'un vers l'autre pour que vous puissiez passer de
+l'histoire individuelle à la vue opérateur.
+
+---
+
+## Les branches Concept et Demo
+
+Le projet vit sur deux branches, chacune avec un rôle clair et distinct.
+
+- **`concept`** : la **branche concept** (cette branche, celle par défaut). Deux démos
+  statiques et soignées qui montrent ce que fait TripAssist et pourquoi c'est important : la
+  page d'histoire et le tableau de bord opérateur, déployées sur GitHub Pages. Pas de backend,
+  pas de clés, rien à installer : cela fonctionne simplement dans un navigateur. C'est ce que
+  lisent les évaluateurs.
+
+- **`mvp`** : la **branche demo**. Le même produit construit pour fonctionner réellement:
+  Express + React avec des agents Claude qui passent les vrais appels aux prestataires (Vapi),
+  des plugins de données ouvertes, et un registre SQLite pour les confirmations. Elle nécessite
+  des clés API et un serveur en fonctionnement. C'est là que vit le logiciel fonctionnel, et où
+  se poursuit tout le travail fonctionnel futur.
+
+En bref : **`concept` montre la vision, `mvp` la fait tourner.** Les garder séparées permet à la
+vitrine de rester un site statique propre et autonome pendant que le système fonctionnel évolue
+de son côté.
+
+Narratif canonique, carte du dépôt et conventions : [`AGENTS.md`](AGENTS.md). Docs par point
+d'entrée : [`src/story/README.md`](src/story/README.md) ·
 [`src/dashboard/README.md`](src/dashboard/README.md).
