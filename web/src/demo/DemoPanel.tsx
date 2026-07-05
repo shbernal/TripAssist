@@ -1,6 +1,8 @@
-import React, { useState } from 'react'
-import { Play, RotateCcw, Phone, PhoneOff, Mic, Zap } from 'lucide-react'
+import React, { useRef, useState } from 'react'
+import { AnimatePresence } from 'framer-motion'
+import { Play, RotateCcw, Phone, PhoneOff, Mic, Maximize2, Zap } from 'lucide-react'
 import { startLiveCall, supportsVapi, type LiveCall } from '../lib/vapiCall'
+import LiveCallModal, { type LiveCallPhase } from './LiveCallModal'
 import type { AppState, Step } from '../../../shared/types'
 
 type PostBodyFn = (url: string, body: unknown, label: string) => Promise<void>
@@ -16,6 +18,13 @@ export default function DemoPanel({ state, reload }: DemoPanelProps) {
   const [status, setStatus] = useState('')
   const [busy, setBusy] = useState(false)
   const [live, setLive] = useState<LiveCall | null>(null)
+  // Live-call modal: phase drives the staging; the modal can be minimized
+  // (call keeps running) and stays up after hang-up to show the confirmation.
+  const [callPhase, setCallPhase] = useState<LiveCallPhase>('connecting')
+  const [callError, setCallError] = useState('')
+  const [modalOpen, setModalOpen] = useState(false)
+  const [assistantSpeaking, setAssistantSpeaking] = useState(false)
+  const volumeRef = useRef(0)
   const canLive = supportsVapi()
 
   async function post(url: string, label: string) {
@@ -23,21 +32,39 @@ export default function DemoPanel({ state, reload }: DemoPanelProps) {
   }
 
   async function startLive() {
+    setCallError('')
+    setCallPhase('connecting')
+    setModalOpen(true)
     setStatus('Appel IA en direct : connexion au micro…')
     const ctl = await startLiveCall({
       onStatus: (s) => {
         setStatus(`Appel IA en direct : ${s === 'in_progress' ? 'en cours' : 'terminé'}`)
+        if (s === 'in_progress') setCallPhase('live')
         if (s === 'ended') {
+          setCallPhase('ended')
           setLive(null)
+          setAssistantSpeaking(false)
           void reload()
         }
       },
       onError: (m) => {
         setStatus(`Appel IA en direct : ${m}`)
+        setCallPhase('error')
+        setCallError(m)
         setLive(null)
+        setAssistantSpeaking(false)
       },
+      onVolume: (v) => {
+        volumeRef.current = v
+      },
+      onAssistantSpeaking: setAssistantSpeaking,
     })
     if (ctl) setLive(ctl)
+  }
+
+  function closeModal() {
+    // While the call runs this only minimizes; the Raccrocher button hangs up.
+    setModalOpen(false)
   }
 
   const postBody: PostBodyFn = async (url, body, label) => {
@@ -96,10 +123,17 @@ export default function DemoPanel({ state, reload }: DemoPanelProps) {
           </button>
 
           {live ? (
-            <button type="button" className="danger is-live-call" onClick={() => live.stop()}>
-              <span className="call-live-dot" aria-hidden="true" />
-              <PhoneOff size={16} aria-hidden="true" /> Raccrocher
-            </button>
+            <>
+              <button type="button" className="danger is-live-call" onClick={() => live.stop()}>
+                <span className="call-live-dot" aria-hidden="true" />
+                <PhoneOff size={16} aria-hidden="true" /> Raccrocher
+              </button>
+              {!modalOpen && (
+                <button type="button" onClick={() => setModalOpen(true)}>
+                  <Maximize2 size={16} aria-hidden="true" /> Afficher l'appel
+                </button>
+              )}
+            </>
           ) : (
             <button
               type="button"
@@ -174,6 +208,21 @@ export default function DemoPanel({ state, reload }: DemoPanelProps) {
       </section>
 
       <ForceControls steps={state.trip.steps} postBody={postBody} busy={busy} />
+
+      <AnimatePresence>
+        {modalOpen && (
+          <LiveCallModal
+            phase={callPhase}
+            error={callError}
+            call={state.call}
+            transcript={state.transcript}
+            assistantSpeaking={assistantSpeaking}
+            volumeRef={volumeRef}
+            onHangUp={() => live?.stop()}
+            onClose={closeModal}
+          />
+        )}
+      </AnimatePresence>
     </div>
   )
 }

@@ -1417,6 +1417,149 @@ input[type='text']::placeholder {
   border-color: rgba(234, 178, 52, 0.42);
 }
 
+/* ---------- Live-call modal (Appel IA en direct) ---------- */
+.call-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  display: grid;
+  place-items: center;
+  padding: 1rem;
+  background: rgba(12, 12, 24, 0.55);
+  backdrop-filter: blur(6px);
+}
+.call-modal {
+  width: min(560px, 100%);
+  max-height: calc(100dvh - 2rem);
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+  padding: 1rem 1.1rem 1.1rem;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--bg-panel);
+  box-shadow: var(--shadow-2);
+  overflow-y: auto;
+}
+.call-modal-head {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+}
+.call-modal-titles {
+  flex: 1;
+  min-width: 0;
+}
+.call-modal-titles h2 {
+  margin: 0;
+  font-size: 1.05rem;
+}
+.call-modal-titles .muted {
+  margin: 0.1rem 0 0;
+  font-size: 0.78rem;
+}
+.call-modal-icon {
+  display: grid;
+  place-items: center;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  color: var(--brand);
+  background: var(--brand-glow);
+  flex-shrink: 0;
+}
+.call-modal-icon.is-on-call {
+  animation: callRing 1.6s ease-in-out infinite;
+}
+@keyframes callRing {
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 var(--brand-glow);
+  }
+  50% {
+    box-shadow: 0 0 0 8px transparent;
+  }
+}
+/* The modal's stage is roomier than the ops panel's: taller wave, bigger gap. */
+.call-modal-stage {
+  margin-bottom: 0;
+  padding: 1rem 0.9rem;
+}
+.call-modal-stage .wave {
+  height: 56px;
+}
+/* Voice-reactive swell: --amp (0..1) is set from the assistant's real audio
+   level by a rAF loop in LiveCallModal - the bars keep their organic keyframe
+   pulse while the whole wave breathes with the voice. */
+.call-modal-wave {
+  width: 100%;
+  transform: scaleY(calc(0.55 + var(--amp, 0) * 1.2));
+  transform-origin: center;
+  transition: transform 90ms ease-out;
+}
+.call-modal-hint {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.3rem;
+  font-size: 0.74rem;
+  color: var(--text-dim);
+}
+.call-dots {
+  display: inline-flex;
+  gap: 3px;
+}
+.call-dots span {
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: currentColor;
+  animation: callDot 1.2s ease-in-out infinite;
+}
+.call-dots span:nth-child(2) {
+  animation-delay: 0.18s;
+}
+.call-dots span:nth-child(3) {
+  animation-delay: 0.36s;
+}
+@keyframes callDot {
+  0%,
+  60%,
+  100% {
+    opacity: 0.25;
+    transform: translateY(0);
+  }
+  30% {
+    opacity: 1;
+    transform: translateY(-3px);
+  }
+}
+.call-modal-transcript {
+  flex: 1;
+  min-height: 120px;
+  max-height: 300px;
+}
+.call-modal-error {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin: 0;
+  font-size: 0.85rem;
+  color: var(--st-failed);
+}
+.call-modal-extracting {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.35rem;
+  margin: 0;
+  font-size: 0.85rem;
+  color: var(--text-dim);
+}
+.call-modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.5rem;
+}
+
 /* ledger table */
 .ledger-table {
   width: 100%;

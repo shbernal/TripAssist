@@ -32,6 +32,10 @@ const CALL_CONTEXT = [
 export interface LiveCallHandlers {
   onStatus?: (status: 'in_progress' | 'ended') => void
   onError?: (message: string) => void
+  /** Assistant output level (0..1), fires ~10×/s. Drive visuals via refs, not state. */
+  onVolume?: (level: number) => void
+  /** Real-time floor holder: fires ahead of transcript finals. */
+  onAssistantSpeaking?: (speaking: boolean) => void
 }
 
 export interface LiveCall {
@@ -66,6 +70,7 @@ export async function startLiveCall(handlers: LiveCallHandlers = {}): Promise<Li
     if (ended) return
     ended = true
     void relay('end')
+    handlers.onAssistantSpeaking?.(false)
     handlers.onStatus?.('ended')
   }
 
@@ -73,6 +78,12 @@ export async function startLiveCall(handlers: LiveCallHandlers = {}): Promise<Li
     void relay('start')
     handlers.onStatus?.('in_progress')
   })
+
+  // Voice-reactive visuals: the waveform swells with the assistant's actual
+  // audio level, and speech-start/end flips the speaking orb in real time.
+  vapi.on('volume-level', (level: number) => handlers.onVolume?.(level))
+  vapi.on('speech-start', () => handlers.onAssistantSpeaking?.(true))
+  vapi.on('speech-end', () => handlers.onAssistantSpeaking?.(false))
 
   vapi.on('message', (msg: unknown) => {
     const m = msg as {

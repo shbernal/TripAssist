@@ -29,8 +29,9 @@ interface CallPanelProps {
 
 // The AI agent and the person on the other end of the line, drawn as speaking
 // orbs. Icon-only avatars keep the panel asset-free (no face images) while the
-// pulsing ring shows who currently holds the floor.
-function Avatar({
+// pulsing ring shows who currently holds the floor. Shared with the live-call
+// modal (demo panel) so both call surfaces look like one product.
+export function Avatar({
   who,
   speaking,
   reduced,
@@ -73,7 +74,7 @@ function securedFacts(x: Extracted): string[] {
 
 // The call's outcome, stamped in with a spring once the extractor resolves it.
 // Mirrors the milestone stamps of the Camille story on the concept branch.
-function ConfirmationStamp({
+export function ConfirmationStamp({
   extracted,
   reduced,
 }: {
