@@ -50,7 +50,9 @@ const TOUR: TourStep[] = [
   },
 ]
 
-const STORY_URL = import.meta.env.DEV ? 'https://shbernal.github.io/TripAssist/' : '/TripAssist/'
+// The story landing page is this same app's root entry, served at <base> in both
+// dev and prod.
+const STORY_URL = import.meta.env.BASE_URL
 
 export default function App() {
   // Tour starts open on first paint (it's the intended entry experience) but is

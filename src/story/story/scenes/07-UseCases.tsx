@@ -2,14 +2,12 @@ import { ArrowUpRight } from 'lucide-react'
 import { Scene } from '../../components/Scene'
 import { Reveal } from '../../components/Reveal'
 
-// The operator dashboard is the sibling app, published under /TripAssist/dashboard/.
-// In local dev (demo on :5173, dashboard not served here) fall back to the live URL.
-const DASHBOARD_URL = import.meta.env.DEV
-  ? 'https://shbernal.github.io/TripAssist/dashboard/'
-  : '/TripAssist/dashboard/'
+// The operator dashboard is the sibling entry point of this same app, served at
+// <base>dashboard/ in both dev and prod — so BASE_URL resolves it either way.
+const DASHBOARD_URL = `${import.meta.env.BASE_URL}dashboard/`
 
 // A slice of the traveler portfolio: varied disability profiles to show the same
-// agent orchestrating every kind of need. The operator dashboard (apps/dashboard)
+// agent orchestrating every kind of need. The operator dashboard (src/dashboard)
 // expands this into a full ~20-traveler group.
 const PROFILES = [
   {

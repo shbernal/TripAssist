@@ -1,12 +1,8 @@
-# This root package is a pnpm workspace MANAGER only. The shipped apps live in
-# apps/* and each carries its own isolated dependency closure (framer-motion,
-# howler, tailwind 4…) so they never entangle.
-packages:
-  - apps/*
-
-# pnpm 11 reads the build-script allowlist here. esbuild's install step fetches
-# the platform binary that Vite relies on; lefthook ships its binary via the
-# platform optional-dependency (lefthook-linux-x64), so skip its own postinstall.
+# NOT a monorepo — this repo is a single app (no `packages:` members). pnpm 11
+# reads its install settings from this file (the `pnpm` field in package.json is
+# no longer honored), so it survives purely to hold the build-script allowlist:
+# esbuild's install step fetches the platform binary Vite relies on; lefthook
+# ships its binary via a platform optional-dependency, so skip its postinstall.
 allowBuilds:
   esbuild: true
   lefthook: false

@@ -1,9 +1,4 @@
-import type {
-  Confirmation,
-  ConfirmationKind,
-  ConfirmationStatus,
-  Traveler,
-} from './types'
+import type { Confirmation, ConfirmationKind, ConfirmationStatus, Traveler } from './types'
 
 // ── The operator (the "chief" who bought TripAssist) ────────────────────────
 export const operator = {
@@ -82,8 +77,18 @@ export const travelers: Traveler[] = [
     profile: 'Fauteuil électrique · Permobil M3',
     needs: ['Embarquement assisté (WCHC)', 'Douche à l’italienne', 'Transfert sans marche'],
     confirmations: [
-      conf('airport', 'confirmed', 'Assistance WCHC, fauteuil accompagné porte-à-porte', '3 juil., 14:02'),
-      conf('hotel', 'confirmed', 'Chambre PMR, douche à l’italienne (siège mural)', '3 juil., 14:09'),
+      conf(
+        'airport',
+        'confirmed',
+        'Assistance WCHC, fauteuil accompagné porte-à-porte',
+        '3 juil., 14:02',
+      ),
+      conf(
+        'hotel',
+        'confirmed',
+        'Chambre PMR, douche à l’italienne (siège mural)',
+        '3 juil., 14:09',
+      ),
       conf('transfer', 'confirmed', 'Véhicule à plancher surbaissé, rampe', '3 juil., 14:15'),
     ],
   },
@@ -95,8 +100,18 @@ export const travelers: Traveler[] = [
     profile: 'Malentendant · appareillé',
     needs: ['Annonces visuelles', 'Alerte vibrante en chambre'],
     confirmations: [
-      conf('airport', 'confirmed', 'Notifications visuelles porte d’embarquement', '3 juil., 14:20'),
-      conf('hotel', 'confirmed', 'Kit chambre sourds : réveil vibrant, alerte incendie lumineuse', '3 juil., 14:26'),
+      conf(
+        'airport',
+        'confirmed',
+        'Notifications visuelles porte d’embarquement',
+        '3 juil., 14:20',
+      ),
+      conf(
+        'hotel',
+        'confirmed',
+        'Kit chambre sourds : réveil vibrant, alerte incendie lumineuse',
+        '3 juil., 14:26',
+      ),
       conf('transfer', 'confirmed', 'Chauffeur briefé communication écrite', '3 juil., 14:31'),
     ],
   },
@@ -108,7 +123,12 @@ export const travelers: Traveler[] = [
     profile: 'Déficience visuelle · chien guide',
     needs: ['Chien guide accepté', 'Accompagnement en aérogare'],
     confirmations: [
-      conf('airport', 'confirmed', 'Chien guide autorisé cabine, accompagnement dédié', '3 juil., 14:35'),
+      conf(
+        'airport',
+        'confirmed',
+        'Chien guide autorisé cabine, accompagnement dédié',
+        '3 juil., 14:35',
+      ),
       conf('hotel', 'confirmed', 'Chien guide accepté, chambre au calme', '3 juil., 14:40'),
       conf('transfer', 'confirmed', 'Chien guide à bord, chauffeur informé', '3 juil., 14:44'),
     ],
@@ -153,7 +173,12 @@ export const travelers: Traveler[] = [
     profile: 'Prothèse de hanche · canne',
     needs: ['Pas d’escaliers', 'Siège prioritaire'],
     confirmations: [
-      conf('airport', 'confirmed', 'Parcours sans marche, siège avec accoudoir relevable', '3 juil., 15:28'),
+      conf(
+        'airport',
+        'confirmed',
+        'Parcours sans marche, siège avec accoudoir relevable',
+        '3 juil., 15:28',
+      ),
       conf('hotel', 'confirmed', 'Chambre de plain-pied, barres d’appui', '3 juil., 15:33'),
       conf('transfer', 'confirmed', 'Accès sans marche', '3 juil., 15:36'),
     ],
@@ -166,7 +191,12 @@ export const travelers: Traveler[] = [
     profile: 'Trouble du spectre autistique',
     needs: ['Environnement calme', 'Embarquement anticipé'],
     confirmations: [
-      conf('airport', 'confirmed', 'Embarquement anticipé, parcours coupe-file sensoriel', '3 juil., 15:41'),
+      conf(
+        'airport',
+        'confirmed',
+        'Embarquement anticipé, parcours coupe-file sensoriel',
+        '3 juil., 15:41',
+      ),
       conf(
         'hotel',
         'pending',
@@ -185,7 +215,12 @@ export const travelers: Traveler[] = [
     profile: 'Marche difficile · déambulateur',
     needs: ['Fauteuil aéroport (WCHR)', 'Chambre PMR'],
     confirmations: [
-      conf('airport', 'confirmed', 'Assistance WCHR de l’enregistrement à la porte', '3 juil., 15:54'),
+      conf(
+        'airport',
+        'confirmed',
+        'Assistance WCHR de l’enregistrement à la porte',
+        '3 juil., 15:54',
+      ),
       conf('hotel', 'confirmed', 'Chambre PMR, déambulateur autorisé', '3 juil., 15:58'),
       conf('transfer', 'confirmed', 'Accès rampe, rangement déambulateur', '3 juil., 16:02'),
     ],
@@ -211,7 +246,12 @@ export const travelers: Traveler[] = [
     profile: 'Basse vision',
     needs: ['Accompagnement en aérogare', 'Documents en gros caractères'],
     confirmations: [
-      conf('airport', 'confirmed', 'Accompagnement dédié, cartes d’embarquement gros caractères', '3 juil., 16:20'),
+      conf(
+        'airport',
+        'confirmed',
+        'Accompagnement dédié, cartes d’embarquement gros caractères',
+        '3 juil., 16:20',
+      ),
       conf('hotel', 'confirmed', 'Signalétique chambre contrastée', '3 juil., 16:24'),
       conf('transfer', 'confirmed', 'Chauffeur assiste à la montée', '3 juil., 16:27'),
     ],
@@ -243,7 +283,12 @@ export const travelers: Traveler[] = [
     profile: 'Insuffisance cardiaque',
     needs: ['Fauteuil longues distances', 'Effort limité'],
     confirmations: [
-      conf('airport', 'confirmed', 'Assistance WCHR, aucun trajet à pied prolongé', '3 juil., 16:45'),
+      conf(
+        'airport',
+        'confirmed',
+        'Assistance WCHR, aucun trajet à pied prolongé',
+        '3 juil., 16:45',
+      ),
       conf('hotel', 'confirmed', 'Chambre au 1er étage, proche ascenseur', '3 juil., 16:49'),
       conf('transfer', 'confirmed', 'Trajet direct climatisé', '3 juil., 16:52'),
     ],
@@ -256,7 +301,12 @@ export const travelers: Traveler[] = [
     profile: 'Arthrose sévère',
     needs: ['Pas d’escaliers', 'Siège avec espace jambes'],
     confirmations: [
-      conf('airport', 'confirmed', 'Parcours sans marche, siège avec espace supplémentaire', '4 juil., 09:05'),
+      conf(
+        'airport',
+        'confirmed',
+        'Parcours sans marche, siège avec espace supplémentaire',
+        '4 juil., 09:05',
+      ),
       conf('hotel', 'confirmed', 'Chambre de plain-pied', '4 juil., 09:09'),
       conf('transfer', 'confirmed', 'Accès sans marche', '4 juil., 09:12'),
     ],
@@ -277,7 +327,12 @@ export const travelers: Traveler[] = [
         '4 juil., 09:22',
         'Action requise : l’unique chambre à douche à l’italienne restante est double-réservée. L’agent a escaladé auprès du directeur ; décision attendue.',
       ),
-      conf('transfer', 'confirmed', 'Véhicule surbaissé, arrimage fauteuil électrique', '4 juil., 09:26'),
+      conf(
+        'transfer',
+        'confirmed',
+        'Véhicule surbaissé, arrimage fauteuil électrique',
+        '4 juil., 09:26',
+      ),
     ],
   },
   {
@@ -327,7 +382,12 @@ export const travelers: Traveler[] = [
     profile: 'Cécité · canne blanche',
     needs: ['Accompagnement de bout en bout', 'Repérage des lieux'],
     confirmations: [
-      conf('airport', 'confirmed', 'Accompagnement dédié de l’enregistrement au siège', '4 juil., 10:07'),
+      conf(
+        'airport',
+        'confirmed',
+        'Accompagnement dédié de l’enregistrement au siège',
+        '4 juil., 10:07',
+      ),
       conf('hotel', 'confirmed', 'Visite guidée de la chambre à l’arrivée', '4 juil., 10:11'),
       conf(
         'transfer',
@@ -346,7 +406,12 @@ export const travelers: Traveler[] = [
     profile: 'BPCO · oxygénothérapie',
     needs: ['Oxygène à bord', 'Effort limité'],
     confirmations: [
-      conf('airport', 'confirmed', 'Oxygène à bord validé (MEDIF reçu), assistance WCHR', '4 juil., 10:20'),
+      conf(
+        'airport',
+        'confirmed',
+        'Oxygène à bord validé (MEDIF reçu), assistance WCHR',
+        '4 juil., 10:20',
+      ),
       conf('hotel', 'confirmed', 'Concentrateur d’oxygène en chambre', '4 juil., 10:24'),
       conf('transfer', 'confirmed', 'Trajet direct avec oxygène d’appoint', '4 juil., 10:27'),
     ],

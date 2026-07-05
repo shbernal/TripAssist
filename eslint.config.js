@@ -1,5 +1,5 @@
-// Flat ESLint config for the dashboard (an isolated workspace member with its own
-// tsconfig + node_modules/eslint), mirroring apps/story's setup.
+// Flat ESLint config for the single TripAssist app (story + dashboard entries,
+// both under src/). Type-aware against the app's tsconfigs; `pnpm lint` runs it.
 import js from '@eslint/js'
 import tseslint from 'typescript-eslint'
 import react from 'eslint-plugin-react'
@@ -10,14 +10,16 @@ import globals from 'globals'
 
 export default tseslint.config(
   {
-    ignores: ['dist', 'node_modules'],
+    // `tooling/` is TS run directly via tsx and lives outside the app tsconfigs,
+    // so it stays out of the type-aware lint (as it did under the old per-app setup).
+    ignores: ['dist', 'node_modules', '_site', 'tooling'],
   },
 
   // Base JS + TS recommended
   js.configs.recommended,
   ...tseslint.configs.recommended,
 
-  // Type-aware linting against the dashboard's own tsconfigs.
+  // Type-aware linting against the app's own tsconfigs.
   {
     files: ['**/*.{ts,tsx}'],
     languageOptions: {
@@ -58,6 +60,8 @@ export default tseslint.config(
       'react/react-in-jsx-scope': 'off',
       'react/prop-types': 'off',
       'react-refresh/only-export-components': ['warn', { allowConstantExport: true }],
+      // The classic hook rules stay on; the newer React-Compiler lints in the v7
+      // recommended set flag intentional patterns in these demos, so keep them off.
       'react-hooks/exhaustive-deps': 'warn',
       'react-hooks/immutability': 'off',
       'react-hooks/set-state-in-effect': 'off',

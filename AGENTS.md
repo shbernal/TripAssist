@@ -34,50 +34,60 @@ landmarks. The demos must themselves be accessible.
 
 ## Two deliverables (both static, on this branch)
 
-1. **`apps/story`** — a stylized, animated **story landing page**: seven scenes as a
-   discrete slide deck (Framer Motion + Howler). Camille's story: agent receives the
-   itinerary → **calls the airport** → **calls the hotel** → she gets **two phone
-   notifications**. Faces are AI-generated (Codex), call audio voice-generated
-   (ElevenLabs), both committed. **Live: <https://shbernal.github.io/TripAssist/>**.
-   Own docs: [`apps/story/README.md`](apps/story/README.md).
-2. **`apps/dashboard`** — a **tour-operator dashboard**: a "chief" who bought TripAssist
-   managing a group of ~20 seniors / travelers with disabilities on the same Paris→Nice
-   trip. A **guided onboarding tour** (stepped, spotlighted reveal) walks six solution
-   aspects — the group at a glance, proactive provider confirmations, per-traveler
-   guarantee tracking, the traceable audit registry, exceptions & alerts, and the
-   disruption-replanning roadmap — over a live-looking, **fixture-backed** (non-functional)
-   dashboard. **Live: <https://shbernal.github.io/TripAssist/dashboard/>**. Data is all
-   static fixtures in `apps/dashboard/src/data/`. Camille appears as traveler #1, tying
-   the two demos together (the same trip from the individual's and the operator's side).
+These are **two entry points of one Vite app**, not separate packages — `src/story`
+renders the root `index.html`, `src/dashboard` renders `dashboard/index.html`.
 
-The two apps cross-link (landing page ↔ dashboard) so evaluators find both.
+1. **`src/story`** — a stylized, animated **story landing page** (root entry, served at
+   `/TripAssist/`): seven scenes as a discrete slide deck (Framer Motion + Howler).
+   Camille's story: agent receives the itinerary → **calls the airport** → **calls the
+   hotel** → she gets **two phone notifications**. Faces are AI-generated (Codex), call
+   audio voice-generated (ElevenLabs), both committed.
+   **Live: <https://shbernal.github.io/TripAssist/>**.
+   Own docs: [`src/story/README.md`](src/story/README.md).
+2. **`src/dashboard`** — a **tour-operator dashboard** (second entry, served at
+   `/TripAssist/dashboard/`): a "chief" who bought TripAssist managing a group of ~20
+   seniors / travelers with disabilities on the same Paris→Nice trip. A **guided
+   onboarding tour** (stepped, spotlighted reveal) walks six solution aspects — the group
+   at a glance, proactive provider confirmations, per-traveler guarantee tracking, the
+   traceable audit registry, exceptions & alerts, and the disruption-replanning roadmap —
+   over a live-looking, **fixture-backed** (non-functional) dashboard.
+   **Live: <https://shbernal.github.io/TripAssist/dashboard/>**. Data is all static
+   fixtures in `src/dashboard/data/`. Camille appears as traveler #1, tying the two demos
+   together (the same trip from the individual's and the operator's side).
 
-## Repo structure — a workspace
+The two entries cross-link (landing page ↔ dashboard) so evaluators find both; the links
+resolve via Vite's `BASE_URL`, so they work the same in local dev and on Pages.
 
-A pnpm **workspace**; each app has its own isolated dependency closure so they never
-entangle. The root package is a **workspace manager only** (no app code at the root).
+## Repo structure — a single app
+
+One Vite app at the repo root with **two HTML entry points** (no pnpm workspace, no
+`apps/*`). Both entries share one dependency closure and one `base` (`/TripAssist/`).
 
 ```
 TripAssist/
-├─ package.json            # workspace MANAGER only: aggregate build/lint/typecheck/format
-├─ pnpm-workspace.yaml     # declares apps/* as members
-├─ tsconfig.base.json      # apps extend this
-├─ apps/
-│  ├─ demo/                # story landing page  → /TripAssist/          (own README)
-│  └─ dashboard/           # operator dashboard  → /TripAssist/dashboard/ (own README)
+├─ package.json            # the app: build/dev/lint/typecheck/format + asset scripts
+├─ pnpm-workspace.yaml     # NOT a monorepo — settings-only (pnpm build-script allowlist)
+├─ vite.config.ts          # multi-page: index.html + dashboard/index.html, base /TripAssist/
+├─ tsconfig.base.json      # tsconfig.json / tsconfig.node.json extend this
+├─ index.html              # story entry     → /TripAssist/            (loads src/story)
+├─ dashboard/index.html    # dashboard entry → /TripAssist/dashboard/  (loads src/dashboard)
+├─ public/                 # shared static assets (logo, faces, audio, scenes)
+├─ src/
+│  ├─ story/               # story landing page  (own README)
+│  └─ dashboard/           # operator dashboard  (own README)
 ├─ tooling/
 │  └─ demo/                # asset generators (faces via Codex + voices via ElevenLabs)
-├─ .github/workflows/      # deploy-demo.yml — builds both, publishes combined Pages site
+├─ .github/workflows/      # deploy-demo.yml — builds the app, publishes dist to Pages
 └─ AGENTS.md / CLAUDE.md   # this file
 ```
 
-## Deploy — combined GitHub Pages site
+## Deploy — one GitHub Pages site
 
-Pages serves one site. `.github/workflows/deploy-demo.yml` builds both apps on every push
-to `main`, then assembles a combined artifact — `apps/story/dist` at the root,
-`apps/dashboard/dist` copied into `dashboard/` — and publishes it. Each app's Vite `base`
-matches its path (`/TripAssist/`, `/TripAssist/dashboard/`); flip to `'/'` / `'/dashboard/'`
-if ever moved off Pages. No account or secret needed.
+Pages serves one site. `.github/workflows/deploy-demo.yml` runs `pnpm build` on every
+push to `main` and publishes `dist` **as-is** — Vite already emits `index.html` at the
+root and `dashboard/index.html` nested, both under `base: '/TripAssist/'`, so there's no
+artifact to assemble. Flip `base` to `'/'` if ever moved off Pages (e.g. Vercel at a
+domain root). No account or secret needed.
 
 ## Asset tooling (`tooling/demo/`)
 
@@ -85,8 +95,8 @@ if ever moved off Pages. No account or secret needed.
   - `manifest.json` with per-line timings for caption sync. Needs `ELEVENLABS_API_KEY`.
 - **Faces** — `generate-faces.ts`: Codex CLI image tool (ChatGPT OAuth, no API key) →
   photoreal PNGs from `characters.json`.
-- Generated media is **committed** (`apps/story/public/{faces,audio}`) so the demo runs
-  key-free and deterministic. Run via the root scripts:
+- Generated media is **committed** (`public/{faces,audio}`) so the demo runs key-free
+  and deterministic. Run via the root scripts:
 
 ```bash
 pnpm assets:voices   # needs ELEVENLABS_API_KEY
@@ -98,34 +108,36 @@ pnpm assets:faces    # needs `codex` on PATH
 - **Invoke tools via `node node_modules/<pkg>/...`, never `npx`/`pnpm exec`/bare bins.**
   The working folder path can break the `node_modules/.bin` PATH shim; every script (and
   the git hooks) calls `node` directly. `pnpm` itself (corepack-managed) is safe to call.
-  `pnpm -r <script>` fans a script out to every workspace member.
 - TypeScript **strict**, Tailwind 4, React 18, Framer Motion, flat ESLint, Prettier.
-  Lefthook installs hooks on `pnpm install`: pre-commit = Prettier `--write` + per-app
-  ESLint `--fix` on staged; pre-push = `pnpm -r typecheck` + `pnpm -r lint`.
+  Lefthook installs hooks on `pnpm install`: pre-commit = Prettier `--write` + ESLint
+  `--fix` on staged; pre-push = `pnpm typecheck` + `pnpm lint`.
 
 ```bash
 pnpm install
-pnpm dev             # BOTH dev servers in parallel (story :5173, dashboard :5174)
-pnpm story           # story landing page dev server only
-pnpm dashboard       # operator dashboard dev server only
-pnpm build / typecheck / lint / format   # fan out across apps
+pnpm dev             # one Vite dev server (:5173) serving BOTH entries:
+                     #   story → /TripAssist/   ·   dashboard → /TripAssist/dashboard/
+pnpm build           # static build → dist/ (index.html + dashboard/index.html)
+pnpm typecheck / lint / format
 ```
 
 ## Environment
 
-Copy `.env.example` → `.env`. The apps run with **zero keys**; the only key is
-`ELEVENLABS_API_KEY`, needed solely to **regenerate** the landing page's call audio. The
-MVP's `ANTHROPIC_*`/`VAPI_*` keys live on the `mvp` branch.
+The apps run with **zero keys**; the only key is `ELEVENLABS_API_KEY`, needed solely to
+**regenerate** the landing page's call audio. Set it in a `.env` file at the repo root
+(the voice generator loads it). The MVP's `ANTHROPIC_*`/`VAPI_*` keys live on the `mvp`
+branch.
 
 ## Decisions already made — don't re-litigate
 
 - **`main` is the static showcase; the functional MVP is on `mvp`.** Keep the backend,
   server docs, and MVP-only config off this branch.
-- **Two static deliverables**: `apps/story` (individual story) + `apps/dashboard`
-  (operator, guided onboarding tour). The dashboard is a **new workspace app**, not a
-  route in the demo.
+- **Two static deliverables**: `src/story` (individual story) + `src/dashboard`
+  (operator, guided onboarding tour). They are **two entry points of one Vite app** —
+  the repo was collapsed from a pnpm workspace (`apps/story` + `apps/dashboard`) into a
+  single app because the two shared ~all deps and no code. Don't reintroduce the
+  workspace or per-app `apps/*` packages.
 - Generated media is **committed** (zero-key, deterministic deploys); regenerate via
-  `tooling/demo/`, don't gitignore `apps/story/public/{faces,audio}`.
+  `tooling/demo/`, don't gitignore `public/{faces,audio}`.
 - Demos are **French-only**; transcript/UI components stay language-agnostic but no
   bilingual toggle is built.
 - Demo hosting is **GitHub Pages**, one combined site; Vercel is an optional later switch.

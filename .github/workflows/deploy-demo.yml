@@ -1,17 +1,21 @@
 name: Deploy demo → GitHub Pages
 
-# Builds both static apps and publishes a COMBINED site to GitHub Pages:
-#   - the story landing page (apps/story)      at /TripAssist/
-#   - the operator dashboard (apps/dashboard) at /TripAssist/dashboard/
-# Each app's Vite `base` is set to match its path. No external account needed;
-# no backend is built here (the functional MVP lives on the `mvp` branch).
+# Builds the single static app (two entry points) and publishes it to GitHub Pages:
+#   - the story landing page      at /TripAssist/            (index.html)
+#   - the operator dashboard      at /TripAssist/dashboard/  (dashboard/index.html)
+# One shared Vite `base` (/TripAssist/); Vite emits both HTML files in place, so the
+# `dist` output is published as-is. No external account needed; no backend is built
+# here (the functional MVP lives on the `mvp` branch).
 on:
   push:
     branches: [main]
     paths:
-      - 'apps/story/**'
-      - 'apps/dashboard/**'
-      - 'pnpm-workspace.yaml'
+      - 'src/**'
+      - 'public/**'
+      - 'index.html'
+      - 'dashboard/**'
+      - 'vite.config.ts'
+      - 'package.json'
       - 'pnpm-lock.yaml'
       - '.github/workflows/deploy-demo.yml'
   workflow_dispatch:
@@ -38,18 +42,12 @@ jobs:
           node-version: 22
           cache: pnpm
       - run: pnpm install --frozen-lockfile
-      - run: pnpm --filter @tripassist/story build
-      - run: pnpm --filter @tripassist/dashboard build
-      # Assemble the combined artifact: landing page at the root, dashboard nested
-      # under /dashboard (its base=/TripAssist/dashboard/ already points there).
-      - name: Assemble combined site
-        run: |
-          rm -rf _site
-          cp -r apps/story/dist _site
-          cp -r apps/dashboard/dist _site/dashboard
+      - run: pnpm build
+      # Vite already emits index.html at the root and dashboard/index.html nested,
+      # both under base=/TripAssist/ — publish the build output as-is.
       - uses: actions/upload-pages-artifact@v3
         with:
-          path: _site
+          path: dist
 
   deploy:
     needs: build
