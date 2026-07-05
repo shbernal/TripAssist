@@ -85,6 +85,23 @@ export function CallStage({ callId, active }: { callId: CallId; active: boolean 
     }
   }, [active, reduced, callStatus, userPaused, playCall, pauseCall])
 
+  // Space toggles the call audio while this scene is on screen. Presses aimed
+  // at an interactive element are left alone (a focused button already treats
+  // Space as a click - handling it here too would double-toggle).
+  const { toggle: toggleCall } = player
+  useEffect(() => {
+    if (!active) return
+    const onKey = (e: KeyboardEvent): void => {
+      if (e.key !== ' ') return
+      const t = e.target as HTMLElement | null
+      if (t?.closest('button, a, input, textarea, select, [contenteditable]')) return
+      e.preventDefault()
+      toggleCall()
+    }
+    window.addEventListener('keydown', onKey)
+    return () => window.removeEventListener('keydown', onKey)
+  }, [active, toggleCall])
+
   const ended = player.status === 'ended'
 
   // Hand the story forward once the call has resolved (after a short beat so
@@ -153,7 +170,14 @@ export function CallStage({ callId, active }: { callId: CallId; active: boolean 
       </div>
 
       <div className="mt-4">
-        <Caption speakerLabel={speakerLabel} speaker={player.activeSpeaker} text={activeText} />
+        <Caption
+          speakerLabel={speakerLabel}
+          speaker={player.activeSpeaker}
+          text={activeText}
+          start={activeLine?.start}
+          duration={activeLine?.duration}
+          time={player.time}
+        />
       </div>
 
       {/* Secured facts stamp in as the call locks them down. */}

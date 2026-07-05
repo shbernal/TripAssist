@@ -42,6 +42,8 @@ export interface CallPlayer {
   activeSpeaker: Speaker | null
   /** 0..1 across the whole conversation. */
   progress: number
+  /** Playhead in track seconds, RAF-fresh while playing - drives the word cursor. */
+  time: number
   muted: boolean
   /** True while the pause came from the user (via `toggle`), not from the deck
       pausing an off-screen scene - callers must not auto-resume over it. */
@@ -73,6 +75,7 @@ export function useCallPlayer(callId: CallId): CallPlayer {
   const [status, setStatus] = useState<CallStatus>('loading')
   const [activeIndex, setActiveIndex] = useState<number>(-1)
   const [progress, setProgress] = useState(0)
+  const [time, setTime] = useState(0)
   const [muted, setMuted] = useState(false)
   const [userPaused, setUserPaused] = useState(false)
 
@@ -115,6 +118,7 @@ export function useCallPlayer(callId: CallId): CallPlayer {
         stopRaf()
         setActiveIndex(manifest.lines.length - 1)
         setProgress(1)
+        setTime(manifest.totalDuration)
         setStatus('ended')
       },
       onplayerror: () => {
@@ -130,19 +134,32 @@ export function useCallPlayer(callId: CallId): CallPlayer {
     // unlocked by a user interaction. Scenes autoplay from an effect (not inside
     // the gesture), and the first call is usually reached via autopilot with no
     // prior tap - so it would stay silent while later calls (reached only after
-    // the user swipes) play. Bless this call's audio element on the first user
-    // gesture anywhere: a muted play()/stop() within the gesture grants the
+    // the user swipes) play. Bless this call's <audio> element on the first user
+    // gesture anywhere: a muted play()/pause() within the gesture grants the
     // element its user-initiated flag, so a later gesture-free autoplay is allowed.
+    // This must bypass the Howl API: mute/stop on the Howl while its play()
+    // promise is pending get stuck in Howler's action queue and leave the whole
+    // group muted - the call then "plays" in silence. Touching the raw node keeps
+    // Howler's state (and its queue) out of the picture entirely.
     const events = ['pointerdown', 'touchend', 'keydown'] as const
     const prime = (): void => {
       events.forEach((type) => document.removeEventListener(type, prime, true))
       const h = howlRef.current
       if (!h || h.playing()) return
-      const wasMuted = mutedRef.current
-      h.mute(true)
-      const id = h.play()
-      h.stop(id)
-      h.mute(wasMuted)
+      const node = (h as unknown as { _sounds?: { _node?: HTMLAudioElement }[] })._sounds?.[0]
+        ?._node
+      if (!node) return
+      try {
+        node.muted = true
+        node.play()?.catch(() => {})
+        // Synchronous pause/rewind: by the time the same gesture reaches a real
+        // play() (e.g. the transport button's click), the node is already back
+        // at rest and unmuted, so nothing races the actual playback.
+        node.pause()
+        node.currentTime = 0
+      } finally {
+        node.muted = mutedRef.current
+      }
     }
     events.forEach((type) => document.addEventListener(type, prime, true))
 
@@ -169,6 +186,7 @@ export function useCallPlayer(callId: CallId): CallPlayer {
     const t = typeof raw === 'number' ? raw : 0
     setActiveIndex(activeIndexAt(m.lines, t))
     setProgress(m.totalDuration > 0 ? Math.min(1, t / m.totalDuration) : 0)
+    setTime(t)
     rafRef.current = requestAnimationFrame(tick)
   }, [])
 
@@ -206,6 +224,7 @@ export function useCallPlayer(callId: CallId): CallPlayer {
     howl.seek(0)
     setActiveIndex(-1)
     setProgress(0)
+    setTime(0)
     setUserPaused(false)
     howl.play()
     setStatus('playing')
@@ -251,6 +270,7 @@ export function useCallPlayer(callId: CallId): CallPlayer {
     activeLineId: activeLine?.id ?? null,
     activeSpeaker: activeLine?.speaker ?? null,
     progress,
+    time,
     muted,
     userPaused,
     play,

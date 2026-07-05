@@ -41,7 +41,7 @@ export function Registry() {
               </span>
               {/* Reference + timestamp: own line on phones (aligned under the text),
                   back inline at sm. */}
-              <span className="flex w-full shrink-0 items-center gap-3 pl-[46px] sm:w-auto sm:pl-0">
+              <span className="flex w-full min-w-0 items-center gap-3 pl-[46px] sm:w-auto sm:shrink-0 sm:pl-0">
                 <span className="font-mono text-[10px] text-slate-500">{e.reference}</span>
                 <span className="text-slate-500">{e.at}</span>
               </span>
