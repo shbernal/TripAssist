@@ -1,91 +1,125 @@
+<div align="center">
+
 # TripAssist
 
-**AI trip-orchestration for travelers with disabilities** — making accessibility
-_guaranteed and traceable_ instead of something the traveler has to chase. From the
-moment a trip is booked, an AI agent secures accessibility end-to-end **before
-departure**: it reads the itinerary and proactively calls the providers — the airport
-for wheelchair assistance (WCHC), the hotel for a roll-in shower — obtains structured
-confirmations, and logs them to a registry.
+### Accessible travel that is **guaranteed and traceable**, not something the traveler has to chase.
 
-> **This branch (`main`) is the static demo showcase.** It ships two zero-key, fully
-> static apps deployed to GitHub Pages. The **functional MVP** (Express + React + Claude
-> agents + Vapi calls + open-data plugins + SQLite) lives on the **`mvp` branch** — see
-> [_Branch split_](#branch-split) below.
+TripAssist is an AI agent that secures accessibility end-to-end **before departure**. The
+moment a trip is booked, it reads the itinerary and **calls the providers itself**: the
+airport for wheelchair assistance, the hotel for a roll-in shower. It gets structured
+confirmations and logs every one. The traveler just gets the good news.
 
-Canonical narrative, repo map, and conventions: [`AGENTS.md`](AGENTS.md).
+**[▶ See Camille's story](https://shbernal.github.io/TripAssist/)** &nbsp;·&nbsp; **[▶ Open the operator dashboard](https://shbernal.github.io/TripAssist/dashboard/)**
 
-## The two demos
+</div>
 
-The two demos are **two entry points of one Vite app** — `src/story` renders the root
-`index.html`, `src/dashboard` renders `dashboard/index.html`.
+---
 
-| Demo                                     | What it is                                                                                                                                                                                                                                           | Live                                                   |
-| ---------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------ |
-| **Story landing page** (`src/story`)     | A stylized, animated 7-scene story: the agent receives Camille's itinerary, **calls the airport**, **calls the hotel**, and she gets two phone confirmations. Individual traveler's view.                                                            | **<https://shbernal.github.io/TripAssist/>**           |
-| **Operator dashboard** (`src/dashboard`) | A tour operator ("chief") who bought TripAssist, managing a group of ~20 seniors & travelers with disabilities on the same Paris→Nice trip. A **guided onboarding tour** reveals each solution aspect over a live-looking, fixture-backed dashboard. | **<https://shbernal.github.io/TripAssist/dashboard/>** |
+### The agent makes the calls. Camille just gets confirmations.
 
-Both are **static, zero-key, and deterministic** — all AI-generated media (faces, call
-audio) is committed, so they build and deploy with no secrets. The two entries cross-link
-so you can move between the individual story and the operator view.
+[![The story: the agent calls the airport, then Camille receives two phone confirmations](./public/media/story.gif)](https://shbernal.github.io/TripAssist/)
+
+_An animated story: the agent receives Camille's Paris → Nice itinerary, **calls the
+airport** for boarding assistance, **calls the hotel** for a roll-in shower, and she gets
+**two phone confirmations**. Nothing to arrange, nothing to explain._
+
+### One operator, twenty travelers, every guarantee tracked.
+
+[![The operator dashboard: a guided tour across the group overview, proactive confirmations, per-traveler tracking, and the audit registry](./public/media/dashboard.gif)](https://shbernal.github.io/TripAssist/dashboard/)
+
+_A tour operator managing ~20 seniors and travelers with disabilities on the same trip. A
+guided tour walks the group at a glance, the proactive provider confirmations, per-traveler
+guarantee tracking, and a **traceable audit registry**. Camille is traveler #1, tying the
+two views together._
+
+---
+
+## Why it matters
+
+Today, accessible travel runs on the traveler's own labor: a chain of phone calls to
+airlines, airports, and hotels, each repeated, none of it guaranteed, and no proof at the
+other end. A single dropped confirmation can strand someone at a gate or in a room they
+cannot use.
+
+TripAssist flips that around:
+
+- **Proactive.** The agent secures accessibility from the moment of booking, before
+  departure, without waiting to be asked.
+- **Guaranteed.** Every need is tracked to a confirmed outcome, not left as a hopeful
+  request.
+- **Traceable.** Each confirmation is logged with provider, reference, and timestamp.
+  Accessibility becomes provable, not just promised.
+
+Persona: **Camille Moreau**, 34, electric wheelchair. Trip: **Paris → Nice**. UI and voice
+in **French**.
 
 ## Accessibility is the product
 
-Not a finishing touch — the demos must themselves be accessible: **WCAG AA**, full
-keyboard navigation, visible focus, `prefers-reduced-motion` honored, `aria-live` on
-live regions, semantic landmarks, French UI. The landing page scores **Lighthouse
-a11y 100/100**; the dashboard's onboarding tour is keyboard-operable with a focus trap
-and announced step changes.
+Not a finishing touch: the demos are themselves accessible. **WCAG AA**, full keyboard
+navigation, visible focus, `prefers-reduced-motion` honored, `aria-live` on live regions,
+semantic landmarks. The story page scores **Lighthouse a11y 100/100**; the dashboard tour
+is keyboard-operable with a focus trap and announced step changes.
 
-## Run & build
+## The two demos
 
-A single **Vite app** with two HTML entry points (`index.html` for the story,
-`dashboard/index.html` for the dashboard) sharing one `base`, `/TripAssist/`. All tooling
-is invoked via `node node_modules/<pkg>/...` — the repo path can contain a `:` that
-corrupts the `node_modules/.bin` PATH shim, so `npx`/`pnpm exec`/bare bins are avoided
-everywhere, including in the git hooks.
+| Demo                                     | What it is                                                                   | Live                                                   |
+| ---------------------------------------- | ---------------------------------------------------------------------------- | ------------------------------------------------------ |
+| **Story landing page** (`src/story`)     | An animated, seven-scene story of a single trip from the traveler's side.    | **<https://shbernal.github.io/TripAssist/>**           |
+| **Operator dashboard** (`src/dashboard`) | A tour operator's fixture-backed control room with a guided onboarding tour. | **<https://shbernal.github.io/TripAssist/dashboard/>** |
+
+Both are **static, zero-key, and deterministic**: all AI-generated media (faces, call
+audio) is committed, so they build and deploy with no secrets. The two cross-link so you
+can move between the individual story and the operator view.
+
+---
+
+## For builders
+
+### Run & build
+
+One Vite app with two HTML entry points (`index.html` for the story, `dashboard/index.html`
+for the dashboard), one shared base `/TripAssist/`. Tooling is invoked via
+`node node_modules/<pkg>/...` (the repo path can contain a `:` that corrupts the
+`node_modules/.bin` PATH shim, so `npx` / `pnpm exec` / bare bins are avoided everywhere,
+including the git hooks).
 
 ```bash
 pnpm install
-
-# one dev server (:5173) serving BOTH entries:
-#   story     → http://localhost:5173/TripAssist/
-#   dashboard → http://localhost:5173/TripAssist/dashboard/
-pnpm dev
-
-pnpm build           # static build → dist/ (index.html + dashboard/index.html)
+pnpm dev          # dev server on :5173 (story at /, dashboard at /dashboard/)
+pnpm build        # static build -> dist/ (published as-is)
 pnpm typecheck
 pnpm lint
 pnpm format
 ```
 
-Vite emits both HTML files under `base: '/TripAssist/'`, and the two entries cross-link
-via `BASE_URL` so the links work the same locally and on Pages. Deeper docs:
-[`src/story/README.md`](src/story/README.md) ·
-[`src/dashboard/README.md`](src/dashboard/README.md) ·
-[`tooling/demo/README.md`](tooling/demo/README.md) (regenerating faces & call audio).
+Deeper per-entry docs: [`src/story/README.md`](src/story/README.md) ·
+[`src/dashboard/README.md`](src/dashboard/README.md). Canonical narrative, repo map, and
+conventions: [`AGENTS.md`](AGENTS.md).
 
-## Deploy
+### Regenerating the media
 
-GitHub Pages serves **one** site. [`.github/workflows/deploy-demo.yml`](.github/workflows/deploy-demo.yml)
-runs `pnpm build` on every push to `main` and publishes `dist` as-is — Vite already emits
-the landing page at the root and the dashboard nested under `/dashboard/`, so there's no
-artifact to assemble. No external account or secret is needed.
+All demo media is committed so nothing is needed to run. To regenerate it:
 
-## Branch split
+```bash
+pnpm assets:faces   # AI faces via the Codex CLI (ChatGPT OAuth, no API key)
+pnpm assets:voices  # call audio via ElevenLabs (needs ELEVENLABS_API_KEY)
+pnpm assets:gifs    # the two README GIFs, recorded from the running app
+```
 
-- **`main`** (this branch) — the audited **static demo showcase**: one Vite app with
-  `src/story` + `src/dashboard` entries, deployed to GitHub Pages. No backend, no keys.
-- **`mvp`** — the **functional MVP**: the real Express + React app with Claude agents,
-  Vapi phone calls, open-data plugins, SQLite persistence, and multi-tenant auth. That
-  branch keeps the full server/web/shared tree and its own docs.
+`assets:gifs` drives the system `chromium` with `playwright-core`, records each clip to
+video, and encodes it with `ffmpeg` + `gifski` (all three must be on `PATH`).
 
-The two share the same product narrative; they differ in what runs. All future
-_functional_ work happens on `mvp`; `main` stays a clean, self-contained static demo.
+### Deploy
 
-## Environment
+GitHub Pages serves one site. [`.github/workflows/deploy-demo.yml`](.github/workflows/deploy-demo.yml)
+runs `pnpm build` on every push to `main` and publishes `dist` as-is (Vite emits the story
+at the root and the dashboard nested, both under `base: '/TripAssist/'`). No account or
+secret needed.
 
-The apps need **no keys to run** — the only key is `ELEVENLABS_API_KEY`, and only to
-**regenerate** the landing page's call audio via
-[`tooling/demo/`](tooling/demo/README.md). Set it in a `.env` file at the repo root (the
-voice generator loads it), then run `pnpm assets:voices`. The MVP's
-`ANTHROPIC_*`/`VAPI_*` keys live on the `mvp` branch.
+### Branch split
+
+- **`main`** (this branch): the static demo showcase (`src/story` + `src/dashboard`),
+  deployed to GitHub Pages. No backend, no keys.
+- **`mvp`**: the functional MVP (Express + React with Claude agents, Vapi phone calls,
+  open-data plugins, and SQLite). Same product narrative, different runtime. All future
+  _functional_ work happens there; `main` stays a clean, self-contained static demo.
