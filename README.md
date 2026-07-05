@@ -62,6 +62,7 @@ Or target one app directly, e.g. `pnpm --filter @tripassist/dashboard build`.
 Each app's Vite `base` matches its Pages path (`/TripAssist/` and
 `/TripAssist/dashboard/`). Deeper per-app docs:
 [`apps/story/README.md`](apps/story/README.md) ·
+[`apps/dashboard/README.md`](apps/dashboard/README.md) ·
 [`tooling/demo/README.md`](tooling/demo/README.md) (regenerating faces & call audio).
 
 ## Deploy

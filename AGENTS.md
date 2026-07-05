@@ -64,7 +64,7 @@ TripAssist/
 ├─ tsconfig.base.json      # apps extend this
 ├─ apps/
 │  ├─ demo/                # story landing page  → /TripAssist/          (own README)
-│  └─ dashboard/           # operator dashboard  → /TripAssist/dashboard/
+│  └─ dashboard/           # operator dashboard  → /TripAssist/dashboard/ (own README)
 ├─ tooling/
 │  └─ demo/                # asset generators (faces via Codex + voices via ElevenLabs)
 ├─ .github/workflows/      # deploy-demo.yml — builds both, publishes combined Pages site

@@ -38,6 +38,9 @@ Scene order (`src/story/flow.ts`):
 | 6   | `outro`         | `scenes/06-Outro.tsx`         | Registry seals the confirmations; CTA                             |
 | 7   | `use-cases`     | `scenes/07-UseCases.tsx`      | Broader use cases — the deck's resting state                      |
 
+The `#` column is the file order. On screen the hero is an unnumbered intro, so the
+step badge in the corner counts the six scenes after it (01–06), not 01–07.
+
 **Stack actually in use:** React 18 + Vite + Tailwind 4, **Framer Motion** for all scene
 and component animation, **Howler** for call audio, `lucide-react` for icons. The
 waveform is a bespoke CSS-bar visual driven by the audio player — one audio engine, no
