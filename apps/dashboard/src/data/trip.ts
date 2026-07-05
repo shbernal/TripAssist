@@ -10,7 +10,7 @@ export const operator = {
   name: 'Sylvie Lambert',
   role: 'Responsable groupes',
   agency: 'Évasion Sereine',
-  agencyTagline: 'Voyages accompagnés — seniors & personnes à mobilité réduite',
+  agencyTagline: 'Voyages accompagnés · seniors & personnes à mobilité réduite',
 } as const
 
 // ── The group trip ──────────────────────────────────────────────────────────
@@ -31,9 +31,9 @@ export const trip = {
 
 // ── Providers the agent called ──────────────────────────────────────────────
 const PROVIDER = {
-  airport: 'Aéroports de Paris — Assistance PMR (CDG)',
-  hotel: 'Hôtel Aston La Scala ★★★★ — Nice',
-  transfer: 'Riviera Access — Transfert adapté',
+  airport: 'Aéroports de Paris · Assistance PMR (CDG)',
+  hotel: 'Hôtel Aston La Scala ★★★★ · Nice',
+  transfer: 'Riviera Access · Transfert adapté',
 } as const
 
 const LABEL: Record<ConfirmationKind, string> = {
@@ -71,7 +71,7 @@ const conf = (
 
 // ── The roster ──────────────────────────────────────────────────────────────
 // ~20 travelers, a realistic senior + PWD mix. Camille Moreau (the traveler from
-// the story landing page) is traveler #1 — the two demos are the same trip seen
+// the story landing page) is traveler #1: the two demos are the same trip seen
 // from the individual's side and the operator's side.
 export const travelers: Traveler[] = [
   {
@@ -124,7 +124,7 @@ export const travelers: Traveler[] = [
       conf(
         'airport',
         'attention',
-        'Oxygène à bord — formulaire médical MEDIF à retourner par le voyageur',
+        'Oxygène à bord, formulaire médical MEDIF à retourner par le voyageur',
         '3 juil., 15:01',
         'Action requise : joindre le certificat médical du Dr Aubry (délai compagnie : 48 h avant vol).',
       ),
@@ -273,7 +273,7 @@ export const travelers: Traveler[] = [
       conf(
         'hotel',
         'attention',
-        'Chambre à douche à l’italienne — conflit de réservation',
+        'Chambre à douche à l’italienne : conflit de réservation',
         '4 juil., 09:22',
         'Action requise : l’unique chambre à douche à l’italienne restante est double-réservée. L’agent a escaladé auprès du directeur ; décision attendue.',
       ),

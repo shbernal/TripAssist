@@ -16,7 +16,7 @@ export function Roadmap() {
           <p className="text-sm text-slate-300">
             Vol retardé, correspondance manquée, hôtel indisponible ? L’agent détectera l’aléa,
             <strong className="text-slate-100"> replanifiera</strong> et
-            <strong className="text-slate-100"> re-confirmera</strong> chaque garantie touchée —
+            <strong className="text-slate-100"> re-confirmera</strong> chaque garantie touchée,
             automatiquement, sans que vous ayez à reprendre les prestataires un à un.
           </p>
           <p className="mt-2 inline-flex items-center gap-2 text-xs">
@@ -24,7 +24,7 @@ export function Roadmap() {
               À venir
             </span>
             <span className="text-slate-500">
-              Direction produit — hors périmètre de la démo actuelle.
+              Direction produit, hors périmètre de la démo actuelle.
             </span>
           </p>
         </div>

@@ -35,7 +35,7 @@ export function Proactive() {
       <p className="mb-5 max-w-2xl text-sm text-slate-400">
         Vous ne courez plus après les prestataires. L’agent TripAssist appelle l’aéroport et l’hôtel{' '}
         <strong className="text-slate-200">de lui-même</strong>, obtient des confirmations
-        structurées, et vous les livre — prêtes.
+        structurées, et vous les livre, prêtes.
       </p>
       <ol className="grid gap-4 md:grid-cols-3">
         {STEPS.map((s, i) => (

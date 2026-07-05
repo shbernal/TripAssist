@@ -9,7 +9,7 @@ import { Alerts } from './components/Alerts'
 import { Roadmap } from './components/Roadmap'
 import { OnboardingLayer, type TourStep } from './components/Onboarding'
 
-// The guided onboarding tour — one step per solution aspect, each spotlighting
+// The guided onboarding tour: one step per solution aspect, each spotlighting
 // its section on the live dashboard behind it.
 const TOUR: TourStep[] = [
   {
@@ -28,7 +28,7 @@ const TOUR: TourStep[] = [
     target: 'tour-roster',
     eyebrow: 'Aspect 3 / 6',
     title: 'Une garantie par voyageur',
-    body: 'Vert, orange, rouge : chaque besoin est suivi jusqu’au bout. Rien n’est laissé à la charge du voyageur — ni à la vôtre.',
+    body: 'Vert, orange, rouge : chaque besoin est suivi jusqu’au bout. Rien n’est laissé à la charge du voyageur, ni à la vôtre.',
   },
   {
     target: 'tour-registry',
@@ -53,7 +53,7 @@ const TOUR: TourStep[] = [
 const STORY_URL = import.meta.env.DEV ? 'https://shbernal.github.io/TripAssist/' : '/TripAssist/'
 
 export default function App() {
-  // Tour starts open on first paint — it's the intended entry experience — but is
+  // Tour starts open on first paint (it's the intended entry experience) but is
   // fully dismissible into free exploration.
   const [tourOpen, setTourOpen] = useState(true)
   const [step, setStep] = useState(0)
@@ -83,7 +83,7 @@ export default function App() {
 
         <footer className="flex flex-wrap items-center justify-between gap-3 border-t border-slate-800 pt-5 text-xs text-slate-500">
           <p>
-            Démo statique — données fictives. TripAssist rend l’accessibilité
+            Démo statique, données fictives. TripAssist rend l’accessibilité
             <span className="text-slate-300"> garantie et traçable</span>.
           </p>
           <a

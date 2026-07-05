@@ -1,6 +1,6 @@
 @import 'tailwindcss';
 
-/* Design tokens — shared with the story landing page (apps/demo): a single blue
+/* Design tokens shared with the story landing page (apps/demo): a single blue
    scale, deep → bright, on a deep navy canvas. Status colors are added here for
    the roster's guarantee tracking (green/amber/red). */
 @theme {
@@ -25,7 +25,7 @@
     background-attachment: fixed;
   }
 
-  /* Visible focus everywhere — WCAG AA, keyboard-first. */
+  /* Visible focus everywhere: WCAG AA, keyboard-first. */
   :focus-visible {
     @apply outline-none ring-2 ring-brand-bright ring-offset-2 ring-offset-slate-950;
     border-radius: 0.35rem;

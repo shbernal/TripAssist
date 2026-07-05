@@ -159,7 +159,7 @@ export function Onboarding({ steps, index, onIndex, onClose }: Props) {
         </div>
       </div>
 
-      {/* Progress dots (decorative — the "Étape N / M" text above is the a11y source). */}
+      {/* Progress dots (decorative: the "Étape N / M" text above is the a11y source). */}
       <div className="mt-3 flex gap-1.5" aria-hidden={true}>
         {steps.map((s, i) => (
           <span

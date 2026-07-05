@@ -43,13 +43,13 @@ export const confirmationCounts: StatusCounts = travelers
     { confirmed: 0, pending: 0, attention: 0, total: 0 },
   )
 
-/** A confirmation flattened with its traveler — the audit-registry row shape. */
+/** A confirmation flattened with its traveler: the audit-registry row shape. */
 export interface RegistryEntry extends Confirmation {
   travelerId: string
   travelerName: string
 }
 
-/** Every logged guarantee, newest first — the traceable registry. */
+/** Every logged guarantee, newest first: the traceable registry. */
 export const registry: RegistryEntry[] = travelers
   .flatMap((t) =>
     t.confirmations.map((c) => ({
@@ -60,7 +60,7 @@ export const registry: RegistryEntry[] = travelers
   )
   .sort((a, b) => b.reference.localeCompare(a.reference))
 
-/** Travelers with anything not yet confirmed — the exceptions panel. */
+/** Travelers with anything not yet confirmed: the exceptions panel. */
 export const alerts = travelers
   .filter((t) => travelerStatus(t) !== 'confirmed')
   .map((t) => ({

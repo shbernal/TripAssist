@@ -10,7 +10,7 @@ export function Alerts() {
       {alerts.length === 0 ? (
         <p className="inline-flex items-center gap-2 text-sm text-ok">
           <CheckCircle2 className="h-4 w-4" aria-hidden={true} />
-          Rien à signaler — tout le groupe est garanti.
+          Rien à signaler, tout le groupe est garanti.
         </p>
       ) : (
         <>
@@ -38,7 +38,7 @@ export function Alerts() {
                       <li key={c.kind} className="text-xs">
                         <span className="inline-flex items-center gap-1.5 font-medium text-slate-200">
                           <K.Icon className="h-3.5 w-3.5 text-slate-400" aria-hidden={true} />
-                          {c.label} — {c.detail}
+                          {c.label} · {c.detail}
                         </span>
                         {c.note && (
                           <p className={`mt-0.5 ${STATUS_META[c.status].text}`}>{c.note}</p>

@@ -1,5 +1,5 @@
 // Shared shapes for the operator-dashboard fixtures. Everything here is static
-// demo data — no backend — but typed as if it came from the registry the MVP
+// demo data (no backend) but typed as if it came from the registry the MVP
 // writes to, so the "guaranteed and traceable" story reads honestly.
 
 export type ConfirmationStatus = 'confirmed' | 'pending' | 'attention'
@@ -9,7 +9,7 @@ export type ConfirmationKind = 'airport' | 'hotel' | 'transfer'
 /** One logged accessibility guarantee for one traveler on one leg of the trip. */
 export interface Confirmation {
   kind: ConfirmationKind
-  /** Short human label, e.g. "Assistance WCHC — CDG". */
+  /** Short human label, e.g. "Assistance WCHC, CDG". */
   label: string
   /** Who confirmed it (the provider the agent called). */
   provider: string
