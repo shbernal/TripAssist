@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
-import { Play, RotateCcw, Phone, Zap } from 'lucide-react'
+import { Play, RotateCcw, Phone, PhoneOff, Mic, Zap } from 'lucide-react'
+import { startLiveCall, supportsVapi, type LiveCall } from '../lib/vapiCall'
 import type { AppState, Step } from '../../../shared/types'
 
 type PostBodyFn = (url: string, body: unknown, label: string) => Promise<void>
@@ -14,9 +15,29 @@ interface DemoPanelProps {
 export default function DemoPanel({ state, reload }: DemoPanelProps) {
   const [status, setStatus] = useState('')
   const [busy, setBusy] = useState(false)
+  const [live, setLive] = useState<LiveCall | null>(null)
+  const canLive = supportsVapi()
 
   async function post(url: string, label: string) {
     return postBody(url, undefined, label)
+  }
+
+  async function startLive() {
+    setStatus('Appel IA en direct : connexion au micro…')
+    const ctl = await startLiveCall({
+      onStatus: (s) => {
+        setStatus(`Appel IA en direct : ${s === 'in_progress' ? 'en cours' : 'terminé'}`)
+        if (s === 'ended') {
+          setLive(null)
+          void reload()
+        }
+      },
+      onError: (m) => {
+        setStatus(`Appel IA en direct : ${m}`)
+        setLive(null)
+      },
+    })
+    if (ctl) setLive(ctl)
   }
 
   const postBody: PostBodyFn = async (url, body, label) => {
@@ -74,27 +95,54 @@ export default function DemoPanel({ state, reload }: DemoPanelProps) {
             <RotateCcw size={16} aria-hidden="true" /> Réinitialiser la démo
           </button>
 
+          {live ? (
+            <button type="button" className="danger" onClick={() => live.stop()}>
+              <PhoneOff size={16} aria-hidden="true" /> Raccrocher
+            </button>
+          ) : (
+            <button
+              type="button"
+              className="primary"
+              onClick={startLive}
+              disabled={busy || !canLive}
+              title={
+                canLive
+                  ? 'Le testeur joue la réception ; parlez au micro'
+                  : 'Configurez VITE_VAPI_PUBLIC_KEY et VITE_VAPI_ASSISTANT_ID'
+              }
+            >
+              <Mic size={16} aria-hidden="true" /> Appel IA en direct (micro)
+            </button>
+          )}
+
           <button
             type="button"
             onClick={() =>
               postBody('/api/call/start', { branch: 'B2' }, 'Appel IA (chambre indisponible)')
             }
-            disabled={busy}
+            disabled={busy || Boolean(live)}
           >
-            <Phone size={16} aria-hidden="true" /> Lancer l'appel IA - scénario scène
+            <Phone size={16} aria-hidden="true" /> Appel IA scripté - scénario scène
           </button>
           <button
             type="button"
             onClick={() => postBody('/api/call/start', { branch: 'B1' }, 'Appel IA (confirmation)')}
-            disabled={busy}
+            disabled={busy || Boolean(live)}
           >
-            <Phone size={16} aria-hidden="true" /> Appel IA - confirmation OK
+            <Phone size={16} aria-hidden="true" /> Appel IA scripté - confirmation OK
           </button>
         </div>
 
         <p className="demo-status" role="status" aria-live="polite">
           {status}
         </p>
+
+        {!canLive && (
+          <p className="muted" style={{ marginTop: '-0.3rem' }}>
+            Appel en direct désactivé : définissez VITE_VAPI_PUBLIC_KEY et VITE_VAPI_ASSISTANT_ID.
+            Les scénarios scriptés restent disponibles.
+          </p>
+        )}
 
         <p className="demo-note">
           État actuel : {state.trip.steps.length} étapes · {state.ledger.length} confirmation(s) au

@@ -166,6 +166,40 @@ const SCRIPTS: Record<string, Array<[TranscriptChunk['speaker'], string]>> = {
   ],
 }
 
+// --- Vapi Web Call (browser = receptionist) ---------------------------------
+// The live conversation runs client-side via @vapi-ai/web (Vapi's default
+// transcriber/model/voice). The browser relays the call lifecycle here so the
+// transcript flows through the same SSE pipeline as the scripted simulation, and
+// the existing extractor still turns the finished call into a registry entry.
+
+export function startWebCall() {
+  updateState((s) => {
+    s.transcript = []
+    s.metrics.callsMade += 1
+  })
+  pushEvent('metrics', getState().metrics)
+  setCall({ status: 'in_progress', id: null, mode: 'vapi-web', branch: undefined })
+  agentActive('caller', true)
+  think('caller', 'Appel web en direct : la réception répond au micro.')
+  log('caller', 'info', 'Appel IA en direct (Vapi web) - transcription au fil de la voix.')
+  return { mode: 'vapi-web' as const }
+}
+
+// One finalized transcript line from the browser SDK (assistant = the AI caller,
+// human = the receptionist at the mic).
+export function pushWebChunk(speaker: TranscriptChunk['speaker'], text: string) {
+  pushChunk(speaker, text)
+}
+
+export async function endWebCall() {
+  setCall({ status: 'ended' })
+  agentActive('caller', false)
+  log('caller', 'info', 'Appel terminé - extraction de la confirmation…')
+  const transcript = getState().transcript
+  await runExtractionAndRecover(transcript)
+  return { mode: 'vapi-web' as const }
+}
+
 async function simulateCall(branch: string) {
   const script = SCRIPTS[branch] || SCRIPTS.B2
   setCall({ status: 'in_progress', id: `sim-${branch}` })

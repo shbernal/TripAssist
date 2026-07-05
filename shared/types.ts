@@ -110,7 +110,7 @@ export interface TranscriptChunk {
 export interface CallState {
   status: CallStatus | string
   id: string | null
-  mode?: 'vapi' | 'simulation'
+  mode?: 'vapi' | 'vapi-web' | 'simulation'
   branch?: string
   recordingUrl?: string
   extracted?: Extracted

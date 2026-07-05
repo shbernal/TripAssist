@@ -23,7 +23,10 @@ export default function CallPanel({ call = {}, transcript = [] }: CallPanelProps
   const boxRef = useRef<HTMLDivElement>(null)
   const spokenRef = useRef(0) // how many bubbles we've already voiced
   const [voiceOn, setVoiceOn] = useState(true)
-  const canSpeak = supportsSpeech()
+  // During a live Vapi web call the audio already plays through the browser, so
+  // local speech synthesis would double every line - suppress it.
+  const vapiWeb = call.mode === 'vapi-web'
+  const canSpeak = supportsSpeech() && !vapiWeb
 
   // On mount / after a reset, don't replay bubbles already present (e.g. on reload).
   useEffect(() => {

@@ -4,7 +4,7 @@ import express from 'express'
 import { getState, resetState, setStepStatus, appendLedger, appendAgentLog } from '../state.js'
 import { pushEvent } from '../events.js'
 import { handleChaos } from '../agents/watchdog.js'
-import { startCall, hasVapi } from '../agents/caller.js'
+import { startCall, hasVapi, startWebCall, pushWebChunk, endWebCall } from '../agents/caller.js'
 import { checkPhoto } from '../agents/vision.js'
 import { runAutofill } from '../autofill.js'
 import { fetchAxisRegularity, fetchStationAssistance } from '../plugins/sncf.js'
@@ -106,6 +106,32 @@ router.post('/call/start', async (req, res) => {
       console.error('[call] failed:', (err as Error).message),
     )
     res.json({ ok: true, mode: hasVapi() ? 'vapi' : 'simulation', target, branch })
+  } catch (err) {
+    res.status(500).json({ ok: false, error: (err as Error).message })
+  }
+})
+
+// --- Vapi Web Call relay ----------------------------------------------------
+// The live voice call runs client-side (@vapi-ai/web). The browser relays its
+// lifecycle through these three endpoints so server state stays the single
+// source of truth and every view + aria-live region updates over SSE.
+router.post('/call/web/start', (req, res) => {
+  startWebCall()
+  res.json({ ok: true, mode: 'vapi-web' })
+})
+
+router.post('/call/web/chunk', (req, res) => {
+  const speaker = req.body?.speaker === 'human' ? 'human' : 'assistant'
+  const text = typeof req.body?.text === 'string' ? req.body.text.trim() : ''
+  if (!text) return res.status(400).json({ ok: false, error: 'text requis' })
+  pushWebChunk(speaker, text)
+  res.json({ ok: true })
+})
+
+router.post('/call/web/end', async (_req, res) => {
+  try {
+    await endWebCall()
+    res.json({ ok: true })
   } catch (err) {
     res.status(500).json({ ok: false, error: (err as Error).message })
   }

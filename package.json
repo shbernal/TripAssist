@@ -25,6 +25,7 @@
     "pw:install": "node node_modules/playwright/cli.js install chromium"
   },
   "dependencies": {
+    "@vapi-ai/web": "^2.5.2",
     "express": "^4.19.2",
     "lucide-react": "^1.23.0"
   },

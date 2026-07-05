@@ -1,3 +1,4 @@
+import { fileURLToPath } from 'node:url'
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 
@@ -5,6 +6,11 @@ import react from '@vitejs/plugin-react'
 // In production, `npm run build` emits web/dist and Express serves it as a single process.
 export default defineConfig({
   root: 'web',
+  // Env files live at the repo root (single .env), but `root: 'web'` would make
+  // Vite look in web/. Point envDir back at the repo root so VITE_* vars (e.g.
+  // VITE_VAPI_PUBLIC_KEY) are picked up. Only VITE_-prefixed vars are exposed to
+  // the client, so the other secrets in .env stay server-side.
+  envDir: fileURLToPath(new URL('.', import.meta.url)),
   plugins: [react()],
   server: {
     port: 5173,
