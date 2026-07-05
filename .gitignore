@@ -1,7 +1,7 @@
 node_modules
-apps/demo/dist
+apps/story/dist
 apps/dashboard/dist
-apps/demo/lighthouse-a11y.report.*
+apps/story/lighthouse-a11y.report.*
 # combined Pages artifact assembled locally to mirror the deploy (CI builds it fresh)
 _site/
 .env
@@ -11,5 +11,5 @@ _archive/
 
 # intermediates left by tooling/demo/generate-voices.ts (the app only plays the
 # stitched conversation.mp3; per-line clips are kept locally for debugging)
-apps/demo/public/audio/*/_*
-apps/demo/public/audio/*/[0-9]*.mp3
+apps/story/public/audio/*/_*
+apps/story/public/audio/*/[0-9]*.mp3

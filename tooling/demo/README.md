@@ -1,12 +1,12 @@
 # Demo asset tooling
 
-Generators for the stylized landing page (`apps/demo`). Both write into
-`apps/demo/public/`. Run via `tsx` directly (the repo folder name contains `:`, which
+Generators for the stylized landing page (`apps/story`). Both write into
+`apps/story/public/`. Run via `tsx` directly (the repo folder name contains `:`, which
 breaks the `node_modules/.bin` PATH shim).
 
 ## Faces (Codex image tool — rides ChatGPT subscription, no API key)
 
-Prompts live in `characters.json`; output → `apps/demo/public/faces/`.
+Prompts live in `characters.json`; output → `apps/story/public/faces/`.
 
 ```bash
 node node_modules/tsx/dist/cli.mjs tooling/demo/generate-faces.ts
@@ -17,7 +17,7 @@ Requires `codex` on PATH (`codex features list | grep image` → `image_generati
 
 ## Voices (ElevenLabs — needs `ELEVENLABS_API_KEY` in `.env`, plus `ffmpeg`/`ffprobe`)
 
-Dialogue scripts live in `scripts/*.json`; output → `apps/demo/public/audio/<id>/`
+Dialogue scripts live in `scripts/*.json`; output → `apps/story/public/audio/<id>/`
 (per-line MP3s, a stitched `conversation.mp3`, and `manifest.json` with caption timings).
 
 ```bash

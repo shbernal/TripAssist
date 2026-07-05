@@ -1,5 +1,5 @@
 web/dist
-apps/demo/dist
+apps/story/dist
 node_modules
 data
 coverage

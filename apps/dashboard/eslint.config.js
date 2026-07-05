@@ -1,5 +1,5 @@
 // Flat ESLint config for the dashboard (an isolated workspace member with its own
-// tsconfig + node_modules/eslint), mirroring apps/demo's setup.
+// tsconfig + node_modules/eslint), mirroring apps/story's setup.
 import js from '@eslint/js'
 import tseslint from 'typescript-eslint'
 import react from 'eslint-plugin-react'

@@ -1,6 +1,6 @@
 @import 'tailwindcss';
 
-/* Design tokens shared with the story landing page (apps/demo): a single blue
+/* Design tokens shared with the story landing page (apps/story): a single blue
    scale, deep → bright, on a deep navy canvas. Status colors are added here for
    the roster's guarantee tracking (green/amber/red). */
 @theme {

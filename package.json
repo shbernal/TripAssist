@@ -7,7 +7,8 @@
   "description": "TripAssist — static demo showcase (story landing page + operator dashboard) → GitHub Pages. The functional MVP lives on the `mvp` branch.",
   "comment": "This root package is a pnpm workspace MANAGER only — the shipped apps live in apps/*. Scripts call `node node_modules/<pkg>/...` directly, never npx/pnpm-exec, because the repo path can contain a ':' that corrupts the .bin PATH shim. `pnpm -r <script>` fans a script out to every workspace member (never the root itself).",
   "scripts": {
-    "demo": "pnpm --filter @tripassist/demo dev",
+    "dev": "pnpm -r --parallel dev",
+    "story": "pnpm --filter @tripassist/story dev",
     "dashboard": "pnpm --filter @tripassist/dashboard dev",
     "build": "pnpm -r build",
     "preview": "pnpm -r preview",

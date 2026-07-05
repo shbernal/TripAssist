@@ -18,7 +18,7 @@ Canonical narrative, repo map, and conventions: [`AGENTS.md`](AGENTS.md).
 
 | App                                       | What it is                                                                                                                                                                                                                                           | Live                                                   |
 | ----------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------ |
-| **Story landing page** (`apps/demo`)      | A stylized, animated 7-scene story: the agent receives Camille's itinerary, **calls the airport**, **calls the hotel**, and she gets two phone confirmations. Individual traveler's view.                                                            | **<https://shbernal.github.io/TripAssist/>**           |
+| **Story landing page** (`apps/story`)     | A stylized, animated 7-scene story: the agent receives Camille's itinerary, **calls the airport**, **calls the hotel**, and she gets two phone confirmations. Individual traveler's view.                                                            | **<https://shbernal.github.io/TripAssist/>**           |
 | **Operator dashboard** (`apps/dashboard`) | A tour operator ("chief") who bought TripAssist, managing a group of ~20 seniors & travelers with disabilities on the same Paris→Nice trip. A **guided onboarding tour** reveals each solution aspect over a live-looking, fixture-backed dashboard. | **<https://shbernal.github.io/TripAssist/dashboard/>** |
 
 Both are **static, zero-key, and deterministic** — all AI-generated media (faces, call
@@ -43,10 +43,12 @@ avoided everywhere, including in the git hooks.
 ```bash
 pnpm install
 
-# story landing page
-pnpm demo            # dev server (Vite)
-# operator dashboard
-pnpm dashboard       # dev server (Vite)
+# both apps at once (story → :5173, dashboard → :5174)
+pnpm dev
+
+# …or one at a time
+pnpm story           # story landing page dev server (Vite)
+pnpm dashboard       # operator dashboard dev server (Vite)
 
 # fan out across both apps
 pnpm build           # static build → apps/*/dist
@@ -59,7 +61,7 @@ Or target one app directly, e.g. `pnpm --filter @tripassist/dashboard build`.
 
 Each app's Vite `base` matches its Pages path (`/TripAssist/` and
 `/TripAssist/dashboard/`). Deeper per-app docs:
-[`apps/demo/README.md`](apps/demo/README.md) ·
+[`apps/story/README.md`](apps/story/README.md) ·
 [`tooling/demo/README.md`](tooling/demo/README.md) (regenerating faces & call audio).
 
 ## Deploy
@@ -71,7 +73,7 @@ No external account or secret is needed.
 
 ## Branch split
 
-- **`main`** (this branch) — the audited **static demo showcase**: `apps/demo` +
+- **`main`** (this branch) — the audited **static demo showcase**: `apps/story` +
   `apps/dashboard`, deployed to GitHub Pages. No backend, no keys.
 - **`mvp`** — the **functional MVP**: the real Express + React app with Claude agents,
   Vapi phone calls, open-data plugins, SQLite persistence, and multi-tenant auth. That

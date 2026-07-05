@@ -7,6 +7,7 @@ import tailwindcss from '@tailwindcss/vite'
 export default defineConfig({
   base: '/TripAssist/',
   plugins: [react(), tailwindcss()],
+  server: { port: 5173, strictPort: true },
   build: {
     outDir: 'dist',
     emptyOutDir: true,

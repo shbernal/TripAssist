@@ -34,12 +34,12 @@ landmarks. The demos must themselves be accessible.
 
 ## Two deliverables (both static, on this branch)
 
-1. **`apps/demo`** — a stylized, animated **story landing page**: seven scenes as a
+1. **`apps/story`** — a stylized, animated **story landing page**: seven scenes as a
    discrete slide deck (Framer Motion + Howler). Camille's story: agent receives the
    itinerary → **calls the airport** → **calls the hotel** → she gets **two phone
    notifications**. Faces are AI-generated (Codex), call audio voice-generated
    (ElevenLabs), both committed. **Live: <https://shbernal.github.io/TripAssist/>**.
-   Own docs: [`apps/demo/README.md`](apps/demo/README.md).
+   Own docs: [`apps/story/README.md`](apps/story/README.md).
 2. **`apps/dashboard`** — a **tour-operator dashboard**: a "chief" who bought TripAssist
    managing a group of ~20 seniors / travelers with disabilities on the same Paris→Nice
    trip. A **guided onboarding tour** (stepped, spotlighted reveal) walks six solution
@@ -74,7 +74,7 @@ TripAssist/
 ## Deploy — combined GitHub Pages site
 
 Pages serves one site. `.github/workflows/deploy-demo.yml` builds both apps on every push
-to `main`, then assembles a combined artifact — `apps/demo/dist` at the root,
+to `main`, then assembles a combined artifact — `apps/story/dist` at the root,
 `apps/dashboard/dist` copied into `dashboard/` — and publishes it. Each app's Vite `base`
 matches its path (`/TripAssist/`, `/TripAssist/dashboard/`); flip to `'/'` / `'/dashboard/'`
 if ever moved off Pages. No account or secret needed.
@@ -85,7 +85,7 @@ if ever moved off Pages. No account or secret needed.
   - `manifest.json` with per-line timings for caption sync. Needs `ELEVENLABS_API_KEY`.
 - **Faces** — `generate-faces.ts`: Codex CLI image tool (ChatGPT OAuth, no API key) →
   photoreal PNGs from `characters.json`.
-- Generated media is **committed** (`apps/demo/public/{faces,audio}`) so the demo runs
+- Generated media is **committed** (`apps/story/public/{faces,audio}`) so the demo runs
   key-free and deterministic. Run via the root scripts:
 
 ```bash
@@ -105,8 +105,9 @@ pnpm assets:faces    # needs `codex` on PATH
 
 ```bash
 pnpm install
-pnpm demo            # story landing page dev server
-pnpm dashboard       # operator dashboard dev server
+pnpm dev             # BOTH dev servers in parallel (story :5173, dashboard :5174)
+pnpm story           # story landing page dev server only
+pnpm dashboard       # operator dashboard dev server only
 pnpm build / typecheck / lint / format   # fan out across apps
 ```
 
@@ -120,11 +121,11 @@ MVP's `ANTHROPIC_*`/`VAPI_*` keys live on the `mvp` branch.
 
 - **`main` is the static showcase; the functional MVP is on `mvp`.** Keep the backend,
   server docs, and MVP-only config off this branch.
-- **Two static deliverables**: `apps/demo` (individual story) + `apps/dashboard`
+- **Two static deliverables**: `apps/story` (individual story) + `apps/dashboard`
   (operator, guided onboarding tour). The dashboard is a **new workspace app**, not a
   route in the demo.
 - Generated media is **committed** (zero-key, deterministic deploys); regenerate via
-  `tooling/demo/`, don't gitignore `apps/demo/public/{faces,audio}`.
+  `tooling/demo/`, don't gitignore `apps/story/public/{faces,audio}`.
 - Demos are **French-only**; transcript/UI components stay language-agnostic but no
   bilingual toggle is built.
 - Demo hosting is **GitHub Pages**, one combined site; Vercel is an optional later switch.

@@ -38,7 +38,7 @@ const execFileAsync = promisify(execFile)
 const HERE = dirname(fileURLToPath(import.meta.url))
 const REPO_ROOT = resolve(HERE, '..', '..')
 const SCRIPTS_DIR = join(HERE, 'scripts')
-const OUT_ROOT = resolve(REPO_ROOT, 'apps/demo/public/audio')
+const OUT_ROOT = resolve(REPO_ROOT, 'apps/story/public/audio')
 
 const MODEL_ID = 'eleven_multilingual_v2'
 const GAP_SECONDS = 0.45 // silence inserted between lines when stitching

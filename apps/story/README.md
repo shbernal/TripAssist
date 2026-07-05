@@ -1,11 +1,11 @@
-# TripAssist — demo landing page (`@tripassist/demo`)
+# TripAssist — story landing page (`@tripassist/story`)
 
 A stylized, animated **story landing page** telling Camille's trip-setup story. Static,
 no backend, no login, zero keys — all AI-generated media (faces, call audio) is committed.
 
 **Live: <https://shbernal.github.io/TripAssist/>** — auto-deployed by
 [`.github/workflows/deploy-demo.yml`](../../.github/workflows/deploy-demo.yml) on every
-push to `main` that touches `apps/demo`.
+push to `main` that touches `apps/story`.
 
 The narrative (canonical in [`AGENTS.md`](../../AGENTS.md)): an AI agent receives
 Camille's itinerary, **calls the airport** for wheelchair assistance (WCHC), **calls the
@@ -65,9 +65,9 @@ caption and "speaking" avatar purely from `currentTime` — no manual timing any
 
 ```bash
 # from the repo root
-pnpm --filter @tripassist/demo dev        # Vite dev server
-pnpm --filter @tripassist/demo build      # static build → dist/
-pnpm --filter @tripassist/demo typecheck
+pnpm --filter @tripassist/story dev        # Vite dev server
+pnpm --filter @tripassist/story build      # static build → dist/
+pnpm --filter @tripassist/story typecheck
 ```
 
 Scripts call `node node_modules/<pkg>/...` directly, never `npx`/`pnpm exec` — the repo
