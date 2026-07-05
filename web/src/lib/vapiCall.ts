@@ -27,7 +27,8 @@ export function supportsVapi(): boolean {
 const CALL_CONTEXT = [
   'Prestataire appelé : Hôtel Beau Rivage.',
   "Objectif : confirmer une chambre accessible avec douche à l'italienne (roll-in shower).",
-  'Détails : Chambre 104, référence BR-104-ACC, séjour du 12 septembre.',
+  "Détails : Chambre 104, référence BR-104-ACC (à l'oral, épelle-la : « B R, 1 0 4, A C C »).",
+  'Séjour du 12 septembre.',
   'Voyageuse : Camille Moreau.',
   'Consignes strictes : va droit au but, une seule question à la fois, uniquement sur' +
     ' cet objectif. Ne demande jamais le nom de ton interlocuteur ni aucune information' +
@@ -41,10 +42,14 @@ const CALL_CONTEXT = [
 // end the call it announces. Keep in sync with server/agents/caller.ts.
 const END_CALL_PHRASES = ['bonne journée', 'au revoir']
 
+// The reference is spelled out ("B R, 1 0 4, A C C") because this string goes
+// straight to TTS: written as "BR-104-ACC" the voice invents pronunciations
+// ("104" read in English, "BR"/"ACC" as pseudo-words). Keep in sync with
+// server/agents/caller.ts.
 const FIRST_MESSAGE =
-  "Bonjour, ici l'assistante automatisée de TripAssist, cet appel est enregistré. " +
+  "Bonjour, ici l'assistante de TripAssist. " +
   "Pouvez-vous confirmer la chambre 104 accessible avec douche à l'italienne " +
-  'pour le 12 septembre, référence BR-104-ACC ?'
+  'pour le 12 septembre, référence B R, 1 0 4, A C C ?'
 
 export interface LiveCallHandlers {
   onStatus?: (status: 'in_progress' | 'ended') => void

@@ -59,18 +59,24 @@ const TARGETS: Record<'hotel' | 'airport', CallTarget> = {
   hotel: {
     provider: 'Hôtel Beau Rivage',
     ask: "une chambre accessible avec douche à l'italienne (roll-in shower)",
-    details: 'Chambre 104, référence BR-104-ACC, séjour du 12 septembre.',
+    details:
+      "Chambre 104, référence BR-104-ACC (à l'oral, épelle-la : « B R, 1 0 4, A C C »). " +
+      'Séjour du 12 septembre.',
+    // The reference is spelled out ("B R, 1 0 4, A C C") because firstMessage goes
+    // straight to TTS: written as "BR-104-ACC" the voice invents pronunciations
+    // ("104" read in English, "BR"/"ACC" as pseudo-words). Keep in sync with
+    // web/src/lib/vapiCall.ts.
     firstMessage:
-      "Bonjour, ici l'assistante automatisée de TripAssist, cet appel est enregistré. " +
+      "Bonjour, ici l'assistante de TripAssist. " +
       "Pouvez-vous confirmer la chambre 104 accessible avec douche à l'italienne " +
-      'pour le 12 septembre, référence BR-104-ACC ?',
+      'pour le 12 septembre, référence B R, 1 0 4, A C C ?',
   },
   airport: {
     provider: "l'assistance PMR de l'aéroport (Paris CDG puis Nice)",
     ask: "l'assistance à l'embarquement et au débarquement en fauteuil roulant (WCHC)",
     details: 'Vol Paris → Nice, fauteuil roulant électrique Permobil M3.',
     firstMessage:
-      "Bonjour, ici l'assistante automatisée de TripAssist, cet appel est enregistré. " +
+      "Bonjour, ici l'assistante de TripAssist. " +
       "Pouvez-vous confirmer l'assistance WCHC à l'embarquement et au débarquement " +
       'pour le vol Paris-Nice de Camille Moreau, fauteuil roulant électrique ?',
   },
@@ -158,7 +164,7 @@ const SCRIPTS: Record<string, Array<[TranscriptChunk['speaker'], string]>> = {
   B1: [
     [
       'assistant',
-      "Bonjour, ici l'assistante vocale de TripAssist pour Mme Camille Moreau. Cet appel est enregistré. Je confirme la chambre 104 accessible pour le 12 septembre ?",
+      "Bonjour, ici l'assistante de TripAssist pour Mme Camille Moreau. Je confirme la chambre 104 accessible pour le 12 septembre ?",
     ],
     ['human', "Oui bonjour, alors… la 104, douche à l'italienne, c'est bien réservé."],
     ['assistant', 'Parfait. Puis-je avoir votre nom pour notre registre ?'],
@@ -168,7 +174,7 @@ const SCRIPTS: Record<string, Array<[TranscriptChunk['speaker'], string]>> = {
   B2: [
     [
       'assistant',
-      "Bonjour, ici l'assistante vocale de TripAssist pour Mme Camille Moreau. Cet appel est enregistré. Je confirme la chambre 104 accessible pour le 12 septembre ?",
+      "Bonjour, ici l'assistante de TripAssist pour Mme Camille Moreau. Je confirme la chambre 104 accessible pour le 12 septembre ?",
     ],
     [
       'human',
@@ -187,7 +193,7 @@ const SCRIPTS: Record<string, Array<[TranscriptChunk['speaker'], string]>> = {
   B3: [
     [
       'assistant',
-      "Bonjour, ici l'assistante vocale de TripAssist pour Mme Camille Moreau. Cet appel est enregistré. Je confirme la chambre 104 accessible pour le 12 septembre ?",
+      "Bonjour, ici l'assistante de TripAssist pour Mme Camille Moreau. Je confirme la chambre 104 accessible pour le 12 septembre ?",
     ],
     ['human', 'Euh… il faudrait voir avec ma collègue demain, je ne peux pas vous dire là.'],
     [
