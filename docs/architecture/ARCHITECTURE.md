@@ -150,8 +150,8 @@ référentiel, format UIC), testés en continu.
 
 ## Qualité et rigueur
 
-- **TypeScript strict** partout, front + back + code partagé (~6 250 lignes).
-- **91 tests** (Vitest) : agents, plugins (avec fetch mocké), reducer SSE, machine
+- **TypeScript strict** partout, front + back + code partagé (~6 500 lignes).
+- **94 tests** (Vitest) : agents, plugins (avec fetch mocké), reducer SSE, machine
   d'état, store SQLite, ingestion, auth multi-tenant, validation d'intégrité, rendu.
 - **ESLint** (flat config) + **Prettier**, **Lefthook** : pre-commit
   (format + lint sur le staged), pre-push (typecheck + tests). Rien de cassé ne part.
@@ -174,7 +174,7 @@ référentiel, format UIC), testés en continu.
 ```bash
 pnpm install
 pnpm dev                 # Express (3000) + Vite (5173)
-pnpm test                # 91 tests
+pnpm test                # 94 tests
 pnpm typecheck           # TS strict, front + back
 
 # données réelles en direct :

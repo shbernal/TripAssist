@@ -96,7 +96,8 @@ export default function DemoPanel({ state, reload }: DemoPanelProps) {
           </button>
 
           {live ? (
-            <button type="button" className="danger" onClick={() => live.stop()}>
+            <button type="button" className="danger is-live-call" onClick={() => live.stop()}>
+              <span className="call-live-dot" aria-hidden="true" />
               <PhoneOff size={16} aria-hidden="true" /> Raccrocher
             </button>
           ) : (

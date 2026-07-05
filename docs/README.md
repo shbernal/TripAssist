@@ -1,23 +1,31 @@
-# TripAssist — Documentation
+# TripAssist · Documentation
 
-AI trip-orchestration platform for disabled travelers. Start with the root
-[`README.md`](../README.md) for setup and run instructions; this folder holds the
-deeper product and technical docs. The canonical narrative (proactive
-initial-reservation) lives in [`AGENTS.md`](../AGENTS.md). This is the `mvp` branch
-(working prototype); the stylized story landing page lives on the `concept` branch.
-Docs marked with a ⚠️ banner predate the pivot — their technical content holds, their
-narrative is superseded.
+Plateforme d'orchestration de voyage pilotée par IA pour les voyageurs en situation de
+handicap. Le [`README.md`](../README.md) racine présente le produit et comment l'essayer ;
+[`AGENTS.md`](../AGENTS.md) est la référence qui fait foi (narratif, carte du dépôt, guide de
+revue). Ce dossier rassemble les documents produit et techniques approfondis.
 
-## Product
+> **Pour les évaluateurs :** [`AGENTS.md`](../AGENTS.md) contient une section « For reviewers »
+> et pointe vers une skill de revue guidée
+> ([`.agents/skills/review-code/SKILL.md`](../.agents/skills/review-code/SKILL.md)) qui déroule
+> le code fichier par fichier.
 
-- [Brief](product/brief.md) — vision, scope, and the product narrative.
+## Produit
+
+- [Brief produit](product/brief.md) : la vision, la proposition de valeur, la persona et les
+  flux de démonstration.
 
 ## Architecture
 
-- [Architecture](architecture/ARCHITECTURE.md) — **the current technical map** (FR): diagram, agents, plugins, real-vs-demo table, how to verify.
-- [Data Model](architecture/data-model.md) — data dictionary: entities, reference master data (real UIC/IATA codes), integrity invariants, data sources.
-- [Spec](architecture/spec.md) — ⚠️ original build spec (milestones M1–M6, disruption-centric).
+- [Architecture technique](architecture/ARCHITECTURE.md) : **la carte technique de référence**
+  (FR) : diagramme, agents, plugins open-data, tableau réel-vs-live, et comment vérifier sous
+  le capot.
+- [Modèle de données](architecture/data-model.md) : dictionnaire de données : entités,
+  référentiel réel (codes UIC / IATA), invariants d'intégrité testés, sources de données.
+- [Spécification de construction](architecture/spec.md) : la spec d'origine (jalons M1→M6,
+  centrée sur le flux perturbation → re-planification), livrée et conservée comme référence.
 
 ## Guides
 
-- [Vapi Setup](guides/vapi-setup.md) — configuring a real phone call with streamed transcript.
+- [Configuration Vapi](guides/vapi-setup.md) : activer un appel téléphonique réel avec
+  transcription en direct.

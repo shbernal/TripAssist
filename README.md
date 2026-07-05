@@ -1,137 +1,128 @@
+<div align="center">
+
 # TripAssist
 
-AI trip-orchestration platform for disabled travelers. One traveler (Camille Moreau), one
-trip (Paris → Nice), French UI.
+**L'accessibilité du voyage, garantie et tracée, orchestrée par l'IA.**
 
-> **Direction (2026-07-04).** The product now leads with the **initial-reservation** story:
-> at booking time an AI agent **proactively calls providers** (airport for wheelchair
-> assistance, hotel for a roll-in shower) to secure accessibility _before departure_, and logs
-> the confirmations. The earlier **disruption / re-planning** flow (below) is kept but demoted
-> to a possible future feature. **Canonical vision, repo map, and status/roadmap:
-> [`AGENTS.md`](AGENTS.md).**
->
-> This is the **`mvp` branch** — the working prototype (the real Express + React app at the
-> repo root). The stylized static story landing page lives on the **`concept`** branch.
+_Un agent IA sécurise chaque maillon d'un trajet pour une personne en situation de handicap,
+avant le départ, en appelant lui-même les prestataires et en consignant chaque confirmation._
 
-Full documentation lives in [`docs/`](docs/README.md) — note some deeper docs predate the
-pivot and carry a banner pointing here.
+</div>
 
-## Architecture (tech)
+---
 
-Full technical map, diagram, and an honest "real vs demo" table:
-**[`docs/architecture/ARCHITECTURE.md`](docs/architecture/ARCHITECTURE.md)**.
+## Le problème
 
-In one breath: a single Express process (TypeScript strict) streams everything to a
-React 18 front over **SSE**; a pasted booking is turned into a structured trip by
-**Claude** (`/api/ingest`) and persisted in a **durable SQLite store** (`node:sqlite`,
-multi-tenant); **AI agents** (planner, extractor, vision, watchdog, caller) run on
-**real Claude** (HTTP token or the local `claude` CLI bridge) with a deterministic
-fallback; **7 open-data feeds** (SNCF, OpenStreetMap, Open-Meteo, Navitia, acceslibre,
-OpenRouteService) each follow a timeout + cache + reference fallback contract. Guiding
-principle: **never breaks in the demo, goes live the moment a key is present**.
-`~6,250` lines, **91 tests**, TS strict, ESLint/Prettier, Lefthook pre-commit/pre-push.
-A one-page jury brief lives at
-[`docs/TripAssist_Brief-Technique_v1.pdf`](docs/TripAssist_Brief-Technique_v1.pdf).
+Pour une personne en situation de handicap, un voyage n'est pas une suite de réservations :
+c'est une chaîne de dépendances fragiles. Un fauteuil qui ne peut pas embarquer, une chambre
+sans douche à l'italienne, un taxi non adapté, et tout l'aval s'effondre. Aujourd'hui, la charge
+de vérifier, rappeler, re-confirmer et trouver des solutions repose entièrement sur le voyageur
+ou son aidant. Une confirmation obtenue à J-14 n'a aucune valeur si personne ne la re-confirme.
 
-## History — the milestone build (M1 → M6)
+## La solution
 
-The sections below record the disruption-centric build the app grew from. It's accurate
-history and the code still runs; treat the _narrative_ as superseded by AGENTS.md.
+TripAssist transforme cette chaîne passive en un système vivant et traçable. **Dès qu'un voyage
+est réservé, un agent IA prend la main :** il lit l'itinéraire, **appelle de lui-même les
+prestataires** (l'aéroport pour l'assistance fauteuil, l'hôtel pour la douche à l'italienne),
+obtient des confirmations structurées, et les inscrit à un registre. Le voyageur ne court plus
+après personne : il reçoit simplement la preuve que tout est en place.
 
-## Status
+Trois promesses :
 
-- **M1 (spine)** ✅ — Express + SSE + seed + traveler timeline + ops layout + demo panel with Reset.
-- **M2 (chaos cascade)** ✅ — watchdog + chaos button + planner (Claude w/ hardcoded fallback) + at-risk cascade with reason chips + replan card + apply. Flow A runs end-to-end offline.
-- **M3 (voice)** ✅ — caller (real Vapi + offline simulation) + `/webhooks/vapi` + live transcript CallPanel (aria-live bubbles).
-- **M4 (extraction)** ✅ — extractor (Claude w/ keyword fallback) on call end → ledger archive → s5 flip → escalation + pre-seeded Hôtel Aston recovery. Flow B runs end-to-end offline via the simulated call.
-- **M5 (aces)** ✅ — vision verdict card (Claude vision w/ fallback) + replica PRM form at `/prm-form` + headed Playwright autofill.
-- **M6 (hardening)** ✅ — force-step overrides in the demo panel (manual override for any step/status), aria-live on all live regions, keyboard-operable, WCAG AA.
+- **Traçabilité.** Chaque étape possède un registre de confirmations (qui a confirmé quoi, par
+  quel canal, quand, avec quelle référence). C'est une preuve d'accessibilité, pas une simple
+  réservation.
+- **Proactivité.** L'IA sécurise l'accessibilité **avant le départ**, sans attendre que le
+  voyageur s'en inquiète.
+- **Résilience.** Si un imprévu menace un maillon (retard SNCF, chambre réattribuée), un agent
+  re-planifie sans jamais transiger sur les besoins d'accessibilité, puis rappelle pour
+  re-confirmer.
 
-### Post-milestone enhancements
+## Essayer TripAssist
 
-- **Voix live** ✅ — the simulated call is spoken aloud in a French voice (Web Speech API), a distinct voice for the AI vs. the receptionist, with a mute toggle.
-- **Sprint 1 (storytelling)** ✅ — impact-metrics KPI band (incidents caught, remediations applied, minutes recovered, calls made, accessibility held, all live); a catalogue of **5 disruption scenarios** (`server/scenarios.js`: TGV delay, SNCF strike, PMR elevator down, storm, taxi cancelled), each with its own cascade + accessibility-safe remediation; and animations on status changes, bubbles, chips, and KPI updates (reduced-motion aware).
-- **Sprint 2 (visible reasoning)** ✅ — the **agent orchestra** (`web/src/ops/AgentGraph.jsx`): five agent nodes (Veille, Planificateur, Appelant, Extracteur, Vision) that light up and pulse as they work, plus a live reasoning stream showing each agent's chain of thought. Backed by `server/agents/trace.js` (`agent_state` + `agent_reasoning` SSE events) woven through the watchdog, planner, caller, extractor, and vision agents.
-- **Sprint 3 (fleet)** ✅ — a **fleet dashboard** (`web/src/fleet/`) is the new home: a portfolio of monitored travelers (Camille live + 3 seeded profiles with varied disabilities and trip states), fleet-level KPIs, and per-traveler detail at `/traveler/:id`.
-- **Sprint 4 (guided demo)** ✅ — a **narrated auto-play** (`web/src/demo/GuidedDemo.jsx`) launched from the demo panel: it drives the three flows end-to-end (disruption → replan → live call → recovery → vision) with a caption bar and progress, polling server state for readiness. The presenter's zero-stress path.
-- **Sprint 5 (visual refonte)** ✅ — SVG logo mark + wordmark (`web/src/Logo.jsx`), centralized brand name (`web/src/config.js` — swap `APP_NAME` to rename everywhere), refined design system (gradients, depth, fleet/KPI cards, header). Name is a working title pending final choice.
-- **Real open-data plugins** ✅ — `server/plugins/sncf.js` pulls **real SNCF punctuality** for the Paris→Nice (Sud-Est) axis from data.sncf.com (Opendatasoft Explore v2.1), and `server/plugins/weather.js` pulls **real Nice weather** from Open-Meteo. Surfaced in a live "Contexte réel" strip (`web/src/ops/RealContext.jsx`) via `GET /api/context`, and the watchdog grounds its reasoning in these real figures during a disruption. All calls have timeout + cache + fallback — the demo never blocks on the network.
+> **Le meilleur moyen de découvrir TripAssist est la démo hébergée.** Les fonctions les plus
+> riches (raisonnement Claude réel, appel vocal en direct) reposent sur des clés d'API délicates
+> à provisionner en local. La démo en ligne les a déjà branchées, et elle inclut **l'appel
+> vocal dans le navigateur** : vous jouez le rôle du prestataire au bout du fil, en direct.
 
-### The 7 hackathon "wow" ideas — status
+**➡️ Démo en ligne : `<URL_DEMO>`** _(l'expérience recommandée, avec l'appel vocal web)_
 
-1. Live AI phone call ✅ (Vapi + offline sim with live French voice; real phone needs keys/ngrok) · 2. Multi-agent orchestration you can watch ✅ (agent orchestra) · 3. Real SNCF data ✅ (Sud-Est axis punctuality, live) · 4. Transcript→ledger extraction ✅ · 5. Passport auto-fill (Playwright) ✅ · 6. Vision verification ✅ · 7. Voice-first / screen-reader-native ✅. Plugins: Open-Meteo ✅, SNCF Open Data ✅.
+Ce que vous pouvez y faire :
 
-### Live vs. offline
+- suivre un voyage se sécuriser étape par étape, en temps réel ;
+- **passer / recevoir l'appel IA dans votre navigateur** et voir la transcription défiler ;
+- lire le registre de confirmations, les données open-data réelles (SNCF, météo, lieux
+  accessibles), et le raisonnement des agents.
 
-The demo runs **fully offline** with no keys: the planner/extractor/vision agents fall back to deterministic results, and `/api/call/start` plays a scripted call over the same SSE pipeline. To go live, fill `TripAssist/.env`:
+L'exécution locale est bien sûr possible et pleinement supportée (voir plus bas), mais sans clés
+elle bascule sur des données de référence vérifiées et un appel scripté : parfait pour lire et
+tester le code, moins pour ressentir le produit branché en réel.
 
-- `ANTHROPIC_API_KEY` (direct key, sent as `x-api-key`) **or** `ANTHROPIC_AUTH_TOKEN` + `ANTHROPIC_BASE_URL` (gateway/OAuth, sent as `Authorization: Bearer`) **or** `ANTHROPIC_VIA_CLI=1` (bridge through the local `claude` CLI, no token needed) — real Claude planning / extraction / vision / ingestion. Vision works on all three paths (the CLI bridge reads the photo from a temp file). Tests always run the deterministic fallbacks — the Vitest server project clears these gates.
-- `VAPI_*` + `RECEPTIONIST_PHONE` + `PUBLIC_URL` (ngrok) — a real phone call with streamed transcript. Full walkthrough in **[docs/guides/vapi-setup.md](docs/guides/vapi-setup.md)**.
+## Ce que fait le produit
 
-### Autofill (M5) — one-time setup
+- **Ingestion de réservation.** Un texte de réservation libre devient un trajet structuré
+  (étapes, dépendances, besoins d'accessibilité).
+- **Agents IA que l'on voit travailler.** Planificateur, extracteur, vision, veille, appelant :
+  chacun narre son raisonnement en direct.
+- **Appel téléphonique réel.** L'IA appelle un prestataire (par téléphone ou dans le
+  navigateur), mène la conversation en français, en extrait une confirmation structurée et
+  l'archive.
+- **Vérification par vision.** Une photo d'un lieu est comparée aux besoins du voyageur ; l'IA
+  rend un verdict argumenté (« ressaut de douche estimé à 15 cm, non conforme »).
+- **Données ouvertes réelles.** Régularité SNCF, assistance PMR en gare, lieux accessibles
+  (OpenStreetMap), météo, trajets, itinéraires fauteuil : sept flux, chacun avec repli vérifié.
+- **Registre et rapport.** Une piste d'audit imprimable de toute l'accessibilité du voyage.
 
-Playwright is installed as a devDependency. If the browser binary is missing, install it (use this, not `npx`/`pnpm exec` — the folder name's `:` breaks the PATH shim; the script calls `node node_modules/...` directly):
+## La persona
 
-```bash
-pnpm pw:install
-```
+Toute la démonstration s'articule autour d'une voyageuse et d'un trajet, pour une expérience
+nette et reproductible.
 
-Without the browser, the autofill button reports "Playwright non installé" and nothing else breaks.
+**Camille Moreau**, 34 ans, fauteuil roulant électrique (Permobil M3). Besoins : itinéraire sans
+marche, douche à l'italienne, assistance à l'embarquement et au débarquement. Trajet :
+**Paris → Nice**. Interface et voix **en français**.
 
-## Run
+## L'accessibilité comme produit
+
+L'accessibilité n'est pas une finition, c'est l'exigence centrale, y compris pour l'application
+elle-même : HTML sémantique, contraste **WCAG AA**, navigation **100 % clavier**, focus visible,
+`aria-live` sur les régions dynamiques, `prefers-reduced-motion` respecté, thème clair/sombre.
+L'application est conçue pour être utilisée au lecteur d'écran.
+
+## Pour aller plus loin
+
+Ce README présente le produit et son intention. Toute la technique vit sous [`docs/`](docs/) et
+dans [`AGENTS.md`](AGENTS.md) :
+
+- **[`AGENTS.md`](AGENTS.md)** : la référence qui fait foi (narratif, carte du dépôt) et un guide
+  de revue pour les évaluateurs (humains ou agents IA).
+- **[`docs/architecture/ARCHITECTURE.md`](docs/architecture/ARCHITECTURE.md)** : la carte
+  technique : diagramme, agents, plugins open-data, tableau réel-vs-live, comment vérifier.
+- **[`docs/architecture/data-model.md`](docs/architecture/data-model.md)** : le modèle de
+  données et les invariants d'intégrité.
+- **[`docs/product/brief.md`](docs/product/brief.md)** : le brief produit complet.
+- **[`docs/guides/vapi-setup.md`](docs/guides/vapi-setup.md)** : activer l'appel téléphonique
+  réel.
+
+## Développement local
+
+Application unique : un process Node (Express, SSE, agents, SQLite) qui sert l'API et le front
+React. Les outils sont invoqués via `node node_modules/...` (le `:` du chemin de travail casse
+le shim de `.bin`).
 
 ```bash
 pnpm install
-pnpm dev           # Express (3000) + Vite (5173) with HMR
-# open http://localhost:5173
+pnpm dev           # Express (3000) + Vite (5173), ouvrir http://localhost:5173
+pnpm test          # 94 tests (Vitest)
+pnpm typecheck     # TypeScript strict, front + back
 ```
 
-Single-process / production mode:
+Copiez `.env.example` → `.env` pour activer les modes live (Claude, Vapi, tokens open-data).
+Sans clés, l'application tourne hors-ligne avec des données de référence vérifiées : rien ne se
+casse.
 
-```bash
-pnpm build         # emits web/dist
-pnpm start         # Express serves API + built frontend on :3000
-```
+---
 
-Smoke check (server must be running):
-
-```bash
-pnpm smoke
-```
-
-## Quality & tests
-
-The project is TypeScript (strict) with Vitest, ESLint (flat config), and Prettier.
-Every tool is invoked via `node node_modules/...` — the folder name's `:` breaks the
-`node_modules/.bin` PATH shim, so `npx`/`pnpm exec`/bare bins are avoided everywhere,
-including inside the git hooks.
-
-```bash
-pnpm typecheck     # tsc --noEmit for server + web
-pnpm test          # Vitest (91 tests, node + jsdom in one run)
-pnpm test:watch    # Vitest watch mode
-pnpm lint          # ESLint
-pnpm lint:fix      # ESLint --fix
-pnpm format        # Prettier --write
-pnpm format:check  # Prettier --check
-```
-
-Lefthook installs git hooks on `pnpm install` (via `prepare`):
-
-- **pre-commit** — Prettier `--write` then ESLint `--fix` on staged files, auto-re-staged.
-- **pre-push** — `typecheck` + `test`.
-
-## Views
-
-- `/` — traveler timeline in a phone frame + accessibility passport.
-- `/ops` — control center: step watchlist, agent log, confirmation ledger.
-- `/demo` — presenter panel: **Reset** (one-click return to seed).
-
-## Accessibility
-
-French UI, semantic landmarks, `aria-live="polite"` on timeline / watchlist / agent log,
-keyboard-operable steps, visible focus, reduced-motion aware. Built to be demoed with VoiceOver.
-
-## Config
-
-Copy `.env.example` → `.env`. Only needed from M3 (Vapi) onward; M1/M2 run with no keys.
+<div align="center">
+<sub>TripAssist, parce qu'un voyageur ne devrait jamais avoir à prouver son droit à voyager.</sub>
+</div>

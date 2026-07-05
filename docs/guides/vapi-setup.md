@@ -1,10 +1,12 @@
 # Going live with the real phone call (Flow B)
 
-The demo runs fully offline with the scripted call. To ring a **real phone** on
-stage, you need a Vapi account, a French voice assistant, an ngrok tunnel, and a
-teammate's number. Do this once, ideally the day before.
+The app runs fully offline with the scripted call, and also supports an in-browser
+web call out of the box. To ring a **real phone** on stage, add a Vapi account, a
+French voice assistant, an ngrok tunnel, and a teammate's number. This is a one-time
+setup, best done the day before.
 
-Everything below is the only part I can't do for you — it needs your accounts.
+Everything below requires accounts that must be yours; the app is already wired for
+all of it and switches to the real call automatically once the keys are present.
 
 ---
 
@@ -15,15 +17,19 @@ Everything below is the only part I can't do for you — it needs your accounts.
 3. **Create an assistant** with a French voice (ElevenLabs or Azure FR). Paste this
    as its **system prompt** (verbatim from the spec):
 
-   > Tu es l'assistante vocale de TripAssist, appelant au nom de [Assureur] pour Mme
-   > Camille Moreau. Objectif: re-confirmer la réservation de la chambre 104
-   > accessible (douche à l'italienne, référence BR-104-ACC) pour le 12 septembre.
-   > Sois brève, polie, professionnelle. Annonce en début d'appel que tu es une
-   > assistante automatisée et que l'appel est enregistré. Obtiens: la chambre
-   > est-elle bien réservée, le nom de ton interlocuteur, une référence. Si la
-   > chambre n'est plus disponible: reste calme, demande quelles alternatives
-   > accessibles existent, indique qu'un conseiller va rappeler, remercie. Ne
-   > raccroche jamais sans avoir reformulé ce qui a été dit.
+   > Tu es l'assistante vocale automatisée de TripAssist. Dès le bonjour, annonce
+   > que tu es automatisée et que l'appel est enregistré. Sois brève, polie,
+   > professionnelle. Obtiens trois choses : la confirmation demandée, le nom de
+   > ton interlocuteur, une référence. Si c'est indisponible, demande calmement les
+   > alternatives accessibles et préviens qu'un conseiller rappellera. Reformule
+   > toujours ce qui a été dit avant de raccrocher.
+   >
+   > {{callContext}}
+
+   The `{{callContext}}` line is required: the app fills it per call
+   (`server/agents/caller.ts` for phone, `web/src/lib/vapiCall.ts` for the web
+   call) with the provider, the specific ask, and the traveler's details, so one
+   assistant handles both the airport and the hotel.
 
    Copy the assistant ID → `VAPI_ASSISTANT_ID`.
 
@@ -74,6 +80,6 @@ by hand. Nothing on stage can hard-break.
 
 ---
 
-**What I still need from you to verify the live call end-to-end:** the `VAPI_*`
-keys, the teammate's number, and a running ngrok tunnel. Give me those (or run
-the steps above) and I'll test a real call.
+**To verify the live call end-to-end you need three things:** the `VAPI_*` keys,
+the teammate's number, and a running ngrok tunnel. With those in `.env` and the
+steps above complete, `POST /api/call/start` places a real, streamed call.

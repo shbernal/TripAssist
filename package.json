@@ -27,6 +27,7 @@
   "dependencies": {
     "@vapi-ai/web": "^2.5.2",
     "express": "^4.19.2",
+    "framer-motion": "^11.18.2",
     "lucide-react": "^1.23.0"
   },
   "devDependencies": {

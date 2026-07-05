@@ -1,12 +1,13 @@
-# TripAssist — Claude Code Build Spec (hackathon)
+# TripAssist — Build Spec (original milestone plan)
 
-_Drive Claude Code milestone by milestone (M1→M6), not all at once. After each milestone: run it, demo-click it, then continue._
+_The plan the app was built from, milestone by milestone (M1→M6): build one, run it, demo-click
+it, then continue. All six milestones are delivered._
 
-> ⚠️ **Narrative superseded (2026-07-04).** This spec is organized around the
-> **disruption → replan** flow. The product now leads with the **initial-reservation**
-> narrative (agent proactively calls providers to secure accessibility before departure);
-> disruption is kept as a possible future feature. The technical shape (Express + SSE +
-> agents + plugins) still holds. Canonical vision: [`AGENTS.md`](../../AGENTS.md).
+> **Context.** This spec is organized around the **disruption → replan** flow, which is fully
+> built and working. The product **leads with the initial-reservation** narrative (the agent
+> proactively calls providers to secure accessibility before departure); disruption is the
+> second act. The technical shape described here (Express + SSE + agents + plugins) is exactly
+> what shipped. Canonical narrative and repo map: [`AGENTS.md`](../../AGENTS.md).
 
 ---
 
@@ -14,9 +15,15 @@ _Drive Claude Code milestone by milestone (M1→M6), not all at once. After each
 
 Build a working demo of **TripAssist**: an AI trip-orchestration platform for disabled travelers. One hardcoded user (Camille), one hardcoded trip (Paris→Nice). The demo must run on localhost, updated live via SSE, and survive a 5-minute stage demo including a real AI phone call.
 
-**Hard constraints — do not violate:**
+**Hard constraints for the hackathon build:**
 
-- Single repo, single Node process serving both API and frontend. No auth, no real database (lowdb/JSON file), no Docker, no tests beyond one smoke script, no TypeScript strictness battles (plain JS or loose TS).
+> These were the deliberately-minimal starting rules. The shipped app **exceeds several of
+> them**: it now runs full TypeScript strict, a durable multi-tenant SQLite store
+> (`server/store.ts`), additive auth (`server/auth.ts`), and a 94-test Vitest suite. The single
+> Node process, one-click reset, SSE, accessibility, and French-only UI held throughout.
+
+- Single repo, single Node process serving both API and frontend. Started keyless and
+  database-free; hardened since into TypeScript strict + SQLite + auth + a full test suite.
 - Everything must be resettable to initial state in one click (`/demo` panel → Reset).
 - Frontend: React + Vite. Backend: Express. Realtime: Server-Sent Events (one `/events` stream).
 - Accessibility is NOT optional polish: semantic HTML, landmarks, `aria-live="polite"` on the timeline and agent log, full keyboard navigation, visible focus, WCAG AA contrast. The app will be demoed with VoiceOver.
@@ -83,14 +90,16 @@ See `server/seed.js` — matches the spec verbatim (traveler Camille Moreau, 7 s
 
 **Receptionist script (teammate — 3 branches, rehearse all):** B1 happy: confirms room 104, gives name "Mme Laurent". B2 **stage branch**: "Ah… la 104 a été réattribuée, nous n'avons plus de chambre accessible ce soir-là" — polite, slightly embarrassed, offers nothing. B3 evasive: "il faudrait voir avec ma collègue demain" (tests red_flag path). On stage: play B2.
 
-## 6. Milestones for Claude Code (build in this order)
+## 6. Milestones (built in this order — all delivered)
 
-- **M1 (spine):** server + state + seed + SSE + traveler timeline + ops layout + demo panel with Reset. _Done when: timeline renders green from seed, reset works._ ✅
-- **M2 (agent log + chaos):** agent_events feed + watchdog + chaos button + planner (with hardcoded fallback) + cascade + replan card + apply. _Done when: Flow A runs end-to-end offline._
-- **M3 (voice):** Vapi integration, call trigger, webhook, live transcript panel. _Done when: a real phone rings and bubbles stream._
-- **M4 (extraction):** extractor on call end → ledger → step flip → escalation path with recovery plan. _Done when: Flow B runs end-to-end with a test call._
-- **M5 (aces):** vision endpoint + verdict card; replica PRM form + headed Playwright autofill. _Done when: both run from the demo panel._
-- **M6 (a11y + demo hardening):** VoiceOver pass, aria-live verified, keyboard-only run; demo panel force-step overrides for every SSE event (invisible insurance).
+- **M1 (spine)** ✅ — server + state + seed + SSE + traveler timeline + ops layout + demo panel with Reset. Timeline renders green from seed, reset works.
+- **M2 (agent log + chaos)** ✅ — agent_events feed + watchdog + chaos button + planner (with hardcoded fallback) + cascade + replan card + apply. Flow A runs end-to-end offline.
+- **M3 (voice)** ✅ — Vapi integration, call trigger, webhook, live transcript panel. A real phone rings and bubbles stream (in-browser web call + scripted simulation share the pipeline).
+- **M4 (extraction)** ✅ — extractor on call end → ledger → step flip → escalation path with recovery plan. Flow B runs end-to-end.
+- **M5 (aces)** ✅ — vision endpoint + verdict card; replica PRM form + headed Playwright autofill. Both run from the demo panel.
+- **M6 (a11y + demo hardening)** ✅ — VoiceOver pass, aria-live verified, keyboard-only run; demo panel force-step overrides for every SSE event (invisible insurance).
+
+The build has since been hardened well past M6: booking ingestion, real Claude via HTTP or CLI bridge, seven open-data plugins, durable SQLite persistence, multi-tenant auth, and a fleet dashboard. See [`ARCHITECTURE.md`](ARCHITECTURE.md).
 
 ## 7. How to drive Claude Code
 

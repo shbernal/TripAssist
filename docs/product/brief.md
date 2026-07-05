@@ -5,12 +5,12 @@ Version 1 - 4 juillet 2026
 Auteur : Guillaume Kone
 Contexte : Hackathon Capgemini
 
-> ⚠️ **Narratif superseded (2026-07-04).** Ce brief est centre sur la **cascade d'imprevu**
-> (perturbation → re-planification). Le produit met desormais en avant la **reservation
-> initiale** : l'agent appelle les prestataires de maniere proactive pour securiser
-> l'accessibilite _avant le depart_. La partie perturbation est conservee comme piste future.
-> Reference qui fait foi : [`AGENTS.md`](../../AGENTS.md). La reecriture complete est
-> differee (post-hackathon) : ce banner suffit, le contenu technique reste valable.
+> **Note de cadrage.** Ce brief detaille la **cascade d'imprevu** (perturbation →
+> re-planification), un flux entierement construit et fonctionnel. Le produit **met en avant la
+> reservation initiale** : l'agent appelle les prestataires de maniere proactive pour securiser
+> l'accessibilite _avant le depart_ ; la perturbation en est le second acte. Reference qui fait
+> foi pour le narratif et la carte du depot : [`AGENTS.md`](../../AGENTS.md). Le contenu produit
+> et technique ci-dessous reste valable.
 
 ---
 
@@ -109,7 +109,7 @@ Volontairement simple et robuste pour un contexte hackathon.
 
 - **Un seul depot, un seul processus Node** servant a la fois l'API et le frontend.
 - **Backend** : Express. **Frontend** : React + Vite. **Temps reel** : Server-Sent Events, un unique flux `/events`.
-- **Etat** : en memoire avec persistance dans un fichier JSON. Pas de base de donnees, pas d'authentification, pas de Docker.
+- **Etat** : machine d'etat en memoire, aujourd'hui adossee a un **store SQLite durable et multi-tenant** (`server/store.ts`, `node:sqlite` natif, zero dependance) avec **authentification additive** (`server/auth.ts`). Le point de depart hackathon (fichier JSON) a ete durci depuis.
 - **Reinitialisation en un clic** vers l'etat initial, indispensable pour repeter la demo.
 - **Agents IA** (dossier `server/agents/`) : planner (planification et re-planification), watchdog (veille SNCF et incidents), caller (declenchement d'appel Vapi et webhooks), extractor (transcription vers confirmation structuree), vision (photo plus profil vers verdict d'accessibilite).
 
@@ -152,22 +152,26 @@ Chaque agent narre son raisonnement en français dans le journal, en lignes cour
 
 Regle d'or : on construit un jalon, on le teste, puis on passe au suivant. Jamais tout d'un coup.
 
-| Jalon  | Contenu                                                                                                                             | Critere de reussite                                             | Statut                 |
-| ------ | ----------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------- | ---------------------- |
-| **M1** | Colonne vertebrale : serveur, etat, seed, SSE, timeline voyageuse, layout ops, panneau demo avec Reset                              | La timeline s'affiche verte depuis le seed, le reset fonctionne | **Termine et verifie** |
-| **M2** | Journal des agents, watchdog, bouton chaos, planificateur (avec repli code en dur), cascade, carte de re-planification, application | Le Flux A tourne de bout en bout hors ligne                     | A faire                |
-| **M3** | Integration Vapi, declenchement d'appel, webhook, panneau de transcription en direct                                                | Un vrai telephone sonne et les bulles defilent                  | A faire                |
-| **M4** | Extracteur en fin d'appel, ecriture au registre, bascule d'etape, escalade avec plan de repli                                       | Le Flux B tourne de bout en bout avec un appel test             | A faire                |
-| **M5** | Endpoint vision et carte verdict, formulaire PRM replique, auto-remplissage Playwright visible                                      | Les deux fonctionnent depuis le panneau demo                    | A faire                |
-| **M6** | Passe VoiceOver, verification aria-live, parcours 100 % clavier, surcharges manuelles de chaque evenement (assurance invisible)     | Tout est robuste et pilotable en scene                          | A faire                |
+| Jalon  | Contenu                                                                                                                             | Critere de reussite                                             | Statut    |
+| ------ | ----------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------- | --------- |
+| **M1** | Colonne vertebrale : serveur, etat, seed, SSE, timeline voyageuse, layout ops, panneau demo avec Reset                              | La timeline s'affiche verte depuis le seed, le reset fonctionne | **Livre** |
+| **M2** | Journal des agents, watchdog, bouton chaos, planificateur (avec repli code en dur), cascade, carte de re-planification, application | Le Flux A tourne de bout en bout hors ligne                     | **Livre** |
+| **M3** | Integration Vapi, declenchement d'appel, webhook, panneau de transcription en direct                                                | Un vrai telephone sonne et les bulles defilent                  | **Livre** |
+| **M4** | Extracteur en fin d'appel, ecriture au registre, bascule d'etape, escalade avec plan de repli                                       | Le Flux B tourne de bout en bout avec un appel test             | **Livre** |
+| **M5** | Endpoint vision et carte verdict, formulaire PRM replique, auto-remplissage Playwright visible                                      | Les deux fonctionnent depuis le panneau demo                    | **Livre** |
+| **M6** | Passe VoiceOver, verification aria-live, parcours 100 % clavier, surcharges manuelles de chaque evenement (assurance invisible)     | Tout est robuste et pilotable en scene                          | **Livre** |
 
-**Etat au 4 juillet 2026 : M1 livre et verifie** (endpoints, smoke test, rendu navigateur, flux de reset, zero erreur console).
+**Les six jalons sont livres et verifies**, puis durcis bien au-dela (ingestion de reservation, vrai Claude via HTTP ou pont CLI, sept plugins open-data, persistance SQLite, multi-tenant, dashboard flotte). Carte technique a jour : [`../architecture/ARCHITECTURE.md`](../architecture/ARCHITECTURE.md).
 
 ---
 
-## 11. Repartition des roles (a valider ensemble)
+## 11. Repartition des roles
 
-Proposition de decoupage. A ajuster selon les disponibilites.
+> Les sections 11 a 14 sont la logistique de lancement d'origine (equipe, planning, risques de
+> scene). Elles ont ete executees : le produit est livre. Elles sont conservees telles quelles
+> comme trace du cadrage.
+
+Decoupage initial du travail.
 
 | Role                      | Perimetre                                                                       | Responsable             |
 | ------------------------- | ------------------------------------------------------------------------------- | ----------------------- |
@@ -214,20 +218,16 @@ Principe directeur : **chaque element visible en scene doit pouvoir etre declenc
 
 ---
 
-## 14. Ce qu'il reste a faire
+## 14. Etat de livraison
 
-Immediat :
-
-1. Valider ce brief et la repartition des roles.
-2. Recuperer les cles : compte Vapi, numero de telephone, assistant configure, cle Anthropic.
-3. Fixer les dates des trois sprints.
-4. Demarrer M2 (cascade d'imprevu), qui tourne entierement hors ligne et ne depend d'aucune cle externe.
-
-A preparer en parallele :
-
-- Le numero reel du teammate receptionniste et les repetitions des trois branches.
-- La configuration ngrok pour les webhooks Vapi.
-- Le deroule des 5 minutes de pitch.
+Le plan initial est execute. Les six jalons (M1 a M6) sont livres et verifies, puis durcis
+au-dela du cadre hackathon : ingestion de reservation, vrai Claude (HTTP ou pont CLI), sept
+plugins open-data, persistance SQLite durable et multi-tenant, dashboard flotte, suite de
+94 tests. Il ne reste, cote infrastructure, qu'a choisir un hote Node pour le deploiement
+(Express + SSE + webhooks Vapi ne peuvent pas etre statiques). L'appel telephonique sortant
+reel reste volontairement protege par un feu vert explicite ; l'appel web dans le navigateur et
+la simulation scriptee sont les chemins par defaut. Carte a jour :
+[`../architecture/ARCHITECTURE.md`](../architecture/ARCHITECTURE.md).
 
 ---
 
@@ -240,4 +240,4 @@ A preparer en parallele :
 
 ---
 
-_Ce document est une base de cadrage. Il evoluera au fil des sprints. Toute remarque est bienvenue avant le lancement de M2._
+_Ce document a servi de base de cadrage a l'equipe. Il est conserve comme reference produit. Le narratif et la carte du depot qui font foi vivent dans [`AGENTS.md`](../../AGENTS.md)._
