@@ -17,7 +17,13 @@ confirmations and logs every one. The traveler just gets the good news.
 
 ### The agent makes the calls. Camille just gets confirmations.
 
-[![The story: the agent calls the airport, then Camille receives two phone confirmations](./public/media/story.gif)](https://shbernal.github.io/TripAssist/)
+<div align="center">
+
+<video src="https://github.com/shbernal/TripAssist/raw/concept/public/media/story.mp4" autoplay loop muted playsinline width="900"></video>
+
+**[▶ Watch the live story](https://shbernal.github.io/TripAssist/)**
+
+</div>
 
 _An animated story: the agent receives Camille's Paris → Nice itinerary, **calls the
 airport** for boarding assistance, **calls the hotel** for a roll-in shower, and she gets
@@ -25,7 +31,13 @@ airport** for boarding assistance, **calls the hotel** for a roll-in shower, and
 
 ### One operator, twenty travelers, every guarantee tracked.
 
-[![The operator dashboard: a guided tour across the group overview, proactive confirmations, per-traveler tracking, and the audit registry](./public/media/dashboard.gif)](https://shbernal.github.io/TripAssist/dashboard/)
+<div align="center">
+
+<video src="https://github.com/shbernal/TripAssist/raw/concept/public/media/dashboard.mp4" autoplay loop muted playsinline width="900"></video>
+
+**[▶ Open the live operator dashboard](https://shbernal.github.io/TripAssist/dashboard/)**
+
+</div>
 
 _A tour operator managing ~20 seniors and travelers with disabilities on the same trip. A
 guided tour walks the group at a glance, the proactive provider confirmations, per-traveler
@@ -73,53 +85,25 @@ can move between the individual story and the operator view.
 
 ---
 
-## For builders
+## Concept and Demo branches
 
-### Run & build
+The project lives on two branches, each with a clear, separate job.
 
-One Vite app with two HTML entry points (`index.html` for the story, `dashboard/index.html`
-for the dashboard), one shared base `/TripAssist/`. Tooling is invoked via
-`node node_modules/<pkg>/...` (the repo path can contain a `:` that corrupts the
-`node_modules/.bin` PATH shim, so `npx` / `pnpm exec` / bare bins are avoided everywhere,
-including the git hooks).
+- **`concept`** — the **concept branch** (this branch, the default). Two polished,
+  static demos that show what TripAssist does and why it matters: the story landing
+  page and the operator dashboard, deployed to GitHub Pages. No backend, no keys,
+  nothing to install: it just runs in a browser. This is what evaluators read.
 
-```bash
-pnpm install
-pnpm dev          # dev server on :5173 (story at /, dashboard at /dashboard/)
-pnpm build        # static build -> dist/ (published as-is)
-pnpm typecheck
-pnpm lint
-pnpm format
-```
+- **`mvp`** — the **demo branch**. The same product built to actually work: Express +
+  React with Claude agents that place the real provider calls (Vapi), open-data
+  plugins, and a SQLite registry for the confirmations. It needs API keys and a
+  running server. This is where the functional software lives, and where all future
+  functional work happens.
 
-Deeper per-entry docs: [`src/story/README.md`](src/story/README.md) ·
-[`src/dashboard/README.md`](src/dashboard/README.md). Canonical narrative, repo map, and
-conventions: [`AGENTS.md`](AGENTS.md).
+In short: **`concept` shows the vision, `mvp` runs it.** Keeping them apart lets the
+showcase stay a clean, self-contained static site while the working system evolves
+independently.
 
-### Regenerating the media
-
-All demo media is committed so nothing is needed to run. To regenerate it:
-
-```bash
-pnpm assets:faces   # AI faces via the Codex CLI (ChatGPT OAuth, no API key)
-pnpm assets:voices  # call audio via ElevenLabs (needs ELEVENLABS_API_KEY)
-pnpm assets:gifs    # the two README GIFs, recorded from the running app
-```
-
-`assets:gifs` drives the system `chromium` with `playwright-core`, records each clip to
-video, and encodes it with `ffmpeg` + `gifski` (all three must be on `PATH`).
-
-### Deploy
-
-GitHub Pages serves one site. [`.github/workflows/deploy-demo.yml`](.github/workflows/deploy-demo.yml)
-runs `pnpm build` on every push to `concept` and publishes `dist` as-is (Vite emits the story
-at the root and the dashboard nested, both under `base: '/TripAssist/'`). No account or
-secret needed.
-
-### Branch split
-
-- **`concept`** (this branch, the default): the static demo showcase (`src/story` +
-  `src/dashboard`), deployed to GitHub Pages. No backend, no keys.
-- **`mvp`**: the functional MVP (Express + React with Claude agents, Vapi phone calls,
-  open-data plugins, and SQLite). Same product narrative, different runtime. All future
-  _functional_ work happens there; `concept` stays a clean, self-contained static demo.
+Canonical narrative, repo map, and conventions: [`AGENTS.md`](AGENTS.md). Per-entry
+docs: [`src/story/README.md`](src/story/README.md) ·
+[`src/dashboard/README.md`](src/dashboard/README.md).
