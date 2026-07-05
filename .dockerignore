@@ -1,0 +1,11 @@
+node_modules
+web/dist
+coverage
+data/state.json
+data/*.db
+data/*.db-wal
+data/*.db-shm
+.env
+.DS_Store
+*.log
+_archive/
