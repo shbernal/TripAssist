@@ -17,13 +17,7 @@ confirmations and logs every one. The traveler just gets the good news.
 
 ### The agent makes the calls. Camille just gets confirmations.
 
-<div align="center">
-
-<video src="https://github.com/shbernal/TripAssist/raw/concept/public/media/story.mp4" autoplay loop muted playsinline width="900"></video>
-
-**[▶ Watch the live story](https://shbernal.github.io/TripAssist/)**
-
-</div>
+[![The story: the agent calls the airport, then Camille receives two phone confirmations](./public/media/story.gif)](https://shbernal.github.io/TripAssist/)
 
 _An animated story: the agent receives Camille's Paris → Nice itinerary, **calls the
 airport** for boarding assistance, **calls the hotel** for a roll-in shower, and she gets
@@ -31,13 +25,7 @@ airport** for boarding assistance, **calls the hotel** for a roll-in shower, and
 
 ### One operator, twenty travelers, every guarantee tracked.
 
-<div align="center">
-
-<video src="https://github.com/shbernal/TripAssist/raw/concept/public/media/dashboard.mp4" autoplay loop muted playsinline width="900"></video>
-
-**[▶ Open the live operator dashboard](https://shbernal.github.io/TripAssist/dashboard/)**
-
-</div>
+[![The operator dashboard: a guided tour across the group overview, proactive confirmations, per-traveler tracking, and the audit registry](./public/media/dashboard.gif)](https://shbernal.github.io/TripAssist/dashboard/)
 
 _A tour operator managing ~20 seniors and travelers with disabilities on the same trip. A
 guided tour walks the group at a glance, the proactive provider confirmations, per-traveler

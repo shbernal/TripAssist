@@ -18,7 +18,7 @@
     "prepare": "node node_modules/lefthook/bin/index.js install",
     "assets:voices": "node node_modules/tsx/dist/cli.mjs tooling/demo/generate-voices.ts",
     "assets:faces": "node node_modules/tsx/dist/cli.mjs tooling/demo/generate-faces.ts",
-    "assets:clips": "node node_modules/tsx/dist/cli.mjs tooling/demo/generate-clips.ts"
+    "assets:gifs": "node node_modules/tsx/dist/cli.mjs tooling/demo/generate-gifs.ts"
   },
   "dependencies": {
     "framer-motion": "^11.0.0",
