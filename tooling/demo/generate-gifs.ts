@@ -35,10 +35,16 @@ const PORT = 5173
 const BASE = `http://localhost:${PORT}/TripAssist`
 const OUT_DIR = 'public/media'
 
-/** Record at 2x the emitted width so the lanczos downscale stays crisp. */
-const REC = { width: 1440, height: 900 }
+/**
+ * Record size. Playwright captures the video at the CSS-viewport pixel size
+ * (deviceScaleFactor does NOT raise video resolution - it only pads), so this
+ * is both the layout viewport and the recorded resolution. 1600x1000 gives the
+ * downscale to GIF.width real supersampling headroom while keeping the framing
+ * the scenes are composed for.
+ */
+const REC = { width: 1600, height: 1000 }
 /** GIF output knobs - width/fps traded against file weight for a README hero. */
-const GIF = { width: 760, fps: 18, quality: 82 }
+const GIF = { width: 900, fps: 18, quality: 90, lossy: 78 }
 
 // --- helpers ----------------------------------------------------------------
 
@@ -73,7 +79,9 @@ async function encodeGif(webm: string, outName: string): Promise<void> {
       '-i',
       webm,
       '-vf',
-      `fps=${GIF.fps},scale=${GIF.width}:-1:flags=lanczos`,
+      // Lossless PNG frames (gifski owns the palette/dither), full-range colour,
+      // lanczos downscale from the SCALE x supersampled capture.
+      `fps=${GIF.fps},scale=${GIF.width}:-1:flags=lanczos,format=rgb24`,
       join(frames, 'f-%04d.png'),
     ])
     // execFile runs no shell, so expand the frame list ourselves (gifski takes
@@ -90,6 +98,10 @@ async function encodeGif(webm: string, outName: string): Promise<void> {
       String(GIF.fps),
       '--quality',
       String(GIF.quality),
+      // Lossy compression keeps the README hero light; the higher capture
+      // resolution (REC -> GIF.width supersample) carries the sharpness.
+      '--lossy-quality',
+      String(GIF.lossy),
       '-o',
       out,
       ...pngs,
