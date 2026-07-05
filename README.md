@@ -112,14 +112,14 @@ video, and encodes it with `ffmpeg` + `gifski` (all three must be on `PATH`).
 ### Deploy
 
 GitHub Pages serves one site. [`.github/workflows/deploy-demo.yml`](.github/workflows/deploy-demo.yml)
-runs `pnpm build` on every push to `main` and publishes `dist` as-is (Vite emits the story
+runs `pnpm build` on every push to `concept` and publishes `dist` as-is (Vite emits the story
 at the root and the dashboard nested, both under `base: '/TripAssist/'`). No account or
 secret needed.
 
 ### Branch split
 
-- **`main`** (this branch): the static demo showcase (`src/story` + `src/dashboard`),
-  deployed to GitHub Pages. No backend, no keys.
+- **`concept`** (this branch, the default): the static demo showcase (`src/story` +
+  `src/dashboard`), deployed to GitHub Pages. No backend, no keys.
 - **`mvp`**: the functional MVP (Express + React with Claude agents, Vapi phone calls,
   open-data plugins, and SQLite). Same product narrative, different runtime. All future
-  _functional_ work happens there; `main` stays a clean, self-contained static demo.
+  _functional_ work happens there; `concept` stays a clean, self-contained static demo.

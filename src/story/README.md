@@ -9,7 +9,7 @@ This is the **root entry** (`index.html`) of the single TripAssist app; the oper
 
 **Live: <https://shbernal.github.io/TripAssist/>** — auto-deployed by
 [`.github/workflows/deploy-demo.yml`](../../.github/workflows/deploy-demo.yml) on every
-push to `main`.
+push to `concept`.
 
 The narrative (canonical in [`AGENTS.md`](../../AGENTS.md)): an AI agent receives
 Camille's itinerary, **calls the airport** for wheelchair assistance (WCHC), **calls the

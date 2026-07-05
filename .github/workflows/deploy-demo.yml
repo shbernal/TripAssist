@@ -8,7 +8,7 @@ name: Deploy demo → GitHub Pages
 # here (the functional MVP lives on the `mvp` branch).
 on:
   push:
-    branches: [main]
+    branches: [concept]
     paths:
       - 'src/**'
       - 'public/**'

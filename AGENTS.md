@@ -1,9 +1,9 @@
 # AGENTS.md — TripAssist (demo showcase branch)
 
-> Canonical orientation for anyone (human or agent) working on **`main`**.
+> Canonical orientation for anyone (human or agent) working on **`concept`**.
 > `CLAUDE.md` is a symlink to this file.
 >
-> **`main` is the static demo showcase.** It ships two zero-key, fully static apps to
+> **`concept` is the static demo showcase.** It ships two zero-key, fully static apps to
 > GitHub Pages and is what evaluators read. The **functional MVP lives on the `mvp`
 > branch** (Express + React + Claude agents + Vapi + open-data plugins + SQLite). Don't
 > reintroduce backend code, server docs, or MVP-only config here — that work belongs on
@@ -84,7 +84,7 @@ TripAssist/
 ## Deploy — one GitHub Pages site
 
 Pages serves one site. `.github/workflows/deploy-demo.yml` runs `pnpm build` on every
-push to `main` and publishes `dist` **as-is** — Vite already emits `index.html` at the
+push to `concept` and publishes `dist` **as-is** — Vite already emits `index.html` at the
 root and `dashboard/index.html` nested, both under `base: '/TripAssist/'`, so there's no
 artifact to assemble. Flip `base` to `'/'` if ever moved off Pages (e.g. Vercel at a
 domain root). No account or secret needed.
@@ -129,7 +129,7 @@ branch.
 
 ## Decisions already made — don't re-litigate
 
-- **`main` is the static showcase; the functional MVP is on `mvp`.** Keep the backend,
+- **`concept` is the static showcase; the functional MVP is on `mvp`.** Keep the backend,
   server docs, and MVP-only config off this branch.
 - **Two static deliverables**: `src/story` (individual story) + `src/dashboard`
   (operator, guided onboarding tour). They are **two entry points of one Vite app** —

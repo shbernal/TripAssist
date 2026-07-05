@@ -10,7 +10,7 @@ entry. See the root [`AGENTS.md`](../../AGENTS.md) for the repo shape.
 
 **Live: <https://shbernal.github.io/TripAssist/dashboard/>**. Auto-deployed by
 [`.github/workflows/deploy-demo.yml`](../../.github/workflows/deploy-demo.yml) on every
-push to `main`.
+push to `concept`.
 
 It's the operator-side counterpart to the individual [story landing page](../story/): the
 same Paris → Nice trip seen from the person who orchestrates the whole group. Camille
