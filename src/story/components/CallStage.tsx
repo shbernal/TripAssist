@@ -1,6 +1,6 @@
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
-import { BadgeCheck, PhoneCall } from 'lucide-react'
+import { BadgeCheck, PhoneCall, Play } from 'lucide-react'
 import { asset } from '../lib/asset'
 import { useReducedMotion } from '../lib/useReducedMotion'
 import { useCallPlayer } from '../lib/useCallPlayer'
@@ -53,37 +53,41 @@ function Avatar({ src, name, role, speaking, reduced }: AvatarProps) {
  * readers). When the call ends the outcome stamps in and the story advances on
  * its own.
  *
- * `active` is true only while this scene is the one on screen. It gates the whole
- * audio lifecycle: the call autoplays when it becomes active and, crucially,
- * pauses the moment the deck moves to another scene - so a call never keeps
- * talking over the next slide.
+ * `active` is true only while this scene is the one on screen. It gates the
+ * audio lifecycle: the call never blares on its own - a tap-to-start overlay
+ * sits over the stage until the viewer chooses to listen. Once started, the
+ * deck takes over: the call pauses the moment we move to another slide (so it
+ * never talks over the next scene) and resumes on return.
  */
 export function CallStage({ callId, active }: { callId: CallId; active: boolean }) {
   const meta = CALLS[callId]
   const player = useCallPlayer(callId)
   const reduced = useReducedMotion()
   const flow = useStoryFlow()
-  const autoplayedRef = useRef(false)
   const advancedRef = useRef(false)
+  // The call stays silent behind a transparent overlay until the viewer taps it.
+  // We don't autoplay - only a deliberate gesture starts the conversation.
+  const [started, setStarted] = useState(false)
 
-  // Playback follows the active scene: autoplay (or resume) on arrival, pause on
-  // departure. If the browser blocks the initial autoplay (no gesture yet) the
-  // visible controls take over. A pause the *user* asked for (userPaused) is
-  // never overridden - only deck-driven pauses auto-resume.
+  // Once the viewer has started the call, playback follows the active scene:
+  // resume on return, pause on departure. A pause the *user* asked for
+  // (userPaused) is never overridden - only deck-driven pauses auto-resume.
   const { status: callStatus, userPaused, play: playCall, pause: pauseCall } = player
   useEffect(() => {
+    if (!started) return
     if (active) {
-      if (reduced) return
-      if (callStatus === 'ready' && !autoplayedRef.current) {
-        autoplayedRef.current = true
-        playCall()
-      } else if (callStatus === 'paused' && !userPaused) {
-        playCall()
-      }
+      if (callStatus === 'paused' && !userPaused) playCall()
     } else if (callStatus === 'playing') {
       pauseCall()
     }
-  }, [active, reduced, callStatus, userPaused, playCall, pauseCall])
+  }, [started, active, callStatus, userPaused, playCall, pauseCall])
+
+  // Tapping the overlay both dismisses it and kicks off the conversation. The
+  // tap is a user gesture, so autoplay is never in question here.
+  const startCall = (): void => {
+    setStarted(true)
+    playCall()
+  }
 
   // Space toggles the call audio while this scene is on screen. Presses aimed
   // at an interactive element are left alone (a focused button already treats
@@ -122,7 +126,33 @@ export function CallStage({ callId, active }: { callId: CallId; active: boolean 
     .filter((m) => (ended ? true : m.id <= passedId))
 
   return (
-    <div className="mx-auto w-full max-w-3xl rounded-3xl border border-slate-800 bg-slate-900/60 p-4 shadow-2xl backdrop-blur sm:p-6">
+    <div className="relative mx-auto w-full max-w-3xl overflow-hidden rounded-3xl border border-slate-800 bg-slate-900/60 p-4 shadow-2xl backdrop-blur sm:p-6">
+      {/* Tap-to-start overlay: a transparent scrim over the whole conversation
+          until the viewer chooses to listen. Nothing plays before this tap. */}
+      <AnimatePresence>
+        {!started ? (
+          <motion.button
+            type="button"
+            onClick={startCall}
+            initial={reduced ? false : { opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={reduced ? { opacity: 0 } : { opacity: 0, transition: { duration: 0.25 } }}
+            aria-label={`Écouter ${meta.title}`}
+            className="absolute inset-0 z-20 flex flex-col items-center justify-center gap-3 rounded-3xl bg-slate-950/50 text-slate-100 backdrop-blur-sm transition-colors hover:bg-slate-950/40 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-bright"
+          >
+            <motion.span
+              animate={reduced ? undefined : { scale: [1, 1.06, 1] }}
+              transition={{ duration: 1.8, repeat: Infinity, ease: 'easeInOut' }}
+              className="flex h-16 w-16 items-center justify-center rounded-full bg-brand-bright/90 text-slate-950 shadow-lg shadow-brand-bright/30"
+            >
+              <Play aria-hidden="true" className="ml-0.5 h-7 w-7" />
+            </motion.span>
+            <span className="text-sm font-semibold sm:text-base">Écouter la conversation</span>
+            <span className="text-xs text-slate-300">{meta.title}</span>
+          </motion.button>
+        ) : null}
+      </AnimatePresence>
+
       <div className="mb-4 flex items-center justify-between gap-3">
         <div className="flex min-w-0 items-center gap-2 text-sm text-slate-400">
           <PhoneCall aria-hidden="true" className="h-4 w-4 shrink-0 text-brand-bright" />
