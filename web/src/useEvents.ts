@@ -38,6 +38,7 @@ export function useEvents(): UseEventsResult {
       'step_updated',
       'agent_log',
       'transcript_chunk',
+      'transcript_reset',
       'ledger_entry',
       'disruption',
       'replan_proposed',
@@ -88,6 +89,9 @@ export function reduce(prev: AppState, type: ServerEventType, payload: any): App
       break
     case 'transcript_chunk':
       next.transcript = [...(prev.transcript || []), payload]
+      break
+    case 'transcript_reset':
+      next.transcript = []
       break
     case 'ledger_entry':
       next.ledger = [...(prev.ledger || []), payload.entry ?? payload]

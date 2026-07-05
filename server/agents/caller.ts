@@ -37,32 +37,67 @@ function pushChunk(speaker: TranscriptChunk['speaker'], text: string): void {
   pushEvent('transcript_chunk', chunk)
 }
 
+// A new call starts: drop the previous call's transcript everywhere. Clients only
+// ever append transcript_chunk events, so without this broadcast they would keep
+// showing the last call's lines.
+function resetTranscript(): void {
+  updateState((s) => {
+    s.transcript = []
+    s.metrics.callsMade += 1
+  })
+  pushEvent('transcript_reset', {})
+  pushEvent('metrics', getState().metrics)
+}
+
 // The provider + accommodation a call is about. Injected into the single live
 // Vapi assistant per call via assistantOverrides.variableValues (the {{callContext}}
 // placeholder in its prompt), so one assistant handles both the airport and the
 // hotel without separate assistant IDs.
-type CallTarget = { provider: string; ask: string; details: string }
+type CallTarget = { provider: string; ask: string; details: string; firstMessage: string }
 
 const TARGETS: Record<'hotel' | 'airport', CallTarget> = {
   hotel: {
     provider: 'Hôtel Beau Rivage',
     ask: "une chambre accessible avec douche à l'italienne (roll-in shower)",
     details: 'Chambre 104, référence BR-104-ACC, séjour du 12 septembre.',
+    firstMessage:
+      "Bonjour, ici l'assistante automatisée de TripAssist, cet appel est enregistré. " +
+      "Pouvez-vous confirmer la chambre 104 accessible avec douche à l'italienne " +
+      'pour le 12 septembre, référence BR-104-ACC ?',
   },
   airport: {
     provider: "l'assistance PMR de l'aéroport (Paris CDG puis Nice)",
     ask: "l'assistance à l'embarquement et au débarquement en fauteuil roulant (WCHC)",
     details: 'Vol Paris → Nice, fauteuil roulant électrique Permobil M3.',
+    firstMessage:
+      "Bonjour, ici l'assistante automatisée de TripAssist, cet appel est enregistré. " +
+      "Pouvez-vous confirmer l'assistance WCHC à l'embarquement et au débarquement " +
+      'pour le vol Paris-Nice de Camille Moreau, fauteuil roulant électrique ?',
   },
 }
+
+// Keeps the live call tight: the demo needs a fast yes/no, not a conversation.
+// The closing sentence is mandatory and exact: it is also the endCallPhrases
+// trigger below, so saying it is what actually hangs up the call.
+const CALL_RULES =
+  'Consignes strictes : va droit au but, une seule question à la fois, uniquement sur' +
+  ' cet objectif. Ne demande jamais le nom de ton interlocuteur ni aucune information' +
+  ' hors sujet, ne fais pas de conversation. Dès que la réponse (confirmation ou refus)' +
+  ' est claire, reformule-la en une phrase puis termine immédiatement par la phrase' +
+  ' exacte : « Merci, bonne journée. »'
+
+// Vapi hangs up when the assistant speaks one of these, even if the dashboard
+// assistant lacks the End Call tool. Keep in sync with CALL_RULES and with
+// web/src/lib/vapiCall.ts (the in-browser call path).
+export const END_CALL_PHRASES = ['bonne journée', 'au revoir']
 
 function callContextFor(t: CallTarget): string {
   return [
     `Prestataire appelé : ${t.provider}.`,
     `Objectif : confirmer ${t.ask}.`,
     `Détails : ${t.details}`,
-    'Voyageuse : Camille Moreau. Obtiens une confirmation claire et, si possible,' +
-      " le nom de l'interlocuteur et une référence.",
+    'Voyageuse : Camille Moreau.',
+    CALL_RULES,
   ].join(' ')
 }
 
@@ -74,11 +109,7 @@ export async function startCall({
   branch = 'B2',
 }: { target?: 'hotel' | 'airport'; branch?: string } = {}) {
   const t = TARGETS[target] ?? TARGETS.hotel
-  updateState((s) => {
-    s.transcript = []
-    s.metrics.callsMade += 1
-  })
-  pushEvent('metrics', getState().metrics)
+  resetTranscript()
   setCall({ status: 'dialing', id: null, mode: hasVapi() ? 'vapi' : 'simulation', branch })
   agentActive('caller', true)
   think('caller', `Composition du numéro du prestataire (${t.provider}).`)
@@ -94,6 +125,8 @@ async function startVapiCall(target: CallTarget) {
     const publicUrl = (process.env.PUBLIC_URL || '').replace(/\/$/, '')
     const assistantOverrides = {
       variableValues: { callContext: callContextFor(target) },
+      firstMessage: target.firstMessage,
+      endCallPhrases: END_CALL_PHRASES,
       ...(publicUrl ? { serverUrl: `${publicUrl}/webhooks/vapi` } : {}),
     }
     const res = await fetch('https://api.vapi.ai/call', {
@@ -173,11 +206,7 @@ const SCRIPTS: Record<string, Array<[TranscriptChunk['speaker'], string]>> = {
 // the existing extractor still turns the finished call into a registry entry.
 
 export function startWebCall() {
-  updateState((s) => {
-    s.transcript = []
-    s.metrics.callsMade += 1
-  })
-  pushEvent('metrics', getState().metrics)
+  resetTranscript()
   setCall({ status: 'in_progress', id: null, mode: 'vapi-web', branch: undefined })
   agentActive('caller', true)
   think('caller', 'Appel web en direct : la réception répond au micro.')

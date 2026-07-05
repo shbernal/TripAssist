@@ -317,6 +317,8 @@ export interface ServerEventMap {
   step_updated: StepUpdatedPayload
   agent_log: AgentLogEntry
   transcript_chunk: TranscriptChunk
+  // Emitted when a call starts: clients must drop the previous call's transcript.
+  transcript_reset: Record<string, never>
   ledger_entry: { entry: LedgerEntry }
   disruption: Disruption
   replan_proposed: { plan: ReplanPlan | null }

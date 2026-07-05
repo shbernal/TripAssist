@@ -15,21 +15,33 @@ all of it and switches to the real call automatically once the keys are present.
 1. Sign up at **vapi.ai** and grab your **API key** (Dashboard → API Keys) → `VAPI_API_KEY`.
 2. **Buy or import a phone number** (Dashboard → Phone Numbers). Copy its ID → `VAPI_PHONE_NUMBER_ID`.
 3. **Create an assistant** with a French voice (ElevenLabs or Azure FR). Paste this
-   as its **system prompt** (verbatim from the spec):
+   as its **system prompt** (verbatim):
 
-   > Tu es l'assistante vocale automatisée de TripAssist. Dès le bonjour, annonce
-   > que tu es automatisée et que l'appel est enregistré. Sois brève, polie,
-   > professionnelle. Obtiens trois choses : la confirmation demandée, le nom de
-   > ton interlocuteur, une référence. Si c'est indisponible, demande calmement les
-   > alternatives accessibles et préviens qu'un conseiller rappellera. Reformule
-   > toujours ce qui a été dit avant de raccrocher.
+   > Tu es l'assistante vocale automatisée de TripAssist. Tu as un seul objectif :
+   > obtenir la confirmation demandée. Va droit au but, sois brève, polie,
+   > professionnelle. Une seule question à la fois, uniquement sur cet objectif.
+   > Ne demande jamais le nom de ton interlocuteur, ne fais pas de conversation,
+   > ne pose aucune question hors sujet. Si c'est indisponible, demande une seule
+   > fois s'il existe une alternative accessible et annonce qu'un conseiller
+   > rappellera. Dès que la réponse (confirmation ou refus) est claire,
+   > reformule-la en une phrase et mets fin à l'appel immédiatement.
    >
    > {{callContext}}
 
    The `{{callContext}}` line is required: the app fills it per call
    (`server/agents/caller.ts` for phone, `web/src/lib/vapiCall.ts` for the web
    call) with the provider, the specific ask, and the traveler's details, so one
-   assistant handles both the airport and the hotel.
+   assistant handles both the airport and the hotel. Both paths also override the
+   assistant's **first message**, so the call opens directly on the confirmation
+   question; whatever greeting is set in the dashboard is ignored.
+
+   In the assistant's settings, also **enable the "End Call" tool** (so the
+   assistant can hang up by itself once it has the answer) and set a short
+   **maximum duration** (2 to 3 minutes) as a hard stop. As a safety net, both
+   call paths also pass `endCallPhrases` ("bonne journée", "au revoir") in the
+   per-call overrides and instruct the assistant to close with the exact phrase
+   « Merci, bonne journée. », so the hang-up works even if the End Call tool is
+   not enabled on the dashboard assistant.
 
    Copy the assistant ID → `VAPI_ASSISTANT_ID`.
 

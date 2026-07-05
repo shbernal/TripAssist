@@ -86,6 +86,13 @@ describe('reduce', () => {
     expect(next.transcript).toEqual([chunk])
   })
 
+  it('transcript_reset clears the previous call transcript', () => {
+    const prev = baseState()
+    prev.transcript = [{ speaker: 'assistant', text: 'appel précédent' }]
+    const next = reduce(prev, 'transcript_reset', {})
+    expect(next.transcript).toEqual([])
+  })
+
   it('ledger_entry unwraps { entry }', () => {
     const prev = baseState()
     const entry = { step: 's1', confirmed_by: 'X', channel: 'API', at: 'T-1j', ref: 'R1' }
