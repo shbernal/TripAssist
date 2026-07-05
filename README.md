@@ -45,7 +45,7 @@ Trois promesses :
 > à provisionner en local. La démo en ligne les a déjà branchées, et elle inclut **l'appel
 > vocal dans le navigateur** : vous jouez le rôle du prestataire au bout du fil, en direct.
 
-**➡️ Démo en ligne : `<URL_DEMO>`** _(l'expérience recommandée, avec l'appel vocal web)_
+**➡️ Démo en ligne : https://tripassist-demo.fly.dev/** _(l'expérience recommandée, avec l'appel vocal web)_
 
 Ce que vous pouvez y faire :
 

@@ -29,3 +29,5 @@ revue). Ce dossier rassemble les documents produit et techniques approfondis.
 
 - [Configuration Vapi](guides/vapi-setup.md) : activer un appel téléphonique réel avec
   transcription en direct.
+- [Déploiement Fly.io](guides/fly-deploy.md) : mettre l'application en ligne (build Docker,
+  secrets, coût, activation des clés live).
