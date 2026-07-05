@@ -19,7 +19,7 @@ Build a working demo of **TripAssist**: an AI trip-orchestration platform for di
 
 > These were the deliberately-minimal starting rules. The shipped app **exceeds several of
 > them**: it now runs full TypeScript strict, a durable multi-tenant SQLite store
-> (`server/store.ts`), additive auth (`server/auth.ts`), and a 94-test Vitest suite. The single
+> (`server/store.ts`), additive auth (`server/auth.ts`), and a 95-test Vitest suite. The single
 > Node process, one-click reset, SSE, accessibility, and French-only UI held throughout.
 
 - Single repo, single Node process serving both API and frontend. Started keyless and

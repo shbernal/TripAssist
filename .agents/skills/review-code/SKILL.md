@@ -18,7 +18,7 @@ that as the design thesis and confirm it holds everywhere.
 
 ```bash
 pnpm install
-pnpm test          # 94 tests: agents, plugins (fetch mocked), SSE reducer, state machine,
+pnpm test          # 95 tests: agents, plugins (fetch mocked), SSE reducer, state machine,
                    # SQLite store, ingestion, auth, integrity invariants, rendering
 pnpm typecheck     # TypeScript strict, front + back, must be clean
 pnpm dev           # Express :3000 + Vite :5173

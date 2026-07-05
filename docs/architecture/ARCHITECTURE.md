@@ -150,31 +150,35 @@ référentiel, format UIC), testés en continu.
 
 ## Qualité et rigueur
 
-- **TypeScript strict** partout, front + back + code partagé (~6 500 lignes).
-- **94 tests** (Vitest) : agents, plugins (avec fetch mocké), reducer SSE, machine
+- **TypeScript strict** partout, front + back + code partagé (~7 000 lignes).
+- **95 tests** (Vitest) : agents, plugins (avec fetch mocké), reducer SSE, machine
   d'état, store SQLite, ingestion, auth multi-tenant, validation d'intégrité, rendu.
 - **ESLint** (flat config) + **Prettier**, **Lefthook** : pre-commit
   (format + lint sur le staged), pre-push (typecheck + tests). Rien de cassé ne part.
 - **Un seul paquet racine** : le MVP (`server/ web/ shared/`). La landing page de
   démo vit sur la branche `concept`, pas ici.
+- **Déployée en production** sur Fly.io : https://tripassist-demo.fly.dev/
+  (Dockerfile + `fly.toml` à la racine, guide :
+  [`../guides/fly-deploy.md`](../guides/fly-deploy.md)).
 
 ## Réel vs démo (honnête pour le jury)
 
-| Élément                                                 | Réel aujourd'hui       | Passe en réel avec                  |
-| ------------------------------------------------------- | ---------------------- | ----------------------------------- |
-| Régularité SNCF, assistance, OSM, météo                 | ✅ live                | -                                   |
-| Raisonnement des agents (planner, extractor, ingestion) | ✅ vrai Claude via CLI | `ANTHROPIC_VIA_CLI=1` ou token HTTP |
-| Persistance SQLite + multi-tenant                       | ✅ réel                | -                                   |
-| Trajet Navitia, ERP acceslibre, itinéraire ORS          | référence vérifiée     | tokens gratuits                     |
-| Appel téléphonique du prestataire                       | simulation scriptée    | compte Vapi + URL publique          |
-| Référentiel (UIC/IATA/normes)                           | ✅ réel et vérifiable  | -                                   |
+| Élément                                                 | Réel aujourd'hui       | Passe en réel avec                                |
+| ------------------------------------------------------- | ---------------------- | ------------------------------------------------- |
+| Régularité SNCF, assistance, OSM, météo                 | ✅ live                | -                                                 |
+| Raisonnement des agents (planner, extractor, ingestion) | ✅ vrai Claude via CLI | `ANTHROPIC_VIA_CLI=1` ou token HTTP               |
+| Persistance SQLite + multi-tenant                       | ✅ réel                | -                                                 |
+| Trajet Navitia, ERP acceslibre, itinéraire ORS          | référence vérifiée     | tokens gratuits                                   |
+| Appel vocal dans le navigateur (Vapi web)               | simulation scriptée    | clés `VITE_VAPI_*` (actives sur la démo hébergée) |
+| Appel téléphonique sortant du prestataire               | simulation scriptée    | compte Vapi + URL publique                        |
+| Référentiel (UIC/IATA/normes)                           | ✅ réel et vérifiable  | -                                                 |
 
 ## Comment vérifier (sous le capot)
 
 ```bash
 pnpm install
 pnpm dev                 # Express (3000) + Vite (5173)
-pnpm test                # 94 tests
+pnpm test                # 95 tests
 pnpm typecheck           # TS strict, front + back
 
 # données réelles en direct :

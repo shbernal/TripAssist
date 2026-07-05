@@ -40,7 +40,7 @@ A real, running **Express + React** application at the repo **root** (`server/`,
 `shared/`): one Node process that streams everything to the front over SSE, turns a pasted
 booking into a structured trip with Claude, persists it in a durable SQLite store, runs five AI
 agents on real Claude, pulls seven open-data feeds, and can place a real phone call over Vapi.
-Around **6,500 lines** of TypeScript (strict), **94 tests**, ESLint + Prettier, Lefthook
+Around **7,000 lines** of TypeScript (strict), **95 tests**, ESLint + Prettier, Lefthook
 pre-commit/pre-push. The technical map is
 [`docs/architecture/ARCHITECTURE.md`](docs/architecture/ARCHITECTURE.md).
 
@@ -72,7 +72,7 @@ TripAssist/
 ```bash
 pnpm install
 pnpm dev           # Express (3000) + Vite (5173)
-pnpm test          # Vitest (94 tests)
+pnpm test          # Vitest (95 tests)
 pnpm typecheck     # tsc --noEmit, front + back
 ```
 
@@ -131,7 +131,7 @@ codebase in the order that best demonstrates the design, and calls out exactly w
 **How to verify quickly:**
 
 ```bash
-pnpm install && pnpm test        # 94 tests: agents, plugins (fetch mocked), SSE reducer,
+pnpm install && pnpm test        # 95 tests: agents, plugins (fetch mocked), SSE reducer,
                                  # state machine, SQLite store, ingestion, auth, integrity
 pnpm typecheck                   # TS strict, front + back
 pnpm dev                         # then GET /api/context → live SNCF/OSM/weather, sources traced
@@ -151,9 +151,10 @@ ANTHROPIC_VIA_CLI=1 pnpm start   # real Claude reasoning with no HTTP token
 
 ## Roadmap
 
-The application is complete and hardened. The natural next steps are a Node host for the
-deployment (Express + SSE + Vapi webhooks need a real server, not static hosting) and, if the
-product grows, promoting the disruption / re-planning flow to a co-lead of the narrative. Live
+The application is complete, hardened, and **deployed**: it runs on Fly.io at
+https://tripassist-demo.fly.dev/ (Dockerfile + `fly.toml` at the root, guide in
+[`docs/guides/fly-deploy.md`](docs/guides/fly-deploy.md)). The natural next step, if the
+product grows, is promoting the disruption / re-planning flow to a co-lead of the narrative. Live
 outbound dialing is intentionally gated behind an explicit go-ahead so a review never places an
 unexpected real call; the in-browser web call and the scripted simulation are the safe default
 paths. Runbook: [`docs/guides/vapi-setup.md`](docs/guides/vapi-setup.md).

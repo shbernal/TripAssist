@@ -113,7 +113,7 @@ le shim de `.bin`).
 ```bash
 pnpm install
 pnpm dev           # Express (3000) + Vite (5173), ouvrir http://localhost:5173
-pnpm test          # 94 tests (Vitest)
+pnpm test          # 95 tests (Vitest)
 pnpm typecheck     # TypeScript strict, front + back
 ```
 

@@ -223,8 +223,8 @@ Principe directeur : **chaque element visible en scene doit pouvoir etre declenc
 Le plan initial est execute. Les six jalons (M1 a M6) sont livres et verifies, puis durcis
 au-dela du cadre hackathon : ingestion de reservation, vrai Claude (HTTP ou pont CLI), sept
 plugins open-data, persistance SQLite durable et multi-tenant, dashboard flotte, suite de
-94 tests. Il ne reste, cote infrastructure, qu'a choisir un hote Node pour le deploiement
-(Express + SSE + webhooks Vapi ne peuvent pas etre statiques). L'appel telephonique sortant
+95 tests. L'application est deployee sur Fly.io (https://tripassist-demo.fly.dev/, guide :
+[`../guides/fly-deploy.md`](../guides/fly-deploy.md)). L'appel telephonique sortant
 reel reste volontairement protege par un feu vert explicite ; l'appel web dans le navigateur et
 la simulation scriptee sont les chemins par defaut. Carte a jour :
 [`../architecture/ARCHITECTURE.md`](../architecture/ARCHITECTURE.md).
