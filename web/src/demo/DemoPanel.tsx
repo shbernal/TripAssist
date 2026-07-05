@@ -1,6 +1,6 @@
 import React, { useRef, useState } from 'react'
 import { AnimatePresence } from 'framer-motion'
-import { Play, RotateCcw, Phone, PhoneOff, Mic, Maximize2, Zap } from 'lucide-react'
+import { Play, RotateCcw, PhoneOff, Mic, Maximize2, Zap } from 'lucide-react'
 import { startLiveCall, supportsVapi, type LiveCall } from '../lib/vapiCall'
 import LiveCallModal, { type LiveCallPhase } from './LiveCallModal'
 import type { AppState, Step } from '../../../shared/types'
@@ -149,23 +149,6 @@ export default function DemoPanel({ state, reload }: DemoPanelProps) {
               <Mic size={16} aria-hidden="true" /> Appel IA en direct (micro)
             </button>
           )}
-
-          <button
-            type="button"
-            onClick={() =>
-              postBody('/api/call/start', { branch: 'B2' }, 'Appel IA (chambre indisponible)')
-            }
-            disabled={busy || Boolean(live)}
-          >
-            <Phone size={16} aria-hidden="true" /> Appel IA scripté - scénario scène
-          </button>
-          <button
-            type="button"
-            onClick={() => postBody('/api/call/start', { branch: 'B1' }, 'Appel IA (confirmation)')}
-            disabled={busy || Boolean(live)}
-          >
-            <Phone size={16} aria-hidden="true" /> Appel IA scripté - confirmation OK
-          </button>
         </div>
 
         <p className="demo-status" role="status" aria-live="polite">
@@ -175,7 +158,6 @@ export default function DemoPanel({ state, reload }: DemoPanelProps) {
         {!canLive && (
           <p className="muted" style={{ marginTop: '-0.3rem' }}>
             Appel en direct désactivé : définissez VITE_VAPI_PUBLIC_KEY et VITE_VAPI_ASSISTANT_ID.
-            Les scénarios scriptés restent disponibles.
           </p>
         )}
 

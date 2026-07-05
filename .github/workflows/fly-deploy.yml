@@ -19,6 +19,12 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: superfly/flyctl-actions/setup-flyctl@master
-      - run: flyctl deploy --remote-only
+      # VITE_* keys are baked into the client bundle at build time, so they must
+      # be passed as Docker build-args (Fly runtime secrets never reach the Vite
+      # build). The Vapi public key + assistant id are safe to embed in client JS.
+      - run: >
+          flyctl deploy --remote-only
+          --build-arg VITE_VAPI_PUBLIC_KEY=${{ secrets.VITE_VAPI_PUBLIC_KEY }}
+          --build-arg VITE_VAPI_ASSISTANT_ID=${{ secrets.VITE_VAPI_ASSISTANT_ID }}
         env:
           FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
