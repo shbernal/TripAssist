@@ -45,7 +45,6 @@ export default function ThemeToggle() {
       ) : (
         <Sun size={16} aria-hidden="true" />
       )}
-      <span className="theme-toggle-label">{theme === 'dark' ? 'Sombre' : 'Clair'}</span>
     </button>
   )
 }

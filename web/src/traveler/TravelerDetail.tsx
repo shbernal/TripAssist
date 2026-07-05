@@ -45,49 +45,51 @@ function FleetTravelerDetail({ traveler }: { traveler: FleetTraveler }) {
       <div className="phone-wrap">
         <div className="phone">
           <div className="phone-notch" aria-hidden="true" />
-          <section className="trip-head">
-            <p className="muted" style={{ margin: 0, fontSize: '0.85rem' }}>
-              Bonjour {traveler.name.split(' ')[0]}
-            </p>
-            <h2 style={{ margin: '0.25rem 0 0.1rem' }}>
-              {traveler.route}, {traveler.dates}
-            </h2>
-            <p>{traveler.profileShort}</p>
-            <div className="fleet-tags" style={{ marginTop: '0.2rem' }}>
-              {traveler.category && <span className="fleet-tag">{traveler.category}</span>}
-              {traveler.tripType && <span className="fleet-tag">{traveler.tripType}</span>}
-              {traveler.client && <span className="fleet-tag client">{traveler.client}</span>}
-            </div>
-          </section>
+          <div className="phone-screen">
+            <section className="trip-head">
+              <p className="muted" style={{ margin: 0, fontSize: '0.85rem' }}>
+                Bonjour {traveler.name.split(' ')[0]}
+              </p>
+              <h2 style={{ margin: '0.25rem 0 0.1rem' }}>
+                {traveler.route}, {traveler.dates}
+              </h2>
+              <p>{traveler.profileShort}</p>
+              <div className="fleet-tags" style={{ marginTop: '0.2rem' }}>
+                {traveler.category && <span className="fleet-tag">{traveler.category}</span>}
+                {traveler.tripType && <span className="fleet-tag">{traveler.tripType}</span>}
+                {traveler.client && <span className="fleet-tag client">{traveler.client}</span>}
+              </div>
+            </section>
 
-          <ol className="timeline" aria-live="off">
-            {traveler.steps.map((status, i) => (
-              <li key={i}>
-                <span
-                  className="step-dot"
-                  style={{ background: colorFor(status) }}
-                  aria-hidden="true"
-                />
-                <div className="step">
-                  <div className="step-summary" style={{ cursor: 'default' }}>
-                    <span className="step-body">
-                      <span className="step-title">{STEP_TEMPLATE[i] || `Étape ${i + 1}`}</span>
-                    </span>
-                    <StatusBadge status={status} />
+            <ol className="timeline" aria-live="off">
+              {traveler.steps.map((status, i) => (
+                <li key={i}>
+                  <span
+                    className="step-dot"
+                    style={{ background: colorFor(status) }}
+                    aria-hidden="true"
+                  />
+                  <div className="step">
+                    <div className="step-summary" style={{ cursor: 'default' }}>
+                      <span className="step-body">
+                        <span className="step-title">{STEP_TEMPLATE[i] || `Étape ${i + 1}`}</span>
+                      </span>
+                      <StatusBadge status={status} />
+                    </div>
                   </div>
-                </div>
-              </li>
-            ))}
-          </ol>
-
-          <section className="panel" style={{ marginTop: '0.9rem' }}>
-            <h3 style={{ margin: '0 0 0.5rem', fontSize: '1rem' }}>Passeport d'accessibilité</h3>
-            <ul style={{ margin: 0, paddingLeft: '1.1rem' }}>
-              {traveler.needs.map((n, i) => (
-                <li key={i}>{n}</li>
+                </li>
               ))}
-            </ul>
-          </section>
+            </ol>
+
+            <section className="panel" style={{ marginTop: '0.9rem' }}>
+              <h3 style={{ margin: '0 0 0.5rem', fontSize: '1rem' }}>Passeport d'accessibilité</h3>
+              <ul style={{ margin: 0, paddingLeft: '1.1rem' }}>
+                {traveler.needs.map((n, i) => (
+                  <li key={i}>{n}</li>
+                ))}
+              </ul>
+            </section>
+          </div>
         </div>
       </div>
     </div>
