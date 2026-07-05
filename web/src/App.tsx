@@ -26,7 +26,7 @@ export default function App() {
         </span>
         <nav className="app-nav" aria-label="Vues">
           <NavLink to="/" end>
-            Flotte
+            Suivi Voyageurs
           </NavLink>
           <NavLink to="/traveler/camille">Expérience voyageur</NavLink>
           <NavLink to="/ops">Centre de contrôle</NavLink>

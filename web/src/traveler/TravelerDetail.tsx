@@ -16,7 +16,7 @@ export default function TravelerDetail({ state }: { state: AppState }) {
     return (
       <div className="page">
         <p>
-          Voyageur introuvable. <Link to="/">Retour à la flotte</Link>
+          Voyageur introuvable. <Link to="/">Retour au suivi voyageurs</Link>
         </p>
       </div>
     )
@@ -39,7 +39,7 @@ function FleetTravelerDetail({ traveler }: { traveler: FleetTraveler }) {
     <div className="page">
       <p className="muted" style={{ marginBottom: '0.3rem' }}>
         <Link to="/" className="link-icon">
-          <ArrowLeft size={14} aria-hidden="true" /> Flotte
+          <ArrowLeft size={14} aria-hidden="true" /> Suivi Voyageurs
         </Link>
       </p>
       <div className="phone-wrap">
