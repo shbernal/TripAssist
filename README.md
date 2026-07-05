@@ -7,28 +7,14 @@ trip (Paris → Nice), French UI.
 > at booking time an AI agent **proactively calls providers** (airport for wheelchair
 > assistance, hotel for a roll-in shower) to secure accessibility _before departure_, and logs
 > the confirmations. The earlier **disruption / re-planning** flow (below) is kept but demoted
-> to a possible future feature. The repo now holds **two deliverables** — a stylized static
-> demo landing page (`apps/demo`, → GitHub Pages) and this real MVP (repo root), in a pnpm
-> workspace. **Canonical vision, repo map, and status/roadmap: [`AGENTS.md`](AGENTS.md).**
+> to a possible future feature. **Canonical vision, repo map, and status/roadmap:
+> [`AGENTS.md`](AGENTS.md).**
+>
+> This is the **`mvp` branch** — the working prototype (the real Express + React app at the
+> repo root). The stylized static story landing page lives on the **`concept`** branch.
 
 Full documentation lives in [`docs/`](docs/README.md) — note some deeper docs predate the
 pivot and carry a banner pointing here.
-
-## The two deliverables
-
-| App                                         | What                                                                                                            | Where                                                                      |
-| ------------------------------------------- | --------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------- |
-| **Demo** (`apps/demo`)                      | Stylized animated story landing page telling Camille's story — static, zero keys, committed AI-generated assets | **Live: <https://shbernal.github.io/TripAssist/>** (auto-deployed on push) |
-| **MVP** (repo root: `server/ web/ shared/`) | The real Express + React app — agents, SSE, SQLite, auth, Vapi, open-data plugins                               | `pnpm dev` → <http://localhost:5173> (this README)                         |
-
-Run the demo locally (full demo docs: [`apps/demo/README.md`](apps/demo/README.md)):
-
-```bash
-pnpm --filter @tripassist/demo dev       # Vite dev server
-pnpm --filter @tripassist/demo build     # static build (base=/TripAssist/ set in vite.config.ts)
-```
-
-The rest of this README is about the **MVP**.
 
 ## Architecture (tech)
 

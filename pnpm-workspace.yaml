@@ -1,8 +1,6 @@
-# The MVP stays the root package (server/ + web/ + shared/, unmoved). Only apps/*
-# are declared as workspace members so apps/demo gets its own isolated dependency
-# closure (gsap, lenis, framer-motion, howler, wavesurfer) without touching the MVP.
-packages:
-  - apps/*
+# The MVP is the single root package (server/ + web/ + shared/). No workspace
+# members: this file is kept only for pnpm 11's build-script allowlist below.
+packages: []
 
 # pnpm 11 reads the build-script allowlist here (no longer from package.json's "pnpm" field).
 # esbuild's install step fetches the platform binary that Vite/Vitest rely on.

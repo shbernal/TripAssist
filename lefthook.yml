@@ -13,17 +13,6 @@ pre-commit:
       stage_fixed: true
     - name: lint
       glob: '*.{ts,tsx,js,jsx}'
-      # apps/* are isolated workspace members the root ESLint ignores; the demo is
-      # linted by its own job below. `exclude` is glob-based (like the CLAUDE.md
-      # entry above), so drop everything under apps/ from this job's file list.
-      exclude: 'apps/**/*'
-      run: node node_modules/eslint/bin/eslint.js --fix {staged_files}
-      stage_fixed: true
-    - name: lint-demo
-      # `root` scopes this to staged files under apps/demo and runs from there, so
-      # the demo's own flat config + node_modules/eslint apply.
-      root: 'apps/demo/'
-      glob: '*.{ts,tsx,js,jsx}'
       run: node node_modules/eslint/bin/eslint.js --fix {staged_files}
       stage_fixed: true
 
@@ -34,9 +23,3 @@ pre-push:
       run: node node_modules/typescript/bin/tsc -p tsconfig.server.json --noEmit && node node_modules/typescript/bin/tsc -p tsconfig.web.json --noEmit
     - name: test
       run: node node_modules/vitest/vitest.mjs run
-    - name: demo-typecheck
-      root: 'apps/demo/'
-      run: node node_modules/typescript/bin/tsc -p tsconfig.json --noEmit && node node_modules/typescript/bin/tsc -p tsconfig.node.json --noEmit
-    - name: demo-lint
-      root: 'apps/demo/'
-      run: node node_modules/eslint/bin/eslint.js .

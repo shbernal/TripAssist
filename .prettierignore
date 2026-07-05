@@ -1,5 +1,4 @@
 web/dist
-apps/demo/dist
 node_modules
 data
 coverage

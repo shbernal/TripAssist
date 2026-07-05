@@ -155,8 +155,8 @@ référentiel, format UIC), testés en continu.
   d'état, store SQLite, ingestion, auth multi-tenant, validation d'intégrité, rendu.
 - **ESLint** (flat config) + **Prettier**, **Lefthook** : pre-commit
   (format + lint sur le staged), pre-push (typecheck + tests). Rien de cassé ne part.
-- **pnpm workspace** : la landing page de démo (`apps/demo`) a son closure de
-  dépendances isolé, le MVP reste à la racine.
+- **Un seul paquet racine** : le MVP (`server/ web/ shared/`). La landing page de
+  démo vit sur la branche `concept`, pas ici.
 
 ## Réel vs démo (honnête pour le jury)
 
