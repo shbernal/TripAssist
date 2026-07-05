@@ -99,6 +99,25 @@ export function UseCases() {
           </ul>
         </Reveal>
       </div>
+
+      <Reveal delay={0.3}>
+        <div className="mt-6 flex flex-col items-start gap-3 rounded-2xl border border-brand-bright/25 bg-brand-bright/5 p-4 sm:flex-row sm:items-center sm:justify-between sm:gap-6">
+          <p className="text-sm text-slate-300">
+            <span className="font-semibold text-slate-100">
+              Vous organisez des sorties de groupe ?
+            </span>{' '}
+            CSE, coordinateurs, agences de voyage : pilotez l’accessibilité de tout un groupe,
+            voyageur par voyageur, depuis un seul tableau de bord.
+          </p>
+          <a
+            href={DASHBOARD_URL}
+            className="inline-flex shrink-0 items-center gap-1.5 rounded-full bg-gradient-to-r from-brand-deep to-brand-bright px-5 py-2.5 text-sm font-semibold text-slate-950 transition-transform hover:scale-105"
+          >
+            Espace organisateurs
+            <ArrowUpRight className="h-4 w-4" aria-hidden={true} />
+          </a>
+        </div>
+      </Reveal>
     </Scene>
   )
 }
