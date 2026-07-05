@@ -31,7 +31,7 @@ export function Registry() {
           return (
             <li
               key={e.reference}
-              className="flex items-center gap-3 rounded-lg border border-slate-800 bg-slate-950/40 px-3 py-2 text-xs"
+              className="flex flex-wrap items-center gap-x-3 gap-y-1 rounded-lg border border-slate-800 bg-slate-950/40 px-3 py-2 text-xs"
             >
               <span className={`h-2 w-2 shrink-0 rounded-full ${m.dot}`} aria-hidden={true} />
               <K.Icon className="h-3.5 w-3.5 shrink-0 text-slate-400" aria-hidden={true} />
@@ -39,8 +39,12 @@ export function Registry() {
                 <span className="font-medium">{e.travelerName}</span>
                 <span className="text-slate-500"> · {e.detail}</span>
               </span>
-              <span className="shrink-0 font-mono text-[10px] text-slate-500">{e.reference}</span>
-              <span className="hidden shrink-0 text-slate-500 sm:inline">{e.at}</span>
+              {/* Reference + timestamp: own line on phones (aligned under the text),
+                  back inline at sm. */}
+              <span className="flex w-full shrink-0 items-center gap-3 pl-[46px] sm:w-auto sm:pl-0">
+                <span className="font-mono text-[10px] text-slate-500">{e.reference}</span>
+                <span className="text-slate-500">{e.at}</span>
+              </span>
               <span className="sr-only">{m.label}</span>
             </li>
           )

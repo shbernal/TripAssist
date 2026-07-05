@@ -1,10 +1,8 @@
-import { ArrowUpRight, BookCheck } from 'lucide-react'
+import { BookCheck } from 'lucide-react'
 import { Scene } from '../../components/Scene'
 import { Reveal } from '../../components/Reveal'
 import { Chip } from '../../components/Chip'
 import { CALLS } from '../calls'
-
-const REPO_URL = 'https://github.com/shbernal/TripAssist'
 
 export function Outro() {
   const entries = [CALLS['airport-call'].outcome, CALLS['hotel-call'].outcome]
@@ -45,15 +43,6 @@ export function Outro() {
           <p className="mt-3 max-w-md text-slate-400">
             Le travail est fait en amont - le voyageur n’a plus à le porter.
           </p>
-          <a
-            href={REPO_URL}
-            target="_blank"
-            rel="noreferrer"
-            className="mt-6 inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-brand-deep to-brand-bright px-6 py-3 text-sm font-semibold text-slate-950 transition-transform hover:scale-105"
-          >
-            Découvrir le produit
-            <ArrowUpRight aria-hidden="true" className="h-4 w-4" />
-          </a>
         </Reveal>
       </div>
     </Scene>

@@ -96,7 +96,3 @@ Le projet vit sur deux branches, chacune avec un rôle clair et distinct.
 En bref : **`concept` montre la vision, `mvp` la fait tourner.** Les garder séparées permet à la
 vitrine de rester un site statique propre et autonome pendant que le système fonctionnel évolue
 de son côté.
-
-Narratif canonique, carte du dépôt et conventions : [`AGENTS.md`](AGENTS.md). Docs par point
-d'entrée : [`src/story/README.md`](src/story/README.md) ·
-[`src/dashboard/README.md`](src/dashboard/README.md).

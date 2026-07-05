@@ -79,6 +79,7 @@ export function useCallPlayer(callId: CallId): CallPlayer {
   const howlRef = useRef<Howl | null>(null)
   const rafRef = useRef<number | null>(null)
   const manifestRef = useRef<CallManifest | null>(null)
+  const mutedRef = useRef(false)
 
   // Fetch the manifest.
   useEffect(() => {
@@ -124,8 +125,30 @@ export function useCallPlayer(callId: CallId): CallPlayer {
       },
     })
     howlRef.current = howl
+
+    // Mobile browsers block gesture-free autoplay until the page's audio has been
+    // unlocked by a user interaction. Scenes autoplay from an effect (not inside
+    // the gesture), and the first call is usually reached via autopilot with no
+    // prior tap - so it would stay silent while later calls (reached only after
+    // the user swipes) play. Bless this call's audio element on the first user
+    // gesture anywhere: a muted play()/stop() within the gesture grants the
+    // element its user-initiated flag, so a later gesture-free autoplay is allowed.
+    const events = ['pointerdown', 'touchend', 'keydown'] as const
+    const prime = (): void => {
+      events.forEach((type) => document.removeEventListener(type, prime, true))
+      const h = howlRef.current
+      if (!h || h.playing()) return
+      const wasMuted = mutedRef.current
+      h.mute(true)
+      const id = h.play()
+      h.stop(id)
+      h.mute(wasMuted)
+    }
+    events.forEach((type) => document.addEventListener(type, prime, true))
+
     return () => {
       stopRaf()
+      events.forEach((type) => document.removeEventListener(type, prime, true))
       howl.unload()
       howlRef.current = null
     }
@@ -193,6 +216,7 @@ export function useCallPlayer(callId: CallId): CallPlayer {
   const toggleMute = useCallback((): void => {
     setMuted((prev) => {
       const next = !prev
+      mutedRef.current = next
       howlRef.current?.mute(next)
       return next
     })

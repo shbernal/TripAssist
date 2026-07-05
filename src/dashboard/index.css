@@ -19,10 +19,19 @@
     @apply bg-slate-950 text-slate-100 antialiased;
     font-family: var(--font-sans);
     min-height: 100%;
+  }
+
+  /* The brand gradients live on a fixed pseudo-element rather than
+     background-attachment: fixed, which iOS Safari ignores. */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
     background-image:
       radial-gradient(60rem 60rem at 85% -10%, rgba(125, 211, 252, 0.08), transparent 60%),
       radial-gradient(50rem 50rem at -5% 5%, rgba(29, 78, 216, 0.14), transparent 55%);
-    background-attachment: fixed;
   }
 
   /* Visible focus everywhere: WCAG AA, keyboard-first. */

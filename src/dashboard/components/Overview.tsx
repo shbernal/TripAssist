@@ -19,7 +19,7 @@ export function Overview() {
       eyebrow="Le groupe en un coup d’œil"
       title={`${travelerCounts.total} voyageurs · ${trip.origin} → ${trip.destination}`}
     >
-      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+      <div className="grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-4">
         <Stat
           label="Voyageurs garantis"
           value={`${travelerCounts.confirmed}/${travelerCounts.total}`}
@@ -87,7 +87,7 @@ function Stat({
   tone: keyof typeof TONE
 }) {
   return (
-    <div className="rounded-xl border border-slate-800 bg-slate-950/40 p-4">
+    <div className="rounded-xl border border-slate-800 bg-slate-950/40 p-3 sm:p-4">
       <p className="text-xs text-slate-400">{label}</p>
       <p className={`mt-1 text-2xl font-semibold ${TONE[tone]}`}>{value}</p>
       <p className="mt-1 flex items-center gap-1 text-[11px] text-slate-500">

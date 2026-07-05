@@ -21,7 +21,7 @@ export function Section({
     <section
       id={id}
       aria-labelledby={headingId}
-      className="rounded-2xl border border-slate-800 bg-slate-900/50 p-5 sm:p-6"
+      className="scroll-mt-4 rounded-2xl border border-slate-800 bg-slate-900/50 p-4 sm:p-6"
     >
       <div className="mb-4 flex flex-wrap items-end justify-between gap-3">
         <div>

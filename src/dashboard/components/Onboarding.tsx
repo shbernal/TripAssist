@@ -36,11 +36,17 @@ export function Onboarding({ steps, index, onIndex, onClose }: Props) {
   }, [index, onIndex])
 
   // Spotlight the current target: add the highlight class + scroll it into view.
+  // On phone-sized viewports the fixed card covers the bottom of the screen, so
+  // align the target's top instead of centering it behind the card.
   useEffect(() => {
     const el = document.getElementById(step.target)
     if (!el) return
     el.classList.add('tour-active')
-    el.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'center' })
+    const mobile = window.matchMedia('(max-width: 639px)').matches
+    el.scrollIntoView({
+      behavior: reduce ? 'auto' : 'smooth',
+      block: mobile ? 'start' : 'center',
+    })
     return () => el.classList.remove('tour-active')
   }, [step.target, reduce])
 
@@ -91,7 +97,7 @@ export function Onboarding({ steps, index, onIndex, onClose }: Props) {
       onKeyDown={onKeyDown}
       initial={reduce ? false : { opacity: 0, y: 24 }}
       animate={{ opacity: 1, y: 0 }}
-      className="fixed inset-x-4 bottom-4 z-50 mx-auto max-w-lg rounded-2xl border border-brand-bright/30 bg-slate-900/95 p-5 shadow-2xl shadow-brand-deep/30 backdrop-blur sm:inset-x-auto sm:right-6 sm:bottom-6"
+      className="fixed inset-x-4 bottom-[max(1rem,env(safe-area-inset-bottom))] z-50 mx-auto max-w-lg rounded-2xl border border-brand-bright/30 bg-slate-900/95 p-4 shadow-2xl shadow-brand-deep/30 backdrop-blur sm:inset-x-auto sm:right-6 sm:bottom-6 sm:p-5"
     >
       <div className="flex items-start justify-between gap-4">
         <div>
@@ -105,7 +111,7 @@ export function Onboarding({ steps, index, onIndex, onClose }: Props) {
         <button
           type="button"
           onClick={onClose}
-          className="shrink-0 rounded-lg p-1.5 text-slate-400 hover:bg-slate-800 hover:text-slate-100"
+          className="shrink-0 rounded-lg p-2 text-slate-400 hover:bg-slate-800 hover:text-slate-100"
           aria-label="Fermer la visite guidée"
         >
           <X className="h-5 w-5" aria-hidden={true} />
@@ -117,32 +123,36 @@ export function Onboarding({ steps, index, onIndex, onClose }: Props) {
         {step.body}
       </p>
 
-      <div className="mt-4 flex items-center justify-between gap-3">
+      {/* On phones the secondary buttons drop their text label (icon + aria-label)
+          so the whole row fits; labels come back at sm. */}
+      <div className="mt-4 flex flex-wrap items-center justify-between gap-3">
         <span className="text-xs text-slate-500" aria-hidden={true}>
           Étape {index + 1} / {steps.length}
         </span>
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-1.5 sm:gap-2">
           <button
             type="button"
             onClick={onClose}
-            className="inline-flex items-center gap-1.5 rounded-lg px-3 py-1.5 text-sm text-slate-400 hover:text-slate-200"
+            aria-label="Passer"
+            className="inline-flex min-h-10 items-center gap-1.5 rounded-lg px-3 py-1.5 text-sm text-slate-400 hover:text-slate-200"
           >
             <SkipForward className="h-4 w-4" aria-hidden={true} />
-            Passer
+            <span className="hidden sm:inline">Passer</span>
           </button>
           <button
             type="button"
             onClick={prev}
             disabled={index === 0}
-            className="inline-flex items-center gap-1.5 rounded-lg border border-slate-700 px-3 py-1.5 text-sm text-slate-200 hover:bg-slate-800 disabled:cursor-not-allowed disabled:opacity-40"
+            aria-label="Précédent"
+            className="inline-flex min-h-10 items-center gap-1.5 rounded-lg border border-slate-700 px-3 py-1.5 text-sm text-slate-200 hover:bg-slate-800 disabled:cursor-not-allowed disabled:opacity-40"
           >
             <ArrowLeft className="h-4 w-4" aria-hidden={true} />
-            Précédent
+            <span className="hidden sm:inline">Précédent</span>
           </button>
           <button
             type="button"
             onClick={next}
-            className="inline-flex items-center gap-1.5 rounded-lg bg-brand-blue px-3 py-1.5 text-sm font-medium text-white hover:bg-brand-deep"
+            className="inline-flex min-h-10 items-center gap-1.5 rounded-lg bg-brand-blue px-3 py-1.5 text-sm font-medium text-white hover:bg-brand-deep"
           >
             {isLast ? (
               <>

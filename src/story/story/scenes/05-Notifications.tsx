@@ -12,7 +12,7 @@ export function Notifications() {
       id="notifications"
       step="04"
       eyebrow="Côté Camille"
-      heading="Deux notifications. Rien à courir après."
+      heading="Deux notifications. Aucune pression."
     >
       <div className="grid items-center gap-10 md:grid-cols-2">
         <Reveal from="left">
